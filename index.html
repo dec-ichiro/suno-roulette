@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ROULETTE">
+<meta name="theme-color" content="#1a1a1a">
+<title>SUNO ROULETTE</title>
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"SUNO ROULETTE","short_name":"ROULETTE","start_url":".","display":"standalone","background_color":"#1a1a1a","theme_color":"#1a1a1a","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgZmlsbD0iIzFhMWExYSIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtZmFtaWx5PSJzZXJpZiIgZm9udC1zaXplPSI5MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iI2ZmN2EyYyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UjwvdGV4dD48L3N2Zz4=","sizes":"192x192","type":"image/svg+xml"}]}'>
+<style>
+:root{--bg:#1a1a1a;--bg-2:#232323;--bg-3:#2a2a2a;--ink:#f0f0f0;--ink-dim:#a0a0a0;--ink-faint:#707070;--accent:#ff7a2c;--line:rgba(240,240,240,0.08);--line-strong:rgba(240,240,240,0.2);--error:#ff5555}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+body{min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.app{max-width:560px;margin:0 auto;padding:20px 18px 80px}
+header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px;position:relative}
+.logo{font-family:"Times New Roman",serif;font-size:34px;font-weight:900;letter-spacing:0.02em;line-height:0.9}
+.logo .r{color:var(--accent);font-style:italic;font-size:46px}
+.tagline{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.4em;color:var(--ink-faint);margin-top:10px;text-transform:uppercase}
+.header-meta{position:absolute;top:18px;right:0;font-family:"Helvetica Neue",monospace;font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-align:right;line-height:1.6}
+.settings-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase}
+.settings-btn:hover{color:var(--accent);border-color:var(--accent)}
+.setup-screen{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:24px;margin-bottom:20px}
+.setup-title{font-family:"Times New Roman",serif;font-size:20px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
+.setup-desc{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:18px;font-family:"Helvetica Neue",sans-serif}
+.setup-desc strong{color:var(--accent)}
+.setup-input{width:100%;padding:12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Helvetica Neue",monospace;font-size:12px;border-radius:2px;margin-bottom:12px}
+.setup-input:focus{outline:none;border-color:var(--accent)}
+.setup-btn{width:100%;padding:14px;background:var(--accent);color:var(--bg);border:none;font-family:"Times New Roman",serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
+.setup-btn:active{transform:scale(0.98)}
+.setup-error{color:var(--error);font-size:12px;font-family:"Helvetica Neue",sans-serif;margin-top:10px;padding:10px;background:rgba(255,85,85,0.1);border-radius:2px;display:none}
+.setup-error.visible{display:block}
+.setup-help{font-size:11px;line-height:1.6;color:var(--ink-faint);margin-top:14px;font-family:"Helvetica Neue",sans-serif;padding-top:14px;border-top:1px solid var(--line)}
+.setup-help a{color:var(--accent);text-decoration:none}
+.theme-input-wrap{margin-bottom:14px}
+.theme-input-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
+.theme-input{width:100%;padding:12px 14px;background:var(--bg-3);border:1px solid rgba(255,122,44,0.3);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:14px;border-radius:2px;transition:border-color 0.15s}
+.theme-input:focus{outline:none;border-color:var(--accent)}
+.theme-input::placeholder{color:var(--ink-faint)}
+.theme-hint{font-size:10px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;margin-top:6px;letter-spacing:0.05em}
+.history-section{margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px 10px 8px}
+.history-header{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.history-clear{background:transparent;border:none;color:var(--accent);font-size:9px;font-family:"Helvetica Neue",sans-serif;letter-spacing:0.15em;cursor:pointer;padding:0;text-transform:uppercase}
+.history-clear:hover{text-decoration:underline}
+.history-list{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto}
+.history-empty{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-faint);padding:8px 6px;font-style:italic}
+.history-item{display:flex;align-items:center;gap:8px;padding:7px 8px;background:var(--bg);border-radius:2px;border-left:2px solid transparent;transition:border-color 0.15s}
+.history-item.starred{border-left-color:var(--accent)}
+.history-star{background:transparent;border:none;color:var(--ink-faint);font-size:13px;cursor:pointer;padding:0;line-height:1;width:16px;flex-shrink:0}
+.history-star.active{color:var(--accent)}
+.history-text{flex:1;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:13px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.history-text:hover{color:var(--accent)}
+.history-delete{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
+.history-delete:hover{color:var(--error)}
+.controls{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.seg-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);padding:0 12px;border-right:1px solid var(--line);text-transform:uppercase;align-self:center;min-width:70px}
+.seg button{background:transparent;border:none;color:var(--ink-dim);padding:10px 12px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;transition:all 0.15s;text-transform:uppercase;font-weight:600;flex:1}
+.seg button.active{background:var(--accent);color:var(--bg);font-weight:700}
+.seg button:not(.active):hover{color:var(--ink)}
+.roll-wrap{margin:8px 0 22px;position:relative}
+.roll{width:100%;background:var(--accent);color:var(--bg);border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:0.05em;cursor:pointer;position:relative;overflow:hidden;border-radius:2px;transition:transform 0.1s}
+.roll:active{transform:scale(0.98)}
+.roll:disabled{opacity:0.5;cursor:not-allowed}
+.roll::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(26,26,26,0.4);pointer-events:none}
+.roll .arrow{display:inline-block;margin-left:10px;font-style:normal;font-size:22px}
+.loading-state{text-align:center;padding:30px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;margin-bottom:18px}
+.loading-dots{font-family:"Times New Roman",serif;font-size:36px;color:var(--accent);letter-spacing:0.1em;margin-bottom:12px}
+.loading-dots span{display:inline-block;animation:bounce 1.4s infinite}
+.loading-dots span:nth-child(2){animation-delay:0.2s}
+.loading-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:0.3}40%{transform:translateY(-8px);opacity:1}}
+.loading-text{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase}
+.vocal-lock-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:11px 12px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.vocal-lock-bar .lock-icon{font-size:16px}
+.vocal-lock-bar .lock-content{flex:1;min-width:0}
+.vocal-lock-bar .lock-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:3px;font-weight:700}
+.vocal-lock-bar .lock-text{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink);line-height:1.4;word-break:break-word;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.vocal-lock-bar .unlock-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;font-size:10px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;flex-shrink:0}
+.vocal-lock-bar .unlock-btn:hover{color:var(--ink)}
+.empty{text-align:center;padding:60px 20px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase}
+.empty .big{font-family:"Times New Roman",serif;font-size:60px;color:var(--ink-faint);margin-bottom:16px;font-style:italic;opacity:0.5}
+.error-banner{background:rgba(255,85,85,0.1);border:1px solid var(--error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:"Helvetica Neue",sans-serif;font-size:12px;line-height:1.6;color:#ffaaaa}
+.error-banner strong{color:var(--error)}
+.cards{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:reveal 0.5s ease-out}
+@keyframes reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card-head{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.card-num{font-family:"Times New Roman",serif;font-size:11px;letter-spacing:0.3em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:8px}
+.card-num span{color:var(--accent);font-weight:bold}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.1em;padding:3px 8px;background:rgba(240,240,240,0.05);border:1px solid var(--line-strong);color:#c0c0c0;border-radius:2px;text-transform:uppercase}
+.tag.genre{color:#ff9a5c;background:rgba(255,122,44,0.15);border-color:rgba(255,122,44,0.4)}
+.card-body{padding:16px}
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.field-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.field-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);text-transform:uppercase;font-weight:700}
+.field-actions{display:flex;gap:6px;flex-shrink:0}
+.icon-btn{background:transparent;border:1px solid rgba(255,122,44,0.4);color:var(--accent);padding:5px 9px;font-size:10px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;transition:all 0.15s;font-weight:600}
+.icon-btn:hover{background:rgba(255,122,44,0.1)}
+.icon-btn.copied{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.icon-btn.locked{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.icon-btn.neutral{border-color:var(--line-strong);color:var(--ink-dim)}
+.icon-btn.neutral:hover{border-color:var(--ink-dim);background:transparent;color:var(--ink)}
+.field-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;font-size:14px}
+.field-value.style{font-family:"Helvetica Neue",monospace;font-size:12px;color:#d0d0d0;letter-spacing:0.01em;line-height:1.6}
+.field-value.vocal{font-family:"Helvetica Neue",monospace;font-size:11px;color:#d0d0d0;letter-spacing:0.01em;line-height:1.6}
+.field-value.lyrics{font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;font-size:14px;color:var(--ink)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-backdrop.visible{display:flex}
+.modal{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:2px;padding:24px;max-width:480px;width:100%}
+.modal-title{font-family:"Times New Roman",serif;font-size:20px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
+.modal-text{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:16px;font-family:"Helvetica Neue",sans-serif}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.modal-btn{padding:10px 16px;border:1px solid var(--line-strong);background:transparent;color:var(--ink-dim);cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.modal-btn:hover{color:var(--ink)}
+.modal-btn.danger{background:var(--error);color:#fff;border-color:var(--error)}
+footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8}
+@media (max-width:380px){.logo{font-size:30px}.logo .r{font-size:40px}.roll{font-size:22px;padding:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header>
+  <div class="logo"><span class="r">R</span>OULETTE</div>
+  <div class="tagline">Suno Prompt Generator / v2.1</div>
+  <div class="header-meta">
+    DEC<br>
+    <span id="dateLabel"></span><br>
+    <button class="settings-btn" id="settingsBtn" style="display:none">⚙ Settings</button>
+  </div>
+</header>
+
+<div id="setupScreen" class="setup-screen" style="display:none">
+  <div class="setup-title">最初に APIキー を入力してください</div>
+  <div class="setup-desc">
+    SUNO ROULETTE は <strong>Anthropic Claude API</strong> を使って毎回オリジナルの歌詞・スタイル提案を生成します。<br><br>
+    APIキーは <strong>このブラウザにのみ保存</strong>されます。サーバーには送信されず、他人に見られることはありません。
+  </div>
+  <input type="password" class="setup-input" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off">
+  <button class="setup-btn" id="saveKeyBtn">SAVE & START</button>
+  <div class="setup-error" id="setupError"></div>
+  <div class="setup-help">
+    APIキーをまだ持っていない場合は <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic Console</a> で作成してください。
+  </div>
+</div>
+
+<div id="mainApp" style="display:none">
+
+  <div class="theme-input-wrap">
+    <label class="theme-input-label">今日のテーマ(任意)</label>
+    <input type="text" class="theme-input" id="themeInput" placeholder="例: 雨の日の別れ / 深夜のドライブ / 夏休みの終わり">
+    <div class="theme-hint">空欄ならランダムテーマで生成されます</div>
+  </div>
+
+  <div class="history-section" id="historySection" style="display:none">
+    <div class="history-header">
+      <span>履歴</span>
+      <button class="history-clear" id="historyClearBtn">CLEAR ALL</button>
+    </div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="controls">
+    <div class="seg">
+      <span class="seg-label">出力数</span>
+      <button data-count="1" class="active">1案</button>
+      <button data-count="3">3案</button>
+      <button data-count="5">5案</button>
+    </div>
+    <div class="seg">
+      <span class="seg-label">歌詞</span>
+      <button data-lang="ja" class="active">日本語</button>
+      <button data-lang="en">英語</button>
+      <button data-lang="mix">混合</button>
+      <button data-lang="random">ランダム</button>
+    </div>
+  </div>
+
+  <div id="vocalLockBar" class="vocal-lock-bar" style="display:none">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-content">
+      <div class="lock-label">VOCAL LOCKED</div>
+      <div class="lock-text" id="vocalLockText"></div>
+    </div>
+    <button class="unlock-btn" id="unlockBtn">解除</button>
+  </div>
+
+  <div class="roll-wrap">
+    <button class="roll" id="rollBtn">SPIN THE ROULETTE<span class="arrow">→</span></button>
+  </div>
+
+  <div id="loadingState" style="display:none">
+    <div class="loading-state">
+      <div class="loading-dots"><span>●</span><span>●</span><span>●</span></div>
+      <div class="loading-text" id="loadingText">Generating recipes</div>
+    </div>
+  </div>
+
+  <div id="errorBanner" class="error-banner" style="display:none"></div>
+
+  <div id="results">
+    <div class="empty">
+      <div class="big">∞</div>
+      テーマを入れて<br>SPINボタンで生成
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  SUNO ROULETTE v2.1 / DEC<br>
+  Built for ICHIRO
+</footer>
+
+</div>
+
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal">
+    <div class="modal-title">設定</div>
+    <div class="modal-text">APIキーの再設定や、保存されているデータの管理ができます。</div>
+    <div class="modal-actions">
+      <button class="modal-btn" id="resetKeyBtn">APIキー変更</button>
+      <button class="modal-btn danger" id="clearAllBtn">全削除</button>
+      <button class="modal-btn" id="closeModalBtn">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEYS = {
+  apiKey: "suno_roulette_api_key_v2",
+  vocalLock: "suno_roulette_vocal_lock_v2",
+  themeHistory: "suno_roulette_theme_history_v2"
+};
+
+const HISTORY_MAX = 10;
+
+const STATE = {
+  count: 1,
+  lang: "ja",
+  vocalLock: null,
+  apiKey: null,
+  loading: false,
+  history: []
+};
+
+const LOADING_MESSAGES = [
+  "Mixing genres", "Tuning vocals", "Drafting lyrics",
+  "Spinning the wheel", "Calling the muse", "Hunting for the right vibe"
+];
+
+function init(){
+  const d = new Date();
+  const dateStr = d.getFullYear() + "." + String(d.getMonth()+1).padStart(2,'0') + "." + String(d.getDate()).padStart(2,'0');
+  document.getElementById('dateLabel').textContent = dateStr;
+
+  try{ STATE.apiKey = localStorage.getItem(STORAGE_KEYS.apiKey); }catch(e){}
+  try{ STATE.vocalLock = localStorage.getItem(STORAGE_KEYS.vocalLock); }catch(e){}
+  try{
+    const h = localStorage.getItem(STORAGE_KEYS.themeHistory);
+    if(h) STATE.history = JSON.parse(h);
+  }catch(e){ STATE.history = []; }
+
+  if(STATE.apiKey) showMainApp();
+  else showSetupScreen();
+
+  document.getElementById('saveKeyBtn').addEventListener('click', handleSaveKey);
+  document.getElementById('apiKeyInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter') handleSaveKey();
+  });
+
+  document.getElementById('settingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.add('visible');
+  });
+  document.getElementById('closeModalBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.remove('visible');
+  });
+  document.getElementById('resetKeyBtn').addEventListener('click', () => {
+    if(confirm('APIキーを変更しますか?現在のキーは削除されます。')){
+      try{ localStorage.removeItem(STORAGE_KEYS.apiKey); }catch(e){}
+      STATE.apiKey = null;
+      document.getElementById('settingsModal').classList.remove('visible');
+      showSetupScreen();
+    }
+  });
+  document.getElementById('clearAllBtn').addEventListener('click', () => {
+    if(confirm('全てのデータ(APIキー・ボーカルロック・テーマ履歴)を削除しますか?')){
+      try{
+        localStorage.removeItem(STORAGE_KEYS.apiKey);
+        localStorage.removeItem(STORAGE_KEYS.vocalLock);
+        localStorage.removeItem(STORAGE_KEYS.themeHistory);
+      }catch(e){}
+      STATE.apiKey = null;
+      STATE.vocalLock = null;
+      STATE.history = [];
+      document.getElementById('settingsModal').classList.remove('visible');
+      showSetupScreen();
+    }
+  });
+}
+
+function showSetupScreen(){
+  document.getElementById('setupScreen').style.display = 'block';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('settingsBtn').style.display = 'none';
+  setTimeout(() => document.getElementById('apiKeyInput').focus(), 100);
+}
+
+function showMainApp(){
+  document.getElementById('setupScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('settingsBtn').style.display = 'inline-block';
+  setupMainAppHandlers();
+  renderLockBar();
+  renderHistory();
+}
+
+function handleSaveKey(){
+  const input = document.getElementById('apiKeyInput');
+  const errorEl = document.getElementById('setupError');
+  const key = input.value.trim();
+
+  if(!key){
+    errorEl.textContent = "APIキーを入力してください";
+    errorEl.classList.add('visible');
+    return;
+  }
+  if(!key.startsWith('sk-ant-')){
+    errorEl.textContent = "APIキーの形式が正しくありません(sk-ant-で始まる必要があります)";
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  try{
+    localStorage.setItem(STORAGE_KEYS.apiKey, key);
+    STATE.apiKey = key;
+  }catch(e){
+    errorEl.textContent = "保存に失敗しました: " + e.message;
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  errorEl.classList.remove('visible');
+  input.value = '';
+  showMainApp();
+}
+
+let mainHandlersSetup = false;
+function setupMainAppHandlers(){
+  if(mainHandlersSetup) return;
+  mainHandlersSetup = true;
+
+  document.querySelectorAll('.seg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if(btn.dataset.count) STATE.count = parseInt(btn.dataset.count);
+      if(btn.dataset.lang) STATE.lang = btn.dataset.lang;
+    });
+  });
+
+  document.getElementById('rollBtn').addEventListener('click', roll);
+  document.getElementById('unlockBtn').addEventListener('click', () => {
+    STATE.vocalLock = null;
+    try{ localStorage.removeItem(STORAGE_KEYS.vocalLock); }catch(e){}
+    renderLockBar();
+  });
+
+  document.getElementById('historyClearBtn').addEventListener('click', () => {
+    if(confirm('履歴を全て削除しますか?(★スター付きも削除されます)')){
+      STATE.history = [];
+      saveHistory();
+      renderHistory();
+    }
+  });
+}
+
+/* ========== HISTORY ========== */
+function saveHistory(){
+  try{ localStorage.setItem(STORAGE_KEYS.themeHistory, JSON.stringify(STATE.history)); }catch(e){}
+}
+
+function addToHistory(theme){
+  if(!theme || !theme.trim()) return;
+  const t = theme.trim();
+  // Remove existing match (case-sensitive)
+  const existingIdx = STATE.history.findIndex(item => item.text === t);
+  let starred = false;
+  if(existingIdx !== -1){
+    starred = STATE.history[existingIdx].starred || false;
+    STATE.history.splice(existingIdx, 1);
+  }
+  // Add to top
+  STATE.history.unshift({ text: t, starred: starred });
+  // Trim, but keep starred items
+  if(STATE.history.length > HISTORY_MAX){
+    const starredItems = STATE.history.filter(i => i.starred);
+    const unstarred = STATE.history.filter(i => !i.starred);
+    const keepUnstarred = unstarred.slice(0, Math.max(0, HISTORY_MAX - starredItems.length));
+    STATE.history = [...starredItems, ...keepUnstarred].slice(0, HISTORY_MAX);
+    // Resort: starred first by their order, then unstarred by their order
+    STATE.history.sort((a,b) => {
+      if(a.starred && !b.starred) return -1;
+      if(!a.starred && b.starred) return 1;
+      return 0;
+    });
+  }else{
+    // Always show starred first
+    STATE.history.sort((a,b) => {
+      if(a.starred && !b.starred) return -1;
+      if(!a.starred && b.starred) return 1;
+      return 0;
+    });
+  }
+  saveHistory();
+}
+
+function toggleStar(idx){
+  if(!STATE.history[idx]) return;
+  STATE.history[idx].starred = !STATE.history[idx].starred;
+  // Resort: starred first
+  STATE.history.sort((a,b) => {
+    if(a.starred && !b.starred) return -1;
+    if(!a.starred && b.starred) return 1;
+    return 0;
+  });
+  saveHistory();
+  renderHistory();
+}
+
+function deleteHistoryItem(idx){
+  if(!STATE.history[idx]) return;
+  STATE.history.splice(idx, 1);
+  saveHistory();
+  renderHistory();
+}
+
+function renderHistory(){
+  const section = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if(!STATE.history.length){
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  list.innerHTML = '';
+
+  STATE.history.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'history-item' + (item.starred ? ' starred' : '');
+    div.innerHTML = `
+      <button class="history-star ${item.starred ? 'active' : ''}" data-action="star" data-idx="${idx}">${item.starred ? '★' : '☆'}</button>
+      <span class="history-text" data-action="use" data-idx="${idx}">${escapeHtml(item.text)}</span>
+      <button class="history-delete" data-action="delete" data-idx="${idx}">×</button>
+    `;
+    div.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-action]');
+      if(!target) return;
+      const action = target.dataset.action;
+      const i = parseInt(target.dataset.idx);
+      if(action === 'star') toggleStar(i);
+      else if(action === 'delete') deleteHistoryItem(i);
+      else if(action === 'use'){
+        document.getElementById('themeInput').value = STATE.history[i].text;
+      }
+    });
+    list.appendChild(div);
+  });
+}
+
+function renderLockBar(){
+  const bar = document.getElementById('vocalLockBar');
+  const txt = document.getElementById('vocalLockText');
+  if(STATE.vocalLock){
+    bar.style.display = "flex";
+    txt.textContent = STATE.vocalLock;
+  }else{
+    bar.style.display = "none";
+  }
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderResults(recipes){
+  const container = document.getElementById('results');
+  container.innerHTML = '';
+  const cards = document.createElement('div');
+  cards.className = 'cards';
+
+  recipes.forEach((r, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const lyricsText = r.lyrics || '';
+    const lyricLangLabel = r.lyricsLang === "ja" ? "JA" : (r.lyricsLang === "en" ? "EN" : "JA/EN");
+
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-num">RECIPE / <span>${String(idx+1).padStart(2,'0')}</span> of ${String(recipes.length).padStart(2,'0')}</div>
+        <div class="card-tags">
+          ${r.genre ? `<span class="tag genre">${escapeHtml(r.genre)}</span>` : ''}
+          ${r.mood ? `<span class="tag">${escapeHtml(r.mood)}</span>` : ''}
+          ${r.era ? `<span class="tag">${escapeHtml(r.era)}</span>` : ''}
+          ${r.tempo ? `<span class="tag">${escapeHtml(r.tempo)}</span>` : ''}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <div class="field-head">
+            <div class="field-label">Style Prompt</div>
+            <div class="field-actions"><button class="icon-btn" data-action="copy-style">Copy</button></div>
+          </div>
+          <div class="field-value style" data-style>${escapeHtml(r.stylePrompt || '')}</div>
+        </div>
+        <div class="field">
+          <div class="field-head">
+            <div class="field-label">Vocal Spec</div>
+            <div class="field-actions">
+              <button class="icon-btn ${STATE.vocalLock === r.vocal ? 'locked' : 'neutral'}" data-action="lock-vocal">${STATE.vocalLock === r.vocal ? '🔒 Locked' : '🔓 Lock'}</button>
+              <button class="icon-btn" data-action="copy-vocal">Copy</button>
+            </div>
+          </div>
+          <div class="field-value vocal" data-vocal>${escapeHtml(r.vocal || '')}</div>
+        </div>
+        <div class="field">
+          <div class="field-head">
+            <div class="field-label">Lyrics (${lyricLangLabel})</div>
+            <div class="field-actions"><button class="icon-btn" data-action="copy-lyrics">Copy</button></div>
+          </div>
+          <div class="field-value lyrics" data-lyrics>${escapeHtml(lyricsText)}</div>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-action]');
+      if(!btn) return;
+      const action = btn.dataset.action;
+      if(action === 'copy-style') copyText(r.stylePrompt, btn);
+      else if(action === 'copy-vocal') copyText(r.vocal, btn);
+      else if(action === 'copy-lyrics') copyText(lyricsText, btn);
+      else if(action === 'lock-vocal'){
+        if(STATE.vocalLock === r.vocal){
+          STATE.vocalLock = null;
+          try{ localStorage.removeItem(STORAGE_KEYS.vocalLock); }catch(e){}
+        }else{
+          STATE.vocalLock = r.vocal;
+          try{ localStorage.setItem(STORAGE_KEYS.vocalLock, r.vocal); }catch(e){}
+        }
+        renderLockBar();
+        document.querySelectorAll('[data-action="lock-vocal"]').forEach(b => {
+          const cardEl = b.closest('.card');
+          const vocalEl = cardEl.querySelector('[data-vocal]');
+          if(vocalEl && vocalEl.textContent === STATE.vocalLock){
+            b.classList.add('locked');
+            b.classList.remove('neutral');
+            b.innerHTML = '🔒 Locked';
+          }else{
+            b.classList.remove('locked');
+            b.classList.add('neutral');
+            b.innerHTML = '🔓 Lock';
+          }
+        });
+      }
+    });
+
+    cards.appendChild(card);
+  });
+
+  container.appendChild(cards);
+}
+
+function copyText(text, btn){
+  if(!text) return;
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(fallback);
+  }else{
+    fallback();
+  }
+  const original = btn.innerHTML;
+  btn.classList.add('copied');
+  btn.innerHTML = 'Copied ✓';
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = original;
+  }, 1200);
+}
+
+function showError(msg){
+  const banner = document.getElementById('errorBanner');
+  banner.innerHTML = msg;
+  banner.style.display = 'block';
+}
+
+function hideError(){
+  document.getElementById('errorBanner').style.display = 'none';
+}
+
+function setLoading(on){
+  STATE.loading = on;
+  document.getElementById('loadingState').style.display = on ? 'block' : 'none';
+  document.getElementById('rollBtn').disabled = on;
+  if(on){
+    const msg = LOADING_MESSAGES[Math.floor(Math.random()*LOADING_MESSAGES.length)];
+    document.getElementById('loadingText').textContent = msg;
+  }
+}
+
+async function callClaudeAPI(theme, lang, count, vocalLock){
+  const langDescription = {
+    ja: "Japanese (natural Japanese; you may sprinkle a few English words for atmosphere if it fits)",
+    en: "English",
+    mix: "Japanese-English mix (50/50, code-switching naturally within and across lines)",
+    random: "Pick freely between Japanese, English, or Japanese-English mix; vary across recipes if multiple"
+  }[lang];
+
+  const themeBlock = theme && theme.trim()
+    ? `User's theme/keyword for today: "${theme.trim()}"\nIncorporate this theme into the lyrics. Let it shape the mood and atmosphere of the music style. Be specific and concrete, not abstract.`
+    : `No specific theme given — be bold and surprising. Pick an unexpected scenario, emotion, or scene. Avoid generic "love song" or "sad song" defaults.`;
+
+  const vocalBlock = vocalLock
+    ? `LOCKED VOCAL SPEC (use this exact vocal description for ALL ${count} recipe(s) — do not change it): "${vocalLock}"`
+    : `Vocal spec: choose a fresh, specific vocal description for each recipe. Include: gender, register, timbre, era, technique. Make each recipe's vocal distinctly different from the others.`;
+
+  const systemPrompt = `You are a music prompt generator for Suno AI. Your job is to create COMPLETE, READY-TO-USE music recipes that the user copy-pastes into Suno.
+
+CRITICAL RULES:
+1. Each recipe must feel DIFFERENT from typical AI suggestions. AVOID overused clichés: "lo-fi chill beats", "synthwave", "dreamy bedroom pop", "indie folk acoustic", "ambient electronic" — unless the theme strongly demands them.
+2. ACTIVELY mix unexpected genres, eras, instruments. Genre fusion is encouraged: "bossa nova × shoegaze", "afrobeat × americana", "jazz fusion × dub", "tango × post-rock".
+3. The user has been making LOVE PSYCHEDELICO-style female vocal pop daily for a long time. Push them OUT of that comfort zone. Use male vocals, duets, vintage styles, world music, anything unexpected — unless the theme/lock specifically calls for the comfort zone.
+4. Style prompts must be in ENGLISH (Suno understands English best), comma-separated, ~40-70 words. Include in this order: genre(s), era, mood, tempo + BPM, key/mode, vocal spec, instrumentation, production texture.
+5. Lyrics must be 4 lines, evocative and SPECIFIC (concrete imagery, sensory detail, real settings — never abstract platitudes like "love is forever" or "in my heart"). In the requested language.
+6. Tags (genre/mood/era/tempo) are short labels for display, separate from the full style prompt.
+
+Output ONLY valid JSON, no markdown code fences, no explanation. Format:
+{
+  "recipes": [
+    {
+      "genre": "short label, e.g. 'jazz × dub' or 'tango'",
+      "mood": "1-3 word mood label, e.g. 'nostalgic' or 'midnight drive'",
+      "era": "era label, e.g. 'late 70s' or 'modern'",
+      "tempo": "tempo label with BPM, e.g. '95 BPM'",
+      "vocal": "detailed vocal spec for Suno, English",
+      "stylePrompt": "full Suno style prompt, English, comma-separated, 40-70 words",
+      "lyrics": "4 lines of lyrics in the requested language, separated by \\n",
+      "lyricsLang": "ja | en | mix"
+    }
+  ]
+}`;
+
+  const userPrompt = `Generate ${count} music recipe(s) for Suno AI.
+
+${themeBlock}
+
+Lyrics language: ${langDescription}
+
+${vocalBlock}
+
+Remember: each recipe must be distinctly different from the others. Push genre boundaries. Be unpredictable.
+
+Output JSON only.`;
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": STATE.apiKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 4000,
+      system: systemPrompt,
+      messages: [{ role: "user", content: userPrompt }]
+    })
+  });
+
+  if(!response.ok){
+    let errMsg = "API error " + response.status;
+    try{
+      const errData = await response.json();
+      if(errData.error && errData.error.message) errMsg += ": " + errData.error.message;
+    }catch(e){}
+    throw new Error(errMsg);
+  }
+
+  const data = await response.json();
+  let text = "";
+  if(data.content && Array.isArray(data.content)){
+    text = data.content.filter(b => b.type === "text").map(b => b.text).join("\n");
+  }
+
+  text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+
+  let parsed;
+  try{
+    parsed = JSON.parse(text);
+  }catch(e){
+    throw new Error("レスポンスのJSON解析に失敗しました。もう一度お試しください。");
+  }
+
+  if(!parsed.recipes || !Array.isArray(parsed.recipes) || parsed.recipes.length === 0){
+    throw new Error("レシピが生成されませんでした。もう一度お試しください。");
+  }
+
+  return parsed.recipes;
+}
+
+async function roll(){
+  if(STATE.loading) return;
+
+  hideError();
+  const theme = document.getElementById('themeInput').value;
+
+  setLoading(true);
+
+  try{
+    const recipes = await callClaudeAPI(theme, STATE.lang, STATE.count, STATE.vocalLock);
+    renderResults(recipes);
+    // Save theme to history if non-empty
+    if(theme && theme.trim()){
+      addToHistory(theme);
+      renderHistory();
+    }
+  }catch(err){
+    console.error(err);
+    let msg = "<strong>エラーが発生しました</strong><br>" + escapeHtml(err.message || String(err));
+    if(String(err.message || "").includes("401") || String(err.message || "").includes("authentication")){
+      msg += '<br><br>APIキーが無効な可能性があります。設定からキーを確認してください。';
+    }else if(String(err.message || "").includes("credit") || String(err.message || "").includes("billing")){
+      msg += '<br><br>クレジット残高が不足している可能性があります。<a href="https://console.anthropic.com/settings/billing" target="_blank" style="color:var(--accent)">Anthropic Console</a>で確認してください。';
+    }
+    showError(msg);
+  }finally{
+    setLoading(false);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
