@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,115 +10,236 @@
 <title>SUNO ROULETTE</title>
 <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"SUNO ROULETTE","short_name":"ROULETTE","start_url":".","display":"standalone","background_color":"#1a1a1a","theme_color":"#1a1a1a","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgZmlsbD0iIzFhMWExYSIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtZmFtaWx5PSJzZXJpZiIgZm9udC1zaXplPSI5MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZmlsbD0iI2ZmN2EyYyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UjwvdGV4dD48L3N2Zz4=","sizes":"192x192","type":"image/svg+xml"}]}'>
 <style>
-:root{--bg:#1a1a1a;--bg-2:#232323;--bg-3:#2a2a2a;--ink:#f0f0f0;--ink-dim:#a0a0a0;--ink-faint:#707070;--accent:#ff7a2c;--line:rgba(240,240,240,0.08);--line-strong:rgba(240,240,240,0.2);--error:#ff5555}
+/* Dark theme (default) */
+[data-theme="dark"]{
+  --bg:#1a1a1a; --bg-2:#232323; --bg-3:#2a2a2a;
+  --ink:#f0f0f0; --ink-dim:#c0c0c0; --ink-faint:#8a8a8a;
+  --accent:#ff7a2c; --accent-soft:rgba(255,122,44,0.15);
+  --line:rgba(240,240,240,0.12); --line-strong:rgba(240,240,240,0.3);
+  --error:#ff5555; --shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+/* Light theme */
+[data-theme="light"]{
+  --bg:#ffffff; --bg-2:#f5f5f5; --bg-3:#ebebeb;
+  --ink:#1a1a1a; --ink-dim:#4a4a4a; --ink-faint:#777777;
+  --accent:#ff7a2c; --accent-soft:rgba(255,122,44,0.12);
+  --line:rgba(0,0,0,0.1); --line-strong:rgba(0,0,0,0.25);
+  --error:#cc3333; --shadow:0 2px 8px rgba(0,0,0,0.06);
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+html,body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none;transition:background 0.2s,color 0.2s}
 body{min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .app{max-width:560px;margin:0 auto;padding:20px 18px 80px}
+@media (min-width:960px){.app{max-width:1100px;padding:24px 28px 80px}}
+
 header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px;position:relative}
 .logo{font-family:"Times New Roman",serif;font-size:34px;font-weight:900;letter-spacing:0.02em;line-height:0.9}
 .logo .r{color:var(--accent);font-style:italic;font-size:46px}
-.tagline{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.4em;color:var(--ink-faint);margin-top:10px;text-transform:uppercase}
-.header-meta{position:absolute;top:18px;right:0;font-family:"Helvetica Neue",monospace;font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-align:right;line-height:1.6}
-.settings-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase}
+.tagline{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.4em;color:var(--ink-faint);margin-top:10px;text-transform:uppercase;font-weight:600}
+.header-meta{position:absolute;top:18px;right:0;font-family:"Helvetica Neue",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-dim);text-align:right;line-height:1.6}
+.settings-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase;font-weight:600}
 .settings-btn:hover{color:var(--accent);border-color:var(--accent)}
+
+/* Setup screen */
 .setup-screen{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:24px;margin-bottom:20px}
-.setup-title{font-family:"Times New Roman",serif;font-size:20px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
+.setup-title{font-family:"Times New Roman",serif;font-size:22px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
 .setup-desc{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:18px;font-family:"Helvetica Neue",sans-serif}
-.setup-desc strong{color:var(--accent)}
+.setup-desc strong{color:var(--accent);font-weight:700}
 .setup-input{width:100%;padding:12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Helvetica Neue",monospace;font-size:12px;border-radius:2px;margin-bottom:12px}
 .setup-input:focus{outline:none;border-color:var(--accent)}
-.setup-btn{width:100%;padding:14px;background:var(--accent);color:var(--bg);border:none;font-family:"Times New Roman",serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
+.setup-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;font-family:"Times New Roman",serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
 .setup-btn:active{transform:scale(0.98)}
-.setup-error{color:var(--error);font-size:12px;font-family:"Helvetica Neue",sans-serif;margin-top:10px;padding:10px;background:rgba(255,85,85,0.1);border-radius:2px;display:none}
+.setup-error{color:var(--error);font-size:12px;font-family:"Helvetica Neue",sans-serif;margin-top:10px;padding:10px;background:rgba(255,85,85,0.08);border:1px solid var(--error);border-radius:2px;display:none}
 .setup-error.visible{display:block}
-.setup-help{font-size:11px;line-height:1.6;color:var(--ink-faint);margin-top:14px;font-family:"Helvetica Neue",sans-serif;padding-top:14px;border-top:1px solid var(--line)}
-.setup-help a{color:var(--accent);text-decoration:none}
+.setup-help{font-size:12px;line-height:1.6;color:var(--ink-dim);margin-top:14px;font-family:"Helvetica Neue",sans-serif;padding-top:14px;border-top:1px solid var(--line)}
+.setup-help a{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* Main layout */
+.main-layout{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:960px){
+  .main-layout{grid-template-columns:1fr 1.3fr;gap:28px}
+  .input-pane{position:sticky;top:20px;align-self:start}
+}
+
+/* Theme input */
 .theme-input-wrap{margin-bottom:14px}
-.theme-input-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
-.theme-input{width:100%;padding:12px 14px;background:var(--bg-3);border:1px solid rgba(255,122,44,0.3);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:14px;border-radius:2px;transition:border-color 0.15s}
-.theme-input:focus{outline:none;border-color:var(--accent)}
+.theme-input-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
+.theme-input{width:100%;padding:12px 14px;background:var(--bg-2);border:1px solid var(--accent);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:14px;border-radius:2px;transition:border-color 0.15s}
+.theme-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
 .theme-input::placeholder{color:var(--ink-faint)}
-.theme-hint{font-size:10px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;margin-top:6px;letter-spacing:0.05em}
+.theme-hint{font-size:11px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:6px;letter-spacing:0.05em}
+
+/* Active vocal display */
+.active-vocal-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:10px 12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.active-vocal-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;font-weight:700}
+.active-vocal-list{flex:1;display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+.active-vocal-chip{display:inline-flex;align-items:center;gap:5px;background:var(--accent-soft);border:1px solid var(--accent);padding:3px 8px;border-radius:12px;font-size:11px;color:var(--ink);font-family:"Helvetica Neue",sans-serif;font-weight:600}
+.active-vocal-chip .remove{cursor:pointer;color:var(--accent);font-weight:700}
+.active-vocal-empty{font-size:11px;color:var(--ink-faint);font-style:italic;font-family:"Helvetica Neue",sans-serif}
+.lib-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:5px 10px;font-size:10px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;font-weight:600;flex-shrink:0}
+.lib-btn:hover{color:var(--accent);border-color:var(--accent)}
+
+/* Advanced settings */
+.adv-toggle{background:transparent;border:none;color:var(--ink-dim);padding:10px 0;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:6px;width:100%;justify-content:flex-start;margin-bottom:6px}
+.adv-toggle:hover{color:var(--accent)}
+.adv-toggle .arrow{display:inline-block;transition:transform 0.2s}
+.adv-toggle.open .arrow{transform:rotate(90deg)}
+.adv-toggle .badge{background:var(--accent);color:#fff;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:0}
+.adv-panel{display:none;margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:14px}
+.adv-panel.open{display:block}
+@media (min-width:960px){.adv-panel{display:block;border-color:var(--line)} .adv-toggle{display:none}}
+.adv-row{margin-bottom:14px}
+.adv-row:last-child{margin-bottom:0}
+.adv-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:6px;display:block}
+.adv-options{display:flex;flex-wrap:wrap;gap:4px}
+.adv-option{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;transition:all 0.15s;text-transform:uppercase;font-weight:600}
+.adv-option:hover{color:var(--ink);border-color:var(--ink-dim)}
+.adv-option.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.adv-freetext{width:100%;min-height:70px;padding:10px 12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:13px;border-radius:2px;resize:vertical;line-height:1.5}
+.adv-freetext:focus{outline:none;border-color:var(--accent)}
+.adv-freetext::placeholder{color:var(--ink-faint)}
+.adv-freetext-hint{font-size:11px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:4px;letter-spacing:0.05em}
+
+/* History */
 .history-section{margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px 10px 8px}
-.history-header{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-.history-clear{background:transparent;border:none;color:var(--accent);font-size:9px;font-family:"Helvetica Neue",sans-serif;letter-spacing:0.15em;cursor:pointer;padding:0;text-transform:uppercase}
+.history-header{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.history-clear{background:transparent;border:none;color:var(--accent);font-size:10px;font-family:"Helvetica Neue",sans-serif;letter-spacing:0.15em;cursor:pointer;padding:0;text-transform:uppercase;font-weight:600}
 .history-clear:hover{text-decoration:underline}
-.history-list{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto}
-.history-empty{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-faint);padding:8px 6px;font-style:italic}
+.history-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto}
 .history-item{display:flex;align-items:center;gap:8px;padding:7px 8px;background:var(--bg);border-radius:2px;border-left:2px solid transparent;transition:border-color 0.15s}
 .history-item.starred{border-left-color:var(--accent)}
-.history-star{background:transparent;border:none;color:var(--ink-faint);font-size:13px;cursor:pointer;padding:0;line-height:1;width:16px;flex-shrink:0}
+.history-star{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:16px;flex-shrink:0}
 .history-star.active{color:var(--accent)}
-.history-text{flex:1;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:13px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.history-text{flex:1;font-family:"Hiragino Mincho ProN",serif;font-size:13px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .history-text:hover{color:var(--accent)}
-.history-delete{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
+.history-delete{background:transparent;border:none;color:var(--ink-faint);font-size:15px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
 .history-delete:hover{color:var(--error)}
+
+/* Segment controls */
 .controls{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
 .seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
-.seg-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);padding:0 12px;border-right:1px solid var(--line);text-transform:uppercase;align-self:center;min-width:70px}
+.seg-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;color:var(--ink-dim);padding:0 12px;border-right:1px solid var(--line);text-transform:uppercase;align-self:center;min-width:70px;font-weight:700}
 .seg button{background:transparent;border:none;color:var(--ink-dim);padding:10px 12px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;transition:all 0.15s;text-transform:uppercase;font-weight:600;flex:1}
-.seg button.active{background:var(--accent);color:var(--bg);font-weight:700}
+.seg button.active{background:var(--accent);color:#fff;font-weight:700}
 .seg button:not(.active):hover{color:var(--ink)}
+
+/* Roll button */
 .roll-wrap{margin:8px 0 22px;position:relative}
-.roll{width:100%;background:var(--accent);color:var(--bg);border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:0.05em;cursor:pointer;position:relative;overflow:hidden;border-radius:2px;transition:transform 0.1s}
+.roll{width:100%;background:var(--accent);color:#fff;border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:0.05em;cursor:pointer;position:relative;overflow:hidden;border-radius:2px;transition:transform 0.1s;box-shadow:var(--shadow)}
 .roll:active{transform:scale(0.98)}
 .roll:disabled{opacity:0.5;cursor:not-allowed}
-.roll::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(26,26,26,0.4);pointer-events:none}
+.roll::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(255,255,255,0.5);pointer-events:none}
 .roll .arrow{display:inline-block;margin-left:10px;font-style:normal;font-size:22px}
+
+/* Loading */
 .loading-state{text-align:center;padding:30px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;margin-bottom:18px}
 .loading-dots{font-family:"Times New Roman",serif;font-size:36px;color:var(--accent);letter-spacing:0.1em;margin-bottom:12px}
 .loading-dots span{display:inline-block;animation:bounce 1.4s infinite}
 .loading-dots span:nth-child(2){animation-delay:0.2s}
 .loading-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:0.3}40%{transform:translateY(-8px);opacity:1}}
-.loading-text{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase}
-.vocal-lock-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:11px 12px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.vocal-lock-bar .lock-icon{font-size:16px}
-.vocal-lock-bar .lock-content{flex:1;min-width:0}
-.vocal-lock-bar .lock-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:3px;font-weight:700}
-.vocal-lock-bar .lock-text{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink);line-height:1.4;word-break:break-word;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.vocal-lock-bar .unlock-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;font-size:10px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;flex-shrink:0}
-.vocal-lock-bar .unlock-btn:hover{color:var(--ink)}
-.empty{text-align:center;padding:60px 20px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase}
+.loading-text{font-family:"Helvetica Neue",sans-serif;font-size:12px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:600}
+
+.empty{text-align:center;padding:60px 20px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600}
 .empty .big{font-family:"Times New Roman",serif;font-size:60px;color:var(--ink-faint);margin-bottom:16px;font-style:italic;opacity:0.5}
-.error-banner{background:rgba(255,85,85,0.1);border:1px solid var(--error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:"Helvetica Neue",sans-serif;font-size:12px;line-height:1.6;color:#ffaaaa}
-.error-banner strong{color:var(--error)}
+
+.error-banner{background:rgba(255,85,85,0.08);border:1px solid var(--error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:"Helvetica Neue",sans-serif;font-size:12px;line-height:1.6;color:var(--error)}
+.error-banner strong{color:var(--error);font-weight:700}
+.error-banner a{color:var(--accent);font-weight:600}
+
+/* Cards */
 .cards{display:flex;flex-direction:column;gap:18px}
-.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:reveal 0.5s ease-out}
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:reveal 0.5s ease-out;box-shadow:var(--shadow)}
 @keyframes reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card-head{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg-3)}
-.card-num{font-family:"Times New Roman",serif;font-size:11px;letter-spacing:0.3em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:8px}
+.card-num{font-family:"Times New Roman",serif;font-size:11px;letter-spacing:0.3em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:8px;font-weight:600}
 .card-num span{color:var(--accent);font-weight:bold}
 .card-tags{display:flex;gap:5px;flex-wrap:wrap}
-.tag{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.1em;padding:3px 8px;background:rgba(240,240,240,0.05);border:1px solid var(--line-strong);color:#c0c0c0;border-radius:2px;text-transform:uppercase}
-.tag.genre{color:#ff9a5c;background:rgba(255,122,44,0.15);border-color:rgba(255,122,44,0.4)}
+.tag{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.1em;padding:3px 8px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink-dim);border-radius:2px;text-transform:uppercase;font-weight:600}
+.tag.genre{color:var(--accent);background:var(--accent-soft);border-color:var(--accent)}
+
 .card-body{padding:16px}
 .field{margin-bottom:14px}
 .field:last-child{margin-bottom:0}
 .field-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
-.field-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-faint);text-transform:uppercase;font-weight:700}
+.field-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
 .field-actions{display:flex;gap:6px;flex-shrink:0}
-.icon-btn{background:transparent;border:1px solid rgba(255,122,44,0.4);color:var(--accent);padding:5px 9px;font-size:10px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;transition:all 0.15s;font-weight:600}
-.icon-btn:hover{background:rgba(255,122,44,0.1)}
-.icon-btn.copied{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.icon-btn.locked{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.icon-btn{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:5px 9px;font-size:10px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;transition:all 0.15s;font-weight:600}
+.icon-btn:hover{background:var(--accent-soft)}
+.icon-btn.copied{background:var(--accent);color:#fff}
 .icon-btn.neutral{border-color:var(--line-strong);color:var(--ink-dim)}
 .icon-btn.neutral:hover{border-color:var(--ink-dim);background:transparent;color:var(--ink)}
+
 .field-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;font-size:14px}
-.field-value.style{font-family:"Helvetica Neue",monospace;font-size:12px;color:#d0d0d0;letter-spacing:0.01em;line-height:1.6}
-.field-value.vocal{font-family:"Helvetica Neue",monospace;font-size:11px;color:#d0d0d0;letter-spacing:0.01em;line-height:1.6}
-.field-value.lyrics{font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;font-size:14px;color:var(--ink)}
+.field-value.style{font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);letter-spacing:0.01em;line-height:1.6}
+.field-value.vocal{font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);letter-spacing:0.01em;line-height:1.6}
+.field-value.lyrics{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);line-height:1.85}
+
+/* Title candidates */
+.title-list{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:6px;display:flex;flex-direction:column;gap:4px}
+.title-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:transparent;border-radius:2px;cursor:pointer;transition:background 0.15s;border:1px solid transparent}
+.title-item:hover{background:var(--bg-3);border-color:var(--line)}
+.title-num{font-family:"Times New Roman",serif;font-size:11px;color:var(--accent);font-weight:700;width:18px;flex-shrink:0}
+.title-text{flex:1;font-family:"Times New Roman",serif;font-size:17px;font-weight:600;font-style:italic;color:var(--ink);letter-spacing:0.02em}
+.title-copy-hint{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.15em;color:var(--ink-faint);text-transform:uppercase;font-weight:600;flex-shrink:0;opacity:0;transition:opacity 0.15s}
+.title-item:hover .title-copy-hint{opacity:1}
+.title-item.copied{background:var(--accent-soft);border-color:var(--accent)}
+.title-item.copied .title-copy-hint{opacity:1;color:var(--accent)}
+
+/* Modal */
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
 .modal-backdrop.visible{display:flex}
-.modal{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:2px;padding:24px;max-width:480px;width:100%}
-.modal-title{font-family:"Times New Roman",serif;font-size:20px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
-.modal-text{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:16px;font-family:"Helvetica Neue",sans-serif}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.modal{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:2px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow)}
+.modal-title{font-family:"Times New Roman",serif;font-size:22px;font-weight:bold;margin-bottom:14px;color:var(--ink)}
+.modal-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.modal-section:last-of-type{border-bottom:none;padding-bottom:0}
+.modal-section-title{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.modal-text{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:14px;font-family:"Helvetica Neue",sans-serif}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
 .modal-btn{padding:10px 16px;border:1px solid var(--line-strong);background:transparent;color:var(--ink-dim);cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
-.modal-btn:hover{color:var(--ink)}
+.modal-btn:hover{color:var(--ink);border-color:var(--ink-dim)}
+.modal-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.modal-btn.primary:hover{background:var(--accent);color:#fff;opacity:0.9}
 .modal-btn.danger{background:var(--error);color:#fff;border-color:var(--error)}
-footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8}
+
+/* Theme toggle in settings */
+.theme-toggle{display:flex;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:4px}
+.theme-toggle button{flex:1;background:transparent;border:none;color:var(--ink-dim);padding:8px 12px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-weight:600}
+.theme-toggle button.active{background:var(--accent);color:#fff;font-weight:700}
+
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.toggle-row .label{font-family:"Helvetica Neue",sans-serif;font-size:13px;color:var(--ink);font-weight:600}
+.toggle-row .desc{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-top:2px}
+.toggle-switch{position:relative;width:44px;height:24px;background:var(--bg-3);border:1px solid var(--line-strong);border-radius:12px;cursor:pointer;flex-shrink:0;transition:background 0.2s}
+.toggle-switch.on{background:var(--accent);border-color:var(--accent)}
+.toggle-switch::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.toggle-switch.on::after{transform:translateX(20px)}
+
+/* Vocal library */
+.vocal-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;max-height:300px;overflow-y:auto}
+.vocal-empty{text-align:center;padding:30px 16px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;font-style:italic}
+.vocal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:2px;transition:all 0.15s}
+.vocal-item.selected{border-color:var(--accent);background:var(--accent-soft)}
+.vocal-item .check{width:18px;height:18px;flex-shrink:0;border:2px solid var(--line-strong);border-radius:3px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;transition:all 0.15s;margin-top:2px}
+.vocal-item.selected .check{background:var(--accent);border-color:var(--accent)}
+.vocal-item .info{flex:1;min-width:0;cursor:pointer}
+.vocal-item .name{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);font-weight:600;margin-bottom:3px}
+.vocal-item .spec{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.5;word-break:break-word}
+.vocal-item .actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.vocal-item .actions button{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:4px 8px;font-size:10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+.vocal-item .actions button:hover{color:var(--ink)}
+.vocal-item .actions button.danger:hover{color:var(--error);border-color:var(--error)}
+
+.vocal-helper{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-bottom:10px;line-height:1.6}
+
+/* Save vocal prompt */
+.save-vocal-input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:14px;border-radius:2px;margin:8px 0 4px}
+.save-vocal-input:focus{outline:none;border-color:var(--accent)}
+.save-vocal-preview{background:var(--bg);border:1px solid var(--line);padding:10px;border-radius:2px;font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.6;margin:10px 0;max-height:80px;overflow-y:auto}
+
+footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8;font-weight:600}
+
 @media (max-width:380px){.logo{font-size:30px}.logo .r{font-size:40px}.roll{font-size:22px;padding:22px}}
 </style>
 </head>
@@ -127,7 +248,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 
 <header>
   <div class="logo"><span class="r">R</span>OULETTE</div>
-  <div class="tagline">Suno Prompt Generator / v2.2</div>
+  <div class="tagline">Suno Prompt Generator / v3.1</div>
   <div class="header-meta">
     DEC<br>
     <span id="dateLabel"></span><br>
@@ -149,104 +270,220 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
   </div>
 </div>
 
-<div id="mainApp" style="display:none">
+<div id="mainApp" class="main-layout" style="display:none">
 
-  <div class="theme-input-wrap">
-    <label class="theme-input-label">今日のテーマ(任意)</label>
-    <input type="text" class="theme-input" id="themeInput" placeholder="例: 雨の日の別れ / 深夜のドライブ / 夏休みの終わり">
-    <div class="theme-hint">空欄ならランダムテーマで生成されます</div>
-  </div>
-
-  <div class="history-section" id="historySection" style="display:none">
-    <div class="history-header">
-      <span>履歴</span>
-      <button class="history-clear" id="historyClearBtn">CLEAR ALL</button>
+  <div class="input-pane">
+    <div class="theme-input-wrap">
+      <label class="theme-input-label">今日のテーマ(任意)</label>
+      <input type="text" class="theme-input" id="themeInput" placeholder="例: 雨の日の別れ / 深夜のドライブ / 夏休みの終わり">
+      <div class="theme-hint">空欄ならランダムテーマで生成されます</div>
     </div>
-    <div class="history-list" id="historyList"></div>
-  </div>
 
-  <div class="controls">
-    <div class="seg">
-      <span class="seg-label">出力数</span>
-      <button data-count="1" class="active">1案</button>
-      <button data-count="3">3案</button>
-      <button data-count="5">5案</button>
+    <div class="active-vocal-bar" id="activeVocalBar">
+      <div class="active-vocal-label">使用ボーカル</div>
+      <div class="active-vocal-list" id="activeVocalList"></div>
+      <button class="lib-btn" id="openLibraryBtn">ライブラリ</button>
     </div>
-    <div class="seg">
-      <span class="seg-label">歌詞</span>
-      <button data-lang="ja" class="active">日本語</button>
-      <button data-lang="en">英語</button>
-      <button data-lang="mix">混合</button>
-      <button data-lang="random">ランダム</button>
+
+    <button class="adv-toggle" id="advToggle">
+      <span class="arrow">▶</span>
+      <span>詳細設定</span>
+      <span class="badge" id="advBadge" style="display:none">0</span>
+    </button>
+
+    <div class="adv-panel" id="advPanel">
+      <div class="adv-row">
+        <label class="adv-label">ジャンル傾向</label>
+        <div class="adv-options" data-adv="genre">
+          <button class="adv-option active" data-value="">指定なし</button>
+          <button class="adv-option" data-value="jazz_family">ジャズ系</button>
+          <button class="adv-option" data-value="rock_family">ロック系</button>
+          <button class="adv-option" data-value="hiphop_family">ヒップホップ系</button>
+          <button class="adv-option" data-value="electronic_family">電子音楽系</button>
+          <button class="adv-option" data-value="acoustic_family">アコースティック系</button>
+          <button class="adv-option" data-value="world_family">ワールド系</button>
+          <button class="adv-option" data-value="pop_family">ポップス系</button>
+        </div>
+      </div>
+      <div class="adv-row">
+        <label class="adv-label">時代感</label>
+        <div class="adv-options" data-adv="era">
+          <button class="adv-option active" data-value="">指定なし</button>
+          <button class="adv-option" data-value="60s_70s">60-70年代</button>
+          <button class="adv-option" data-value="80s">80年代</button>
+          <button class="adv-option" data-value="90s">90年代</button>
+          <button class="adv-option" data-value="2000s">2000年代</button>
+          <button class="adv-option" data-value="modern">現代</button>
+        </div>
+      </div>
+      <div class="adv-row">
+        <label class="adv-label">テンポ感</label>
+        <div class="adv-options" data-adv="tempo">
+          <button class="adv-option active" data-value="">指定なし</button>
+          <button class="adv-option" data-value="ballad">バラード(遅め)</button>
+          <button class="adv-option" data-value="midtempo">ミディアム</button>
+          <button class="adv-option" data-value="uptempo">アップテンポ(速め)</button>
+        </div>
+      </div>
+      <div class="adv-row">
+        <label class="adv-label">追加の指示(自由入力)</label>
+        <textarea class="adv-freetext" id="advFreetext" placeholder="例: Steely Danみたいな雰囲気 / サックスを入れて / 80年代風で男性ファルセット / 絶対にロックは避けて"></textarea>
+        <div class="adv-freetext-hint">楽器・アーティスト名・除外条件など何でも書けます</div>
+      </div>
+    </div>
+
+    <div class="history-section" id="historySection" style="display:none">
+      <div class="history-header">
+        <span>テーマ履歴</span>
+        <button class="history-clear" id="historyClearBtn">CLEAR ALL</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <div class="controls">
+      <div class="seg">
+        <span class="seg-label">出力数</span>
+        <button data-count="1" class="active">1案</button>
+        <button data-count="3">3案</button>
+        <button data-count="5">5案</button>
+      </div>
+      <div class="seg">
+        <span class="seg-label">歌詞</span>
+        <button data-lang="ja" class="active">日本語</button>
+        <button data-lang="en">英語</button>
+        <button data-lang="mix">混合</button>
+        <button data-lang="random">ランダム</button>
+      </div>
+    </div>
+
+    <div class="roll-wrap">
+      <button class="roll" id="rollBtn">SPIN THE ROULETTE<span class="arrow">→</span></button>
     </div>
   </div>
 
-  <div id="vocalLockBar" class="vocal-lock-bar" style="display:none">
-    <div class="lock-icon">🔒</div>
-    <div class="lock-content">
-      <div class="lock-label">VOCAL LOCKED</div>
-      <div class="lock-text" id="vocalLockText"></div>
+  <div class="output-pane">
+    <div id="loadingState" style="display:none">
+      <div class="loading-state">
+        <div class="loading-dots"><span>●</span><span>●</span><span>●</span></div>
+        <div class="loading-text" id="loadingText">Generating recipes</div>
+      </div>
     </div>
-    <button class="unlock-btn" id="unlockBtn">解除</button>
-  </div>
 
-  <div class="roll-wrap">
-    <button class="roll" id="rollBtn">SPIN THE ROULETTE<span class="arrow">→</span></button>
-  </div>
+    <div id="errorBanner" class="error-banner" style="display:none"></div>
 
-  <div id="loadingState" style="display:none">
-    <div class="loading-state">
-      <div class="loading-dots"><span>●</span><span>●</span><span>●</span></div>
-      <div class="loading-text" id="loadingText">Generating recipes</div>
-    </div>
-  </div>
-
-  <div id="errorBanner" class="error-banner" style="display:none"></div>
-
-  <div id="results">
-    <div class="empty">
-      <div class="big">∞</div>
-      テーマを入れて<br>SPINボタンで生成
+    <div id="results">
+      <div class="empty">
+        <div class="big">∞</div>
+        テーマを入れて<br>SPINボタンで生成
+      </div>
     </div>
   </div>
 
 </div>
 
 <footer>
-  SUNO ROULETTE v2.2 / DEC<br>
+  SUNO ROULETTE v3.1 / DEC<br>
   Built for ICHIRO
 </footer>
 
 </div>
 
+<!-- Settings Modal -->
 <div class="modal-backdrop" id="settingsModal">
   <div class="modal">
     <div class="modal-title">設定</div>
-    <div class="modal-text">APIキーの再設定や、保存されているデータの管理ができます。</div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">表示テーマ</div>
+      <div class="theme-toggle">
+        <button data-theme-set="dark" class="active">🌙 ダーク</button>
+        <button data-theme-set="light">☀️ ライト</button>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">表示オプション</div>
+      <div class="toggle-row">
+        <div>
+          <div class="label">VOCAL SPEC を表示</div>
+          <div class="desc">生成結果のVOCAL SPEC欄(参考用)</div>
+        </div>
+        <div class="toggle-switch on" id="showVocalSpecToggle"></div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">データ管理</div>
+      <div class="modal-actions" style="justify-content:flex-start">
+        <button class="modal-btn" id="resetKeyBtn">APIキー変更</button>
+        <button class="modal-btn danger" id="clearAllBtn">全データ削除</button>
+      </div>
+    </div>
+
     <div class="modal-actions">
-      <button class="modal-btn" id="resetKeyBtn">APIキー変更</button>
-      <button class="modal-btn danger" id="clearAllBtn">全削除</button>
-      <button class="modal-btn" id="closeModalBtn">閉じる</button>
+      <button class="modal-btn primary" id="closeModalBtn">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- Vocal Library Modal -->
+<div class="modal-backdrop" id="libraryModal">
+  <div class="modal">
+    <div class="modal-title">ボーカルライブラリ</div>
+    <div class="vocal-helper">
+      気に入ったボーカルを保存して、次回以降使えます。<br>
+      <strong>1人</strong>選択 → そのボーカル指定で生成 / <strong>2人</strong>選択 → デュエット生成
+    </div>
+    <div class="vocal-list" id="vocalList"></div>
+    <div class="modal-actions">
+      <button class="modal-btn" id="clearVocalSelectionBtn">選択解除</button>
+      <button class="modal-btn primary" id="closeLibraryBtn">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- Save Vocal Modal -->
+<div class="modal-backdrop" id="saveVocalModal">
+  <div class="modal">
+    <div class="modal-title">ボーカルを保存</div>
+    <div class="modal-text">このボーカルに名前を付けてライブラリに保存します。</div>
+    <input type="text" class="save-vocal-input" id="saveVocalNameInput" placeholder="例: クール男声 / Aimer風 / 70sフォーク女声" autocomplete="off">
+    <div class="save-vocal-preview" id="saveVocalPreview"></div>
+    <div class="modal-actions">
+      <button class="modal-btn" id="cancelSaveVocalBtn">キャンセル</button>
+      <button class="modal-btn primary" id="confirmSaveVocalBtn">保存</button>
     </div>
   </div>
 </div>
 
 <script>
 const STORAGE_KEYS = {
-  apiKey: "suno_roulette_api_key_v2",
-  vocalLock: "suno_roulette_vocal_lock_v2",
-  themeHistory: "suno_roulette_theme_history_v2"
+  apiKey: "suno_roulette_api_key_v3",
+  themeHistory: "suno_roulette_theme_history_v3",
+  advSettings: "suno_roulette_adv_settings_v3",
+  advFreetext: "suno_roulette_adv_freetext_v3",
+  vocalLibrary: "suno_roulette_vocal_library_v3",
+  vocalSelection: "suno_roulette_vocal_selection_v3",
+  uiTheme: "suno_roulette_ui_theme_v3",
+  showVocalSpec: "suno_roulette_show_vocal_spec_v3"
 };
 
 const HISTORY_MAX = 10;
+const VOCAL_MAX_SELECTION = 2;
 
 const STATE = {
   count: 1,
   lang: "ja",
-  vocalLock: null,
   apiKey: null,
   loading: false,
-  history: []
+  history: [],
+  adv: { genre: "", era: "", tempo: "" },
+  advFreetext: "",
+  vocalLibrary: [],
+  vocalSelection: [],
+  uiTheme: "dark",
+  showVocalSpec: true,
+  pendingSaveVocalSpec: null
 };
 
 const LOADING_MESSAGES = [
@@ -254,17 +491,25 @@ const LOADING_MESSAGES = [
   "Spinning the wheel", "Calling the muse", "Hunting for the right vibe"
 ];
 
+/* ========== INIT ========== */
 function init(){
   const d = new Date();
-  const dateStr = d.getFullYear() + "." + String(d.getMonth()+1).padStart(2,'0') + "." + String(d.getDate()).padStart(2,'0');
-  document.getElementById('dateLabel').textContent = dateStr;
+  document.getElementById('dateLabel').textContent = d.getFullYear() + "." + String(d.getMonth()+1).padStart(2,'0') + "." + String(d.getDate()).padStart(2,'0');
 
+  // Load all from storage
   try{ STATE.apiKey = localStorage.getItem(STORAGE_KEYS.apiKey); }catch(e){}
-  try{ STATE.vocalLock = localStorage.getItem(STORAGE_KEYS.vocalLock); }catch(e){}
+  try{ const h = localStorage.getItem(STORAGE_KEYS.themeHistory); if(h) STATE.history = JSON.parse(h); }catch(e){}
   try{
-    const h = localStorage.getItem(STORAGE_KEYS.themeHistory);
-    if(h) STATE.history = JSON.parse(h);
-  }catch(e){ STATE.history = []; }
+    const a = localStorage.getItem(STORAGE_KEYS.advSettings);
+    if(a) STATE.adv = Object.assign({ genre: "", era: "", tempo: "" }, JSON.parse(a));
+  }catch(e){}
+  try{ const ft = localStorage.getItem(STORAGE_KEYS.advFreetext); if(ft) STATE.advFreetext = ft; }catch(e){}
+  try{ const v = localStorage.getItem(STORAGE_KEYS.vocalLibrary); if(v) STATE.vocalLibrary = JSON.parse(v); }catch(e){}
+  try{ const s = localStorage.getItem(STORAGE_KEYS.vocalSelection); if(s) STATE.vocalSelection = JSON.parse(s); }catch(e){}
+  try{ const t = localStorage.getItem(STORAGE_KEYS.uiTheme); if(t) STATE.uiTheme = t; }catch(e){}
+  try{ const sv = localStorage.getItem(STORAGE_KEYS.showVocalSpec); if(sv !== null) STATE.showVocalSpec = sv === "true"; }catch(e){}
+
+  applyUiTheme();
 
   if(STATE.apiKey) showMainApp();
   else showSetupScreen();
@@ -274,34 +519,102 @@ function init(){
     if(e.key === 'Enter') handleSaveKey();
   });
 
-  document.getElementById('settingsBtn').addEventListener('click', () => {
-    document.getElementById('settingsModal').classList.add('visible');
+  // Settings modal
+  document.getElementById('settingsBtn').addEventListener('click', openSettings);
+  document.getElementById('closeModalBtn').addEventListener('click', () => closeModal('settingsModal'));
+  document.getElementById('resetKeyBtn').addEventListener('click', resetApiKey);
+  document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+
+  // Theme toggle
+  document.querySelectorAll('[data-theme-set]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      STATE.uiTheme = btn.dataset.themeSet;
+      try{ localStorage.setItem(STORAGE_KEYS.uiTheme, STATE.uiTheme); }catch(e){}
+      applyUiTheme();
+      renderThemeToggle();
+    });
   });
-  document.getElementById('closeModalBtn').addEventListener('click', () => {
-    document.getElementById('settingsModal').classList.remove('visible');
+
+  // Show vocal spec toggle
+  document.getElementById('showVocalSpecToggle').addEventListener('click', () => {
+    STATE.showVocalSpec = !STATE.showVocalSpec;
+    try{ localStorage.setItem(STORAGE_KEYS.showVocalSpec, String(STATE.showVocalSpec)); }catch(e){}
+    renderVocalSpecToggle();
   });
-  document.getElementById('resetKeyBtn').addEventListener('click', () => {
-    if(confirm('APIキーを変更しますか?現在のキーは削除されます。')){
-      try{ localStorage.removeItem(STORAGE_KEYS.apiKey); }catch(e){}
-      STATE.apiKey = null;
-      document.getElementById('settingsModal').classList.remove('visible');
-      showSetupScreen();
-    }
+
+  // Library modal
+  document.getElementById('closeLibraryBtn').addEventListener('click', () => closeModal('libraryModal'));
+  document.getElementById('clearVocalSelectionBtn').addEventListener('click', () => {
+    STATE.vocalSelection = [];
+    saveVocalSelection();
+    renderVocalLibrary();
+    renderActiveVocalBar();
   });
-  document.getElementById('clearAllBtn').addEventListener('click', () => {
-    if(confirm('全てのデータ(APIキー・ボーカルロック・テーマ履歴)を削除しますか?')){
-      try{
-        localStorage.removeItem(STORAGE_KEYS.apiKey);
-        localStorage.removeItem(STORAGE_KEYS.vocalLock);
-        localStorage.removeItem(STORAGE_KEYS.themeHistory);
-      }catch(e){}
-      STATE.apiKey = null;
-      STATE.vocalLock = null;
-      STATE.history = [];
-      document.getElementById('settingsModal').classList.remove('visible');
-      showSetupScreen();
-    }
+
+  // Save vocal modal
+  document.getElementById('cancelSaveVocalBtn').addEventListener('click', () => {
+    closeModal('saveVocalModal');
+    STATE.pendingSaveVocalSpec = null;
   });
+  document.getElementById('confirmSaveVocalBtn').addEventListener('click', confirmSaveVocal);
+  document.getElementById('saveVocalNameInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter') confirmSaveVocal();
+  });
+
+  // Close modals on backdrop click
+  document.querySelectorAll('.modal-backdrop').forEach(bd => {
+    bd.addEventListener('click', e => {
+      if(e.target === bd) bd.classList.remove('visible');
+    });
+  });
+}
+
+function applyUiTheme(){
+  document.documentElement.dataset.theme = STATE.uiTheme;
+  document.querySelector('meta[name="theme-color"]').content = STATE.uiTheme === 'dark' ? '#1a1a1a' : '#ffffff';
+}
+
+function renderThemeToggle(){
+  document.querySelectorAll('[data-theme-set]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.themeSet === STATE.uiTheme);
+  });
+}
+
+function renderVocalSpecToggle(){
+  document.getElementById('showVocalSpecToggle').classList.toggle('on', STATE.showVocalSpec);
+}
+
+function openSettings(){
+  renderThemeToggle();
+  renderVocalSpecToggle();
+  document.getElementById('settingsModal').classList.add('visible');
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove('visible');
+}
+
+function resetApiKey(){
+  if(confirm('APIキーを変更しますか?現在のキーは削除されます。')){
+    try{ localStorage.removeItem(STORAGE_KEYS.apiKey); }catch(e){}
+    STATE.apiKey = null;
+    closeModal('settingsModal');
+    showSetupScreen();
+  }
+}
+
+function clearAllData(){
+  if(confirm('全てのデータ(APIキー・履歴・ボーカルライブラリ・詳細設定)を削除しますか?')){
+    Object.values(STORAGE_KEYS).forEach(k => { try{ localStorage.removeItem(k); }catch(e){} });
+    STATE.apiKey = null;
+    STATE.history = [];
+    STATE.adv = { genre: "", era: "", tempo: "" };
+    STATE.advFreetext = "";
+    STATE.vocalLibrary = [];
+    STATE.vocalSelection = [];
+    closeModal('settingsModal');
+    showSetupScreen();
+  }
 }
 
 function showSetupScreen(){
@@ -313,38 +626,22 @@ function showSetupScreen(){
 
 function showMainApp(){
   document.getElementById('setupScreen').style.display = 'none';
-  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('mainApp').style.display = 'grid';
   document.getElementById('settingsBtn').style.display = 'inline-block';
   setupMainAppHandlers();
-  renderLockBar();
   renderHistory();
+  renderAdv();
+  renderActiveVocalBar();
 }
 
 function handleSaveKey(){
   const input = document.getElementById('apiKeyInput');
   const errorEl = document.getElementById('setupError');
   const key = input.value.trim();
-
-  if(!key){
-    errorEl.textContent = "APIキーを入力してください";
-    errorEl.classList.add('visible');
-    return;
-  }
-  if(!key.startsWith('sk-ant-')){
-    errorEl.textContent = "APIキーの形式が正しくありません(sk-ant-で始まる必要があります)";
-    errorEl.classList.add('visible');
-    return;
-  }
-
-  try{
-    localStorage.setItem(STORAGE_KEYS.apiKey, key);
-    STATE.apiKey = key;
-  }catch(e){
-    errorEl.textContent = "保存に失敗しました: " + e.message;
-    errorEl.classList.add('visible');
-    return;
-  }
-
+  if(!key){ errorEl.textContent = "APIキーを入力してください"; errorEl.classList.add('visible'); return; }
+  if(!key.startsWith('sk-ant-')){ errorEl.textContent = "APIキーの形式が正しくありません(sk-ant-で始まる必要があります)"; errorEl.classList.add('visible'); return; }
+  try{ localStorage.setItem(STORAGE_KEYS.apiKey, key); STATE.apiKey = key; }
+  catch(e){ errorEl.textContent = "保存に失敗しました: " + e.message; errorEl.classList.add('visible'); return; }
   errorEl.classList.remove('visible');
   input.value = '';
   showMainApp();
@@ -366,91 +663,99 @@ function setupMainAppHandlers(){
   });
 
   document.getElementById('rollBtn').addEventListener('click', roll);
-  document.getElementById('unlockBtn').addEventListener('click', () => {
-    STATE.vocalLock = null;
-    try{ localStorage.removeItem(STORAGE_KEYS.vocalLock); }catch(e){}
-    renderLockBar();
-  });
+  document.getElementById('openLibraryBtn').addEventListener('click', openLibrary);
 
   document.getElementById('historyClearBtn').addEventListener('click', () => {
-    if(confirm('履歴を全て削除しますか?(★スター付きも削除されます)')){
+    if(confirm('履歴を全て削除しますか?')){
       STATE.history = [];
       saveHistory();
       renderHistory();
     }
   });
+
+  document.getElementById('advToggle').addEventListener('click', () => {
+    document.getElementById('advToggle').classList.toggle('open');
+    document.getElementById('advPanel').classList.toggle('open');
+  });
+
+  document.querySelectorAll('.adv-options').forEach(group => {
+    const key = group.dataset.adv;
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('.adv-option');
+      if(!btn) return;
+      group.querySelectorAll('.adv-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.adv[key] = btn.dataset.value;
+      saveAdvSettings();
+      renderAdvBadge();
+    });
+  });
+
+  const freetextEl = document.getElementById('advFreetext');
+  freetextEl.value = STATE.advFreetext || '';
+  freetextEl.addEventListener('input', () => {
+    STATE.advFreetext = freetextEl.value;
+    try{ localStorage.setItem(STORAGE_KEYS.advFreetext, STATE.advFreetext); }catch(e){}
+    renderAdvBadge();
+  });
+}
+
+/* ========== ADVANCED SETTINGS ========== */
+function saveAdvSettings(){ try{ localStorage.setItem(STORAGE_KEYS.advSettings, JSON.stringify(STATE.adv)); }catch(e){} }
+function renderAdvBadge(){
+  const badge = document.getElementById('advBadge');
+  let count = Object.values(STATE.adv).filter(v => v).length;
+  if(STATE.advFreetext && STATE.advFreetext.trim()) count += 1;
+  if(count > 0){ badge.style.display = 'inline-block'; badge.textContent = count; }
+  else{ badge.style.display = 'none'; }
+}
+function renderAdv(){
+  document.querySelectorAll('.adv-options').forEach(group => {
+    const key = group.dataset.adv;
+    const savedValue = STATE.adv[key] || "";
+    group.querySelectorAll('.adv-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === savedValue);
+    });
+  });
+  renderAdvBadge();
 }
 
 /* ========== HISTORY ========== */
-function saveHistory(){
-  try{ localStorage.setItem(STORAGE_KEYS.themeHistory, JSON.stringify(STATE.history)); }catch(e){}
-}
-
+function saveHistory(){ try{ localStorage.setItem(STORAGE_KEYS.themeHistory, JSON.stringify(STATE.history)); }catch(e){} }
 function addToHistory(theme){
   if(!theme || !theme.trim()) return;
   const t = theme.trim();
-  // Remove existing match (case-sensitive)
-  const existingIdx = STATE.history.findIndex(item => item.text === t);
+  const existingIdx = STATE.history.findIndex(i => i.text === t);
   let starred = false;
-  if(existingIdx !== -1){
-    starred = STATE.history[existingIdx].starred || false;
-    STATE.history.splice(existingIdx, 1);
-  }
-  // Add to top
-  STATE.history.unshift({ text: t, starred: starred });
-  // Trim, but keep starred items
+  if(existingIdx !== -1){ starred = STATE.history[existingIdx].starred || false; STATE.history.splice(existingIdx, 1); }
+  STATE.history.unshift({ text: t, starred });
   if(STATE.history.length > HISTORY_MAX){
-    const starredItems = STATE.history.filter(i => i.starred);
-    const unstarred = STATE.history.filter(i => !i.starred);
-    const keepUnstarred = unstarred.slice(0, Math.max(0, HISTORY_MAX - starredItems.length));
-    STATE.history = [...starredItems, ...keepUnstarred].slice(0, HISTORY_MAX);
-    // Resort: starred first by their order, then unstarred by their order
-    STATE.history.sort((a,b) => {
-      if(a.starred && !b.starred) return -1;
-      if(!a.starred && b.starred) return 1;
-      return 0;
-    });
-  }else{
-    // Always show starred first
-    STATE.history.sort((a,b) => {
-      if(a.starred && !b.starred) return -1;
-      if(!a.starred && b.starred) return 1;
-      return 0;
-    });
+    const sItems = STATE.history.filter(i => i.starred);
+    const uItems = STATE.history.filter(i => !i.starred);
+    STATE.history = [...sItems, ...uItems.slice(0, Math.max(0, HISTORY_MAX - sItems.length))].slice(0, HISTORY_MAX);
   }
+  STATE.history.sort((a,b) => (b.starred?1:0) - (a.starred?1:0));
   saveHistory();
 }
-
 function toggleStar(idx){
   if(!STATE.history[idx]) return;
   STATE.history[idx].starred = !STATE.history[idx].starred;
-  // Resort: starred first
-  STATE.history.sort((a,b) => {
-    if(a.starred && !b.starred) return -1;
-    if(!a.starred && b.starred) return 1;
-    return 0;
-  });
+  STATE.history.sort((a,b) => (b.starred?1:0) - (a.starred?1:0));
   saveHistory();
   renderHistory();
 }
-
 function deleteHistoryItem(idx){
   if(!STATE.history[idx]) return;
   STATE.history.splice(idx, 1);
   saveHistory();
   renderHistory();
 }
-
 function renderHistory(){
   const section = document.getElementById('historySection');
   const list = document.getElementById('historyList');
-  if(!STATE.history.length){
-    section.style.display = 'none';
-    return;
-  }
+  if(!STATE.history.length){ section.style.display = 'none'; return; }
   section.style.display = 'block';
   list.innerHTML = '';
-
   STATE.history.forEach((item, idx) => {
     const div = document.createElement('div');
     div.className = 'history-item' + (item.starred ? ' starred' : '');
@@ -459,32 +764,152 @@ function renderHistory(){
       <span class="history-text" data-action="use" data-idx="${idx}">${escapeHtml(item.text)}</span>
       <button class="history-delete" data-action="delete" data-idx="${idx}">×</button>
     `;
-    div.addEventListener('click', (e) => {
-      const target = e.target.closest('[data-action]');
-      if(!target) return;
-      const action = target.dataset.action;
-      const i = parseInt(target.dataset.idx);
-      if(action === 'star') toggleStar(i);
-      else if(action === 'delete') deleteHistoryItem(i);
-      else if(action === 'use'){
-        document.getElementById('themeInput').value = STATE.history[i].text;
-      }
+    div.addEventListener('click', e => {
+      const t = e.target.closest('[data-action]');
+      if(!t) return;
+      const i = parseInt(t.dataset.idx);
+      const a = t.dataset.action;
+      if(a === 'star') toggleStar(i);
+      else if(a === 'delete') deleteHistoryItem(i);
+      else if(a === 'use') document.getElementById('themeInput').value = STATE.history[i].text;
     });
     list.appendChild(div);
   });
 }
 
-function renderLockBar(){
-  const bar = document.getElementById('vocalLockBar');
-  const txt = document.getElementById('vocalLockText');
-  if(STATE.vocalLock){
-    bar.style.display = "flex";
-    txt.textContent = STATE.vocalLock;
+/* ========== VOCAL LIBRARY ========== */
+function saveVocalLibrary(){ try{ localStorage.setItem(STORAGE_KEYS.vocalLibrary, JSON.stringify(STATE.vocalLibrary)); }catch(e){} }
+function saveVocalSelection(){ try{ localStorage.setItem(STORAGE_KEYS.vocalSelection, JSON.stringify(STATE.vocalSelection)); }catch(e){} }
+
+function openLibrary(){
+  renderVocalLibrary();
+  document.getElementById('libraryModal').classList.add('visible');
+}
+
+function renderVocalLibrary(){
+  const list = document.getElementById('vocalList');
+  list.innerHTML = '';
+  if(!STATE.vocalLibrary.length){
+    list.innerHTML = '<div class="vocal-empty">保存されたボーカルはまだありません。<br>生成結果のVOCAL SPEC欄から「Save to Library」を押して保存できます。</div>';
+    return;
+  }
+  STATE.vocalLibrary.forEach((v, idx) => {
+    const isSelected = STATE.vocalSelection.includes(v.id);
+    const div = document.createElement('div');
+    div.className = 'vocal-item' + (isSelected ? ' selected' : '');
+    div.innerHTML = `
+      <div class="check" data-action="select" data-id="${escapeHtml(v.id)}">${isSelected ? '✓' : ''}</div>
+      <div class="info" data-action="select" data-id="${escapeHtml(v.id)}">
+        <div class="name">${escapeHtml(v.name)}</div>
+        <div class="spec">${escapeHtml(v.spec)}</div>
+      </div>
+      <div class="actions">
+        <button data-action="rename" data-id="${escapeHtml(v.id)}">改名</button>
+        <button class="danger" data-action="delete-vocal" data-id="${escapeHtml(v.id)}">削除</button>
+      </div>
+    `;
+    div.addEventListener('click', e => {
+      const t = e.target.closest('[data-action]');
+      if(!t) return;
+      const a = t.dataset.action;
+      const id = t.dataset.id;
+      if(a === 'select') toggleVocalSelection(id);
+      else if(a === 'rename') renameVocal(id);
+      else if(a === 'delete-vocal') deleteVocal(id);
+    });
+    list.appendChild(div);
+  });
+}
+
+function toggleVocalSelection(id){
+  const idx = STATE.vocalSelection.indexOf(id);
+  if(idx !== -1){
+    STATE.vocalSelection.splice(idx, 1);
   }else{
-    bar.style.display = "none";
+    if(STATE.vocalSelection.length >= VOCAL_MAX_SELECTION){
+      alert('選択できるのは最大' + VOCAL_MAX_SELECTION + '人までです。\n他のボーカルを解除してから選択してください。');
+      return;
+    }
+    STATE.vocalSelection.push(id);
+  }
+  saveVocalSelection();
+  renderVocalLibrary();
+  renderActiveVocalBar();
+}
+
+function renameVocal(id){
+  const v = STATE.vocalLibrary.find(x => x.id === id);
+  if(!v) return;
+  const newName = prompt('ボーカル名を変更', v.name);
+  if(newName && newName.trim()){
+    v.name = newName.trim();
+    saveVocalLibrary();
+    renderVocalLibrary();
+    renderActiveVocalBar();
   }
 }
 
+function deleteVocal(id){
+  const v = STATE.vocalLibrary.find(x => x.id === id);
+  if(!v) return;
+  if(confirm('「' + v.name + '」を削除しますか?')){
+    STATE.vocalLibrary = STATE.vocalLibrary.filter(x => x.id !== id);
+    STATE.vocalSelection = STATE.vocalSelection.filter(sid => sid !== id);
+    saveVocalLibrary();
+    saveVocalSelection();
+    renderVocalLibrary();
+    renderActiveVocalBar();
+  }
+}
+
+function renderActiveVocalBar(){
+  const list = document.getElementById('activeVocalList');
+  if(!STATE.vocalSelection.length){
+    list.innerHTML = '<span class="active-vocal-empty">なし(AIが自由に選定)</span>';
+    return;
+  }
+  list.innerHTML = '';
+  STATE.vocalSelection.forEach(id => {
+    const v = STATE.vocalLibrary.find(x => x.id === id);
+    if(!v) return;
+    const chip = document.createElement('span');
+    chip.className = 'active-vocal-chip';
+    chip.innerHTML = `${escapeHtml(v.name)} <span class="remove" data-id="${escapeHtml(v.id)}">×</span>`;
+    chip.querySelector('.remove').addEventListener('click', e => {
+      e.stopPropagation();
+      toggleVocalSelection(v.id);
+    });
+    list.appendChild(chip);
+  });
+}
+
+function openSaveVocalDialog(spec){
+  STATE.pendingSaveVocalSpec = spec;
+  document.getElementById('saveVocalPreview').textContent = spec;
+  document.getElementById('saveVocalNameInput').value = '';
+  document.getElementById('saveVocalModal').classList.add('visible');
+  setTimeout(() => document.getElementById('saveVocalNameInput').focus(), 100);
+}
+
+function confirmSaveVocal(){
+  const name = document.getElementById('saveVocalNameInput').value.trim();
+  if(!name){ alert('名前を入力してください'); return; }
+  if(!STATE.pendingSaveVocalSpec) return;
+  const id = 'v_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+  STATE.vocalLibrary.unshift({ id, name, spec: STATE.pendingSaveVocalSpec });
+  saveVocalLibrary();
+  STATE.pendingSaveVocalSpec = null;
+  closeModal('saveVocalModal');
+  renderActiveVocalBar();
+  // Quick feedback
+  const tmpBanner = document.createElement('div');
+  tmpBanner.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:2px;font-family:sans-serif;font-size:13px;font-weight:600;z-index:200;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
+  tmpBanner.textContent = '「' + name + '」を保存しました';
+  document.body.appendChild(tmpBanner);
+  setTimeout(() => tmpBanner.remove(), 2000);
+}
+
+/* ========== RESULTS ========== */
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -498,9 +923,37 @@ function renderResults(recipes){
   recipes.forEach((r, idx) => {
     const card = document.createElement('div');
     card.className = 'card';
-
     const lyricsText = r.lyrics || '';
     const lyricLangLabel = r.lyricsLang === "ja" ? "JA" : (r.lyricsLang === "en" ? "EN" : "JA/EN");
+
+    const vocalFieldHtml = STATE.showVocalSpec ? `
+        <div class="field">
+          <div class="field-head">
+            <div class="field-label">Vocal Spec</div>
+            <div class="field-actions">
+              <button class="icon-btn neutral" data-action="save-vocal">＋ Save to Library</button>
+              <button class="icon-btn" data-action="copy-vocal">Copy</button>
+            </div>
+          </div>
+          <div class="field-value vocal" data-vocal>${escapeHtml(r.vocal || '')}</div>
+        </div>` : '';
+
+    const titles = Array.isArray(r.titles) ? r.titles.slice(0,3) : [];
+    const titlesFieldHtml = titles.length ? `
+        <div class="field">
+          <div class="field-head">
+            <div class="field-label">Title Candidates</div>
+          </div>
+          <div class="title-list">
+            ${titles.map((t, ti) => `
+              <div class="title-item" data-action="copy-title" data-title-idx="${ti}">
+                <span class="title-num">${ti+1}</span>
+                <span class="title-text">${escapeHtml(t)}</span>
+                <span class="title-copy-hint">Click to copy</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>` : '';
 
     card.innerHTML = `
       <div class="card-head">
@@ -513,62 +966,41 @@ function renderResults(recipes){
         </div>
       </div>
       <div class="card-body">
+        ${titlesFieldHtml}
         <div class="field">
           <div class="field-head">
             <div class="field-label">Style Prompt</div>
             <div class="field-actions"><button class="icon-btn" data-action="copy-style">Copy</button></div>
           </div>
-          <div class="field-value style" data-style>${escapeHtml(r.stylePrompt || '')}</div>
+          <div class="field-value style">${escapeHtml(r.stylePrompt || '')}</div>
         </div>
-        <div class="field">
-          <div class="field-head">
-            <div class="field-label">Vocal Spec</div>
-            <div class="field-actions">
-              <button class="icon-btn ${STATE.vocalLock === r.vocal ? 'locked' : 'neutral'}" data-action="lock-vocal">${STATE.vocalLock === r.vocal ? '🔒 Locked' : '🔓 Lock'}</button>
-              <button class="icon-btn" data-action="copy-vocal">Copy</button>
-            </div>
-          </div>
-          <div class="field-value vocal" data-vocal>${escapeHtml(r.vocal || '')}</div>
-        </div>
+        ${vocalFieldHtml}
         <div class="field">
           <div class="field-head">
             <div class="field-label">Lyrics (${lyricLangLabel})</div>
             <div class="field-actions"><button class="icon-btn" data-action="copy-lyrics">Copy</button></div>
           </div>
-          <div class="field-value lyrics" data-lyrics>${escapeHtml(lyricsText)}</div>
+          <div class="field-value lyrics">${escapeHtml(lyricsText)}</div>
         </div>
       </div>
     `;
 
-    card.addEventListener('click', (e) => {
+    card.addEventListener('click', e => {
       const btn = e.target.closest('[data-action]');
       if(!btn) return;
-      const action = btn.dataset.action;
-      if(action === 'copy-style') copyText(r.stylePrompt, btn);
-      else if(action === 'copy-vocal') copyText(r.vocal, btn);
-      else if(action === 'copy-lyrics') copyText(lyricsText, btn);
-      else if(action === 'lock-vocal'){
-        if(STATE.vocalLock === r.vocal){
-          STATE.vocalLock = null;
-          try{ localStorage.removeItem(STORAGE_KEYS.vocalLock); }catch(e){}
-        }else{
-          STATE.vocalLock = r.vocal;
-          try{ localStorage.setItem(STORAGE_KEYS.vocalLock, r.vocal); }catch(e){}
+      const a = btn.dataset.action;
+      if(a === 'copy-style') copyText(r.stylePrompt, btn);
+      else if(a === 'copy-vocal') copyText(r.vocal, btn);
+      else if(a === 'copy-lyrics') copyText(lyricsText, btn);
+      else if(a === 'save-vocal') openSaveVocalDialog(r.vocal);
+      else if(a === 'copy-title'){
+        const ti = parseInt(btn.dataset.titleIdx);
+        const t = titles[ti];
+        if(t){
+          copyText(t, btn);
+          btn.classList.add('copied');
+          setTimeout(() => btn.classList.remove('copied'), 1200);
         }
-        renderLockBar();
-        document.querySelectorAll('[data-action="lock-vocal"]').forEach(b => {
-          const cardEl = b.closest('.card');
-          const vocalEl = cardEl.querySelector('[data-vocal]');
-          if(vocalEl && vocalEl.textContent === STATE.vocalLock){
-            b.classList.add('locked');
-            b.classList.remove('neutral');
-            b.innerHTML = '🔒 Locked';
-          }else{
-            b.classList.remove('locked');
-            b.classList.add('neutral');
-            b.innerHTML = '🔓 Lock';
-          }
-        });
       }
     });
 
@@ -582,26 +1014,18 @@ function copyText(text, btn){
   if(!text) return;
   const fallback = () => {
     const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
     try{ document.execCommand('copy'); }catch(e){}
     document.body.removeChild(ta);
   };
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(text).catch(fallback);
-  }else{
-    fallback();
-  }
+  }else{ fallback(); }
   const original = btn.innerHTML;
   btn.classList.add('copied');
   btn.innerHTML = 'Copied ✓';
-  setTimeout(() => {
-    btn.classList.remove('copied');
-    btn.innerHTML = original;
-  }, 1200);
+  setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1200);
 }
 
 function showError(msg){
@@ -609,10 +1033,7 @@ function showError(msg){
   banner.innerHTML = msg;
   banner.style.display = 'block';
 }
-
-function hideError(){
-  document.getElementById('errorBanner').style.display = 'none';
-}
+function hideError(){ document.getElementById('errorBanner').style.display = 'none'; }
 
 function setLoading(on){
   STATE.loading = on;
@@ -624,7 +1045,8 @@ function setLoading(on){
   }
 }
 
-async function callClaudeAPI(theme, lang, count, vocalLock){
+/* ========== API CALL ========== */
+async function callClaudeAPI(theme, lang, count, selectedVocals, adv, advFreetext){
   const langDescription = {
     ja: "Japanese (natural Japanese; you may sprinkle a few English words for atmosphere if it fits)",
     en: "English",
@@ -633,35 +1055,90 @@ async function callClaudeAPI(theme, lang, count, vocalLock){
   }[lang];
 
   const themeBlock = theme && theme.trim()
-    ? `User's theme/keyword for today: "${theme.trim()}"\nIncorporate this theme into the lyrics. Let it shape the mood and atmosphere of the music style. Be specific and concrete, not abstract.`
-    : `No specific theme given — be bold and surprising. Pick an unexpected scenario, emotion, or scene. Avoid generic "love song" or "sad song" defaults.`;
+    ? `User's theme/keyword for today: "${theme.trim()}"\nIncorporate this theme into the lyrics. Let it shape the mood and atmosphere of the music style. Be specific and concrete.`
+    : `No specific theme — be bold and surprising. Pick an unexpected scenario, emotion, or scene. Avoid generic "love song" or "sad song" defaults.`;
 
-  const vocalBlock = vocalLock
-    ? `LOCKED VOCAL SPEC (use this exact vocal description for ALL ${count} recipe(s) — do not change it): "${vocalLock}"`
-    : `Vocal spec: choose a fresh, specific vocal description for each recipe. Include: gender, register, timbre, era, technique. Make each recipe's vocal distinctly different from the others.`;
+  let vocalBlock;
+  if(selectedVocals && selectedVocals.length === 1){
+    vocalBlock = `LOCKED VOCAL (use this EXACT vocal spec for ALL ${count} recipe(s) — do not change): "${selectedVocals[0].spec}" (named "${selectedVocals[0].name}")`;
+  }else if(selectedVocals && selectedVocals.length === 2){
+    vocalBlock = `LOCKED DUET (use these TWO vocals together as a DUET for ALL ${count} recipe(s) — do not change):\n- Vocal A ("${selectedVocals[0].name}"): "${selectedVocals[0].spec}"\n- Vocal B ("${selectedVocals[1].name}"): "${selectedVocals[1].spec}"\nArrange them as a duet (alternating verses, harmony chorus, call-and-response, etc.). Write the final vocal spec as a clear duet description combining both.`;
+  }else{
+    vocalBlock = `Vocal spec: choose a fresh, specific vocal description for each recipe. Include: gender, register, timbre, era, technique. Make each recipe's vocal distinctly different from the others.`;
+  }
+
+  const constraints = [];
+  if(adv){
+    const genreMap = {
+      jazz_family: "Stay within jazz-related genres: jazz, bossa nova, fusion, jazz hop, nu jazz, swing, acid jazz, cool jazz, smooth jazz, bebop, soul jazz. You may fuse with adjacent genres.",
+      rock_family: "Stay within rock-related genres: indie rock, alt rock, garage rock, post-punk, shoegaze, dream pop, art rock, math rock, psychedelic rock, classic rock, prog rock. You may fuse with adjacent genres.",
+      hiphop_family: "Stay within hip-hop and adjacent genres: boom bap, trap, lo-fi hiphop, jazz hop, cloud rap, neo-soul, R&B, gospel, funk, soul. You may fuse with adjacent genres.",
+      electronic_family: "Stay within electronic genres: ambient, IDM, downtempo, trip hop, synthwave, vaporwave, drum and bass, garage, house, techno, glitch, chillwave, hyperpop. You may fuse with adjacent genres.",
+      acoustic_family: "Stay within acoustic and folk genres: indie folk, americana, bluegrass, country, singer-songwriter, folk rock, celtic folk, finger-style guitar, chamber pop, baroque pop. You may fuse with adjacent genres.",
+      world_family: "Stay within world music genres: bossa nova, samba, afrobeat, reggae, dub, cumbia, mariachi, flamenco, fado, tango, salsa, dancehall, reggaeton, afro house, amapiano. You may fuse with adjacent genres.",
+      pop_family: "Stay within pop genres: city pop, yacht rock, indie pop, bedroom pop, K-pop, J-pop, dream pop, baroque pop, art pop, power pop, new wave. You may fuse with adjacent genres."
+    };
+    if(adv.genre && genreMap[adv.genre]) constraints.push("GENRE: " + genreMap[adv.genre]);
+
+    const eraMap = {
+      "60s_70s": "ERA: 1960s-1970s aesthetic. Vintage production, analog warmth, period-appropriate instrumentation.",
+      "80s": "ERA: 1980s aesthetic. Synthesizers, gated drums, era-defining production techniques.",
+      "90s": "ERA: 1990s aesthetic. Genre-defining sounds of the 90s.",
+      "2000s": "ERA: 2000s aesthetic. Early digital production era sounds.",
+      modern: "ERA: contemporary/modern production. Current production techniques and aesthetics."
+    };
+    if(adv.era && eraMap[adv.era]) constraints.push(eraMap[adv.era]);
+
+    const tempoMap = {
+      ballad: "TEMPO: slow tempo, ballad range (60-85 BPM).",
+      midtempo: "TEMPO: mid-tempo range (90-115 BPM).",
+      uptempo: "TEMPO: up-tempo (120-160 BPM)."
+    };
+    if(adv.tempo && tempoMap[adv.tempo]) constraints.push(tempoMap[adv.tempo]);
+  }
+
+  let freetextBlock = "";
+  if(advFreetext && advFreetext.trim()){
+    freetextBlock = `\n\nADDITIONAL USER INSTRUCTIONS (interpret naturally, may be Japanese, English, or mixed):\n"""${advFreetext.trim()}"""\n\nInterpret these instructions and apply them to ALL ${count} recipe(s). If they conflict with other constraints, prioritize these.`;
+  }
+
+  const constraintsBlock = constraints.length
+    ? `\n\nUSER CONSTRAINTS (must follow):\n- ${constraints.join("\n- ")}\n\nWithin these constraints, still be unpredictable and avoid clichés.`
+    : "";
 
   const systemPrompt = `You are a music prompt generator for Suno AI. Your job is to create COMPLETE, READY-TO-USE music recipes that the user copy-pastes into Suno.
 
 CRITICAL RULES:
-1. Each recipe must feel DIFFERENT from typical AI suggestions. AVOID overused clichés: "lo-fi chill beats", "synthwave", "dreamy bedroom pop", "indie folk acoustic", "ambient electronic" — unless the theme strongly demands them.
-2. ACTIVELY mix unexpected genres, eras, instruments. Genre fusion is encouraged: "bossa nova × shoegaze", "afrobeat × americana", "jazz fusion × dub", "tango × post-rock".
-3. The user has been making LOVE PSYCHEDELICO-style female vocal pop daily for a long time. Push them OUT of that comfort zone. Use male vocals, duets, vintage styles, world music, anything unexpected — unless the theme/lock specifically calls for the comfort zone.
-4. Style prompts must be in ENGLISH (Suno understands English best), comma-separated, ~40-70 words. Include in this order: genre(s), era, mood, tempo + BPM, key/mode, vocal spec, instrumentation, production texture.
-5. Lyrics must be a FULL SONG STRUCTURE ready to paste into Suno's Lyrics field. Use Suno's section tags: [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro]. Each section should have 2-4 lines. Total 20-30 lines including tags. Lyrics must be evocative and SPECIFIC (concrete imagery, sensory detail, real settings — never abstract platitudes like "love is forever" or "in my heart"). In the requested language. The chorus should be repeatable and memorable. Different verses should advance the story or shift perspective.
-6. Tags (genre/mood/era/tempo) are short labels for display, separate from the full style prompt.
+1. Each recipe must feel DIFFERENT from typical AI suggestions. AVOID overused clichés: "lo-fi chill beats", "synthwave", "dreamy bedroom pop", "indie folk acoustic", "ambient electronic" — unless theme strongly demands them.
+2. ACTIVELY mix unexpected genres, eras, instruments. Genre fusion is encouraged.
+3. Push the user OUT of comfort zones unless theme/lock/constraints specifically call for them.
+4. Style prompts must be in ENGLISH, comma-separated, ~40-70 words. Include: genre(s), era, mood, tempo+BPM, key/mode, vocal spec, instrumentation, production texture.
+5. Lyrics must be FULL SONG STRUCTURE ready to paste into Suno's Lyrics field. Use Suno section tags: [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro]. Each section 2-4 lines. Total 20-30 lines including tags. Evocative and SPECIFIC (concrete imagery, sensory detail). In requested language. Chorus repeatable and memorable.
+6. Tags (genre/mood/era/tempo) are short labels for display, separate from full style prompt.
+7. Title candidates: provide EXACTLY 3 English song title candidates for each recipe.
+   - ALWAYS English, regardless of the lyrics language.
+   - STRICT length: 1 word minimum, 2 words MAXIMUM. NEVER 3+ words.
+   - NO articles "the/a/an" unless they ARE the whole title (like "The Drift").
+   - NO descriptive sentences. NO explanatory phrases.
+   - Stylish, evocative, memorable. Think iconic single-word band/album titles: "Static", "Drift", "Neon", "Vapor", "Tailights", "After Hours", "Blue Hour", "Last Call", "Midnight Run".
+   - Make the 3 candidates STYLISTICALLY DIFFERENT from each other:
+     * Title 1: single evocative noun or vivid one-word image
+     * Title 2: two-word noun phrase (e.g., "Neon Drift")
+     * Title 3: verb-based or unusual angle (e.g., "Burn Slow", "Hold Still")
 
 Output ONLY valid JSON, no markdown code fences, no explanation. Format:
 {
   "recipes": [
     {
-      "genre": "short label, e.g. 'jazz × dub' or 'tango'",
-      "mood": "1-3 word mood label, e.g. 'nostalgic' or 'midnight drive'",
-      "era": "era label, e.g. 'late 70s' or 'modern'",
-      "tempo": "tempo label with BPM, e.g. '95 BPM'",
+      "genre": "short label",
+      "mood": "1-3 word mood label",
+      "era": "era label",
+      "tempo": "tempo label with BPM",
       "vocal": "detailed vocal spec for Suno, English",
-      "stylePrompt": "full Suno style prompt, English, comma-separated, 40-70 words",
-      "lyrics": "FULL song lyrics with [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro] section tags, separated by \\n",
-      "lyricsLang": "ja | en | mix"
+      "stylePrompt": "full Suno style prompt, English, comma-separated",
+      "lyrics": "FULL song lyrics with [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro] tags, separated by \\n",
+      "lyricsLang": "ja | en | mix",
+      "titles": ["Title 1 (English, 1-2 words)", "Title 2 (English, 1-2 words)", "Title 3 (English, 1-2 words)"]
     }
   ]
 }`;
@@ -672,9 +1149,9 @@ ${themeBlock}
 
 Lyrics language: ${langDescription}
 
-${vocalBlock}
+${vocalBlock}${constraintsBlock}${freetextBlock}
 
-Remember: each recipe must be distinctly different from the others. Push genre boundaries. Be unpredictable.
+Remember: each recipe must be distinctly different. Push genre boundaries within constraints. Be unpredictable.
 
 Output JSON only.`;
 
@@ -696,10 +1173,7 @@ Output JSON only.`;
 
   if(!response.ok){
     let errMsg = "API error " + response.status;
-    try{
-      const errData = await response.json();
-      if(errData.error && errData.error.message) errMsg += ": " + errData.error.message;
-    }catch(e){}
+    try{ const errData = await response.json(); if(errData.error && errData.error.message) errMsg += ": " + errData.error.message; }catch(e){}
     throw new Error(errMsg);
   }
 
@@ -708,51 +1182,39 @@ Output JSON only.`;
   if(data.content && Array.isArray(data.content)){
     text = data.content.filter(b => b.type === "text").map(b => b.text).join("\n");
   }
-
   text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
 
   let parsed;
-  try{
-    parsed = JSON.parse(text);
-  }catch(e){
-    throw new Error("レスポンスのJSON解析に失敗しました。もう一度お試しください。");
-  }
-
+  try{ parsed = JSON.parse(text); }
+  catch(e){ throw new Error("レスポンスのJSON解析に失敗しました。もう一度お試しください。"); }
   if(!parsed.recipes || !Array.isArray(parsed.recipes) || parsed.recipes.length === 0){
     throw new Error("レシピが生成されませんでした。もう一度お試しください。");
   }
-
   return parsed.recipes;
 }
 
 async function roll(){
   if(STATE.loading) return;
-
   hideError();
   const theme = document.getElementById('themeInput').value;
-
+  const selectedVocals = STATE.vocalSelection
+    .map(id => STATE.vocalLibrary.find(v => v.id === id))
+    .filter(Boolean);
   setLoading(true);
-
   try{
-    const recipes = await callClaudeAPI(theme, STATE.lang, STATE.count, STATE.vocalLock);
+    const recipes = await callClaudeAPI(theme, STATE.lang, STATE.count, selectedVocals, STATE.adv, STATE.advFreetext);
     renderResults(recipes);
-    // Save theme to history if non-empty
-    if(theme && theme.trim()){
-      addToHistory(theme);
-      renderHistory();
-    }
+    if(theme && theme.trim()){ addToHistory(theme); renderHistory(); }
   }catch(err){
     console.error(err);
     let msg = "<strong>エラーが発生しました</strong><br>" + escapeHtml(err.message || String(err));
     if(String(err.message || "").includes("401") || String(err.message || "").includes("authentication")){
       msg += '<br><br>APIキーが無効な可能性があります。設定からキーを確認してください。';
     }else if(String(err.message || "").includes("credit") || String(err.message || "").includes("billing")){
-      msg += '<br><br>クレジット残高が不足している可能性があります。<a href="https://console.anthropic.com/settings/billing" target="_blank" style="color:var(--accent)">Anthropic Console</a>で確認してください。';
+      msg += '<br><br>クレジット残高が不足している可能性があります。<a href="https://console.anthropic.com/settings/billing" target="_blank">Anthropic Console</a>で確認してください。';
     }
     showError(msg);
-  }finally{
-    setLoading(false);
-  }
+  }finally{ setLoading(false); }
 }
 
 init();
