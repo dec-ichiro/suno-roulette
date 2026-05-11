@@ -127,7 +127,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 
 <header>
   <div class="logo"><span class="r">R</span>OULETTE</div>
-  <div class="tagline">Suno Prompt Generator / v2.1</div>
+  <div class="tagline">Suno Prompt Generator / v2.2</div>
   <div class="header-meta">
     DEC<br>
     <span id="dateLabel"></span><br>
@@ -213,7 +213,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 
 <footer>
-  SUNO ROULETTE v2.1 / DEC<br>
+  SUNO ROULETTE v2.2 / DEC<br>
   Built for ICHIRO
 </footer>
 
@@ -647,7 +647,7 @@ CRITICAL RULES:
 2. ACTIVELY mix unexpected genres, eras, instruments. Genre fusion is encouraged: "bossa nova × shoegaze", "afrobeat × americana", "jazz fusion × dub", "tango × post-rock".
 3. The user has been making LOVE PSYCHEDELICO-style female vocal pop daily for a long time. Push them OUT of that comfort zone. Use male vocals, duets, vintage styles, world music, anything unexpected — unless the theme/lock specifically calls for the comfort zone.
 4. Style prompts must be in ENGLISH (Suno understands English best), comma-separated, ~40-70 words. Include in this order: genre(s), era, mood, tempo + BPM, key/mode, vocal spec, instrumentation, production texture.
-5. Lyrics must be 4 lines, evocative and SPECIFIC (concrete imagery, sensory detail, real settings — never abstract platitudes like "love is forever" or "in my heart"). In the requested language.
+5. Lyrics must be a FULL SONG STRUCTURE ready to paste into Suno's Lyrics field. Use Suno's section tags: [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro]. Each section should have 2-4 lines. Total 20-30 lines including tags. Lyrics must be evocative and SPECIFIC (concrete imagery, sensory detail, real settings — never abstract platitudes like "love is forever" or "in my heart"). In the requested language. The chorus should be repeatable and memorable. Different verses should advance the story or shift perspective.
 6. Tags (genre/mood/era/tempo) are short labels for display, separate from the full style prompt.
 
 Output ONLY valid JSON, no markdown code fences, no explanation. Format:
@@ -660,7 +660,7 @@ Output ONLY valid JSON, no markdown code fences, no explanation. Format:
       "tempo": "tempo label with BPM, e.g. '95 BPM'",
       "vocal": "detailed vocal spec for Suno, English",
       "stylePrompt": "full Suno style prompt, English, comma-separated, 40-70 words",
-      "lyrics": "4 lines of lyrics in the requested language, separated by \\n",
+      "lyrics": "FULL song lyrics with [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro] section tags, separated by \\n",
       "lyricsLang": "ja | en | mix"
     }
   ]
@@ -688,7 +688,7 @@ Output JSON only.`;
     },
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 4000,
+      max_tokens: 8000,
       system: systemPrompt,
       messages: [{ role: "user", content: userPrompt }]
     })
