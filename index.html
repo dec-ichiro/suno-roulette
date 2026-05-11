@@ -39,6 +39,8 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .header-meta{position:absolute;top:18px;right:0;font-family:"Helvetica Neue",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-dim);text-align:right;line-height:1.6}
 .settings-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase;font-weight:600}
 .settings-btn:hover{color:var(--accent);border-color:var(--accent)}
+.header-btns{display:flex;flex-direction:column;gap:4px;align-items:flex-end;margin-top:6px}
+.header-btns .settings-btn{margin-top:0}
 
 /* Setup screen */
 .setup-screen{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:24px;margin-bottom:20px}
@@ -238,6 +240,39 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .save-vocal-input:focus{outline:none;border-color:var(--accent)}
 .save-vocal-preview{background:var(--bg);border:1px solid var(--line);padding:10px;border-radius:2px;font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.6;margin:10px 0;max-height:80px;overflow-y:auto}
 
+/* Recipe history */
+.modal-wide{max-width:720px}
+.history-count{font-family:"Helvetica Neue",sans-serif;font-size:12px;color:var(--ink-faint);font-weight:600;letter-spacing:0.15em;margin-left:8px}
+.recipe-history-list{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow-y:auto;margin-bottom:14px}
+.rh-empty{text-align:center;padding:40px 16px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;font-style:italic}
+.rh-item{background:var(--bg);border:1px solid var(--line);border-radius:2px;overflow:hidden;transition:border-color 0.15s}
+.rh-item.starred{border-left:3px solid var(--accent)}
+.rh-header{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;background:transparent;transition:background 0.15s}
+.rh-header:hover{background:var(--bg-3)}
+.rh-star{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:18px;flex-shrink:0}
+.rh-star.active{color:var(--accent)}
+.rh-title-area{flex:1;min-width:0;overflow:hidden}
+.rh-title{font-family:"Times New Roman",serif;font-size:15px;font-weight:700;font-style:italic;color:var(--ink);letter-spacing:0.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rh-meta{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
+.rh-genre{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.1em;padding:1px 5px;background:var(--accent-soft);color:var(--accent);border-radius:2px;text-transform:uppercase;font-weight:700}
+.rh-date{font-family:"Helvetica Neue",monospace;font-size:10px;color:var(--ink-faint);letter-spacing:0.05em}
+.rh-expand-arrow{color:var(--ink-faint);font-size:12px;flex-shrink:0;transition:transform 0.2s}
+.rh-item.expanded .rh-expand-arrow{transform:rotate(90deg)}
+.rh-delete{background:transparent;border:none;color:var(--ink-faint);font-size:16px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
+.rh-delete:hover{color:var(--error)}
+.rh-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--line);background:var(--bg-2)}
+.rh-item.expanded .rh-detail{display:block}
+.rh-section{margin-top:12px}
+.rh-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:8px}
+.rh-section-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
+.rh-section-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:10px;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+.rh-section-value.mono{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.6}
+.rh-section-value.lyrics{font-family:"Hiragino Mincho ProN",serif;font-size:13px;line-height:1.85}
+.rh-titles{display:flex;flex-wrap:wrap;gap:6px}
+.rh-title-chip{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:4px 10px;font-size:12px;font-family:"Times New Roman",serif;font-style:italic;font-weight:600;border-radius:2px;cursor:pointer;transition:all 0.15s}
+.rh-title-chip:hover{background:var(--accent-soft)}
+.rh-title-chip.copied{background:var(--accent);color:#fff}
+
 footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8;font-weight:600}
 
 @media (max-width:380px){.logo{font-size:30px}.logo .r{font-size:40px}.roll{font-size:22px;padding:22px}}
@@ -248,11 +283,14 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 
 <header>
   <div class="logo"><span class="r">R</span>OULETTE</div>
-  <div class="tagline">Suno Prompt Generator / v3.1</div>
+  <div class="tagline">Suno Prompt Generator / v3.2</div>
   <div class="header-meta">
     DEC<br>
     <span id="dateLabel"></span><br>
-    <button class="settings-btn" id="settingsBtn" style="display:none">⚙ Settings</button>
+    <div class="header-btns" id="headerBtns" style="display:none">
+      <button class="settings-btn" id="historyBtn">📜 履歴</button>
+      <button class="settings-btn" id="settingsBtn">⚙ Settings</button>
+    </div>
   </div>
 </header>
 
@@ -382,7 +420,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 
 <footer>
-  SUNO ROULETTE v3.1 / DEC<br>
+  SUNO ROULETTE v3.2 / DEC<br>
   Built for ICHIRO
 </footer>
 
@@ -456,6 +494,21 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
   </div>
 </div>
 
+<!-- Recipe History Modal -->
+<div class="modal-backdrop" id="historyModal">
+  <div class="modal modal-wide">
+    <div class="modal-title">生成履歴 <span id="historyCount" class="history-count"></span></div>
+    <div class="vocal-helper">
+      過去にSPINで生成したレシピが自動保存されます(最大100件、★スター付きは保護)。
+    </div>
+    <div class="recipe-history-list" id="recipeHistoryList"></div>
+    <div class="modal-actions">
+      <button class="modal-btn danger" id="clearRecipeHistoryBtn">全削除</button>
+      <button class="modal-btn primary" id="closeHistoryBtn">閉じる</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEYS = {
   apiKey: "suno_roulette_api_key_v3",
@@ -465,11 +518,13 @@ const STORAGE_KEYS = {
   vocalLibrary: "suno_roulette_vocal_library_v3",
   vocalSelection: "suno_roulette_vocal_selection_v3",
   uiTheme: "suno_roulette_ui_theme_v3",
-  showVocalSpec: "suno_roulette_show_vocal_spec_v3"
+  showVocalSpec: "suno_roulette_show_vocal_spec_v3",
+  recipeHistory: "suno_roulette_recipe_history_v3"
 };
 
 const HISTORY_MAX = 10;
 const VOCAL_MAX_SELECTION = 2;
+const RECIPE_HISTORY_MAX = 100;
 
 const STATE = {
   count: 1,
@@ -483,7 +538,8 @@ const STATE = {
   vocalSelection: [],
   uiTheme: "dark",
   showVocalSpec: true,
-  pendingSaveVocalSpec: null
+  pendingSaveVocalSpec: null,
+  recipeHistory: []
 };
 
 const LOADING_MESSAGES = [
@@ -508,6 +564,7 @@ function init(){
   try{ const s = localStorage.getItem(STORAGE_KEYS.vocalSelection); if(s) STATE.vocalSelection = JSON.parse(s); }catch(e){}
   try{ const t = localStorage.getItem(STORAGE_KEYS.uiTheme); if(t) STATE.uiTheme = t; }catch(e){}
   try{ const sv = localStorage.getItem(STORAGE_KEYS.showVocalSpec); if(sv !== null) STATE.showVocalSpec = sv === "true"; }catch(e){}
+  try{ const rh = localStorage.getItem(STORAGE_KEYS.recipeHistory); if(rh) STATE.recipeHistory = JSON.parse(rh); }catch(e){ STATE.recipeHistory = []; }
 
   applyUiTheme();
 
@@ -524,6 +581,11 @@ function init(){
   document.getElementById('closeModalBtn').addEventListener('click', () => closeModal('settingsModal'));
   document.getElementById('resetKeyBtn').addEventListener('click', resetApiKey);
   document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+
+  // Recipe history modal
+  document.getElementById('historyBtn').addEventListener('click', openRecipeHistory);
+  document.getElementById('closeHistoryBtn').addEventListener('click', () => closeModal('historyModal'));
+  document.getElementById('clearRecipeHistoryBtn').addEventListener('click', clearAllRecipeHistory);
 
   // Theme toggle
   document.querySelectorAll('[data-theme-set]').forEach(btn => {
@@ -604,7 +666,7 @@ function resetApiKey(){
 }
 
 function clearAllData(){
-  if(confirm('全てのデータ(APIキー・履歴・ボーカルライブラリ・詳細設定)を削除しますか?')){
+  if(confirm('全てのデータ(APIキー・履歴・生成履歴・ボーカルライブラリ・詳細設定)を削除しますか?')){
     Object.values(STORAGE_KEYS).forEach(k => { try{ localStorage.removeItem(k); }catch(e){} });
     STATE.apiKey = null;
     STATE.history = [];
@@ -612,26 +674,27 @@ function clearAllData(){
     STATE.advFreetext = "";
     STATE.vocalLibrary = [];
     STATE.vocalSelection = [];
+    STATE.recipeHistory = [];
     closeModal('settingsModal');
     showSetupScreen();
   }
 }
 
-function showSetupScreen(){
-  document.getElementById('setupScreen').style.display = 'block';
-  document.getElementById('mainApp').style.display = 'none';
-  document.getElementById('settingsBtn').style.display = 'none';
-  setTimeout(() => document.getElementById('apiKeyInput').focus(), 100);
-}
-
 function showMainApp(){
   document.getElementById('setupScreen').style.display = 'none';
   document.getElementById('mainApp').style.display = 'grid';
-  document.getElementById('settingsBtn').style.display = 'inline-block';
+  document.getElementById('headerBtns').style.display = 'flex';
   setupMainAppHandlers();
   renderHistory();
   renderAdv();
   renderActiveVocalBar();
+}
+
+function showSetupScreen(){
+  document.getElementById('setupScreen').style.display = 'block';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('headerBtns').style.display = 'none';
+  setTimeout(() => document.getElementById('apiKeyInput').focus(), 100);
 }
 
 function handleSaveKey(){
@@ -909,7 +972,171 @@ function confirmSaveVocal(){
   setTimeout(() => tmpBanner.remove(), 2000);
 }
 
-/* ========== RESULTS ========== */
+/* ========== RECIPE HISTORY ========== */
+function saveRecipeHistory(){ try{ localStorage.setItem(STORAGE_KEYS.recipeHistory, JSON.stringify(STATE.recipeHistory)); }catch(e){} }
+
+function addRecipesToHistory(recipes, theme){
+  const now = Date.now();
+  recipes.forEach(r => {
+    const entry = {
+      id: 'r_' + now + '_' + Math.random().toString(36).slice(2, 8),
+      timestamp: now,
+      theme: theme || '',
+      starred: false,
+      recipe: r
+    };
+    STATE.recipeHistory.unshift(entry);
+  });
+  // Trim, but keep starred items
+  if(STATE.recipeHistory.length > RECIPE_HISTORY_MAX){
+    const starred = STATE.recipeHistory.filter(e => e.starred);
+    const unstarred = STATE.recipeHistory.filter(e => !e.starred);
+    const keepUnstarred = unstarred.slice(0, Math.max(0, RECIPE_HISTORY_MAX - starred.length));
+    STATE.recipeHistory = [...STATE.recipeHistory.slice(0, recipes.length), ...keepUnstarred].slice(0, RECIPE_HISTORY_MAX);
+    // Re-sort: newest first, but ensure new entries stay on top
+    STATE.recipeHistory.sort((a,b) => b.timestamp - a.timestamp);
+  }
+  saveRecipeHistory();
+}
+
+function openRecipeHistory(){
+  renderRecipeHistory();
+  document.getElementById('historyModal').classList.add('visible');
+}
+
+function formatDate(ts){
+  const d = new Date(ts);
+  const today = new Date();
+  const isToday = d.toDateString() === today.toDateString();
+  const yest = new Date(); yest.setDate(yest.getDate()-1);
+  const isYest = d.toDateString() === yest.toDateString();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  if(isToday) return `今日 ${hh}:${mm}`;
+  if(isYest) return `昨日 ${hh}:${mm}`;
+  return `${d.getMonth()+1}/${d.getDate()} ${hh}:${mm}`;
+}
+
+function renderRecipeHistory(){
+  const list = document.getElementById('recipeHistoryList');
+  const countEl = document.getElementById('historyCount');
+  countEl.textContent = `(${STATE.recipeHistory.length} / ${RECIPE_HISTORY_MAX})`;
+  list.innerHTML = '';
+  if(!STATE.recipeHistory.length){
+    list.innerHTML = '<div class="rh-empty">まだ履歴はありません。<br>SPINで生成すると自動的に保存されます。</div>';
+    return;
+  }
+  STATE.recipeHistory.forEach((entry, idx) => {
+    const r = entry.recipe;
+    const titles = Array.isArray(r.titles) ? r.titles : [];
+    const displayTitle = titles[0] || r.genre || '(タイトルなし)';
+    const lyricsText = r.lyrics || '';
+    const themeChip = entry.theme ? `<span class="rh-genre" style="background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim)">${escapeHtml(entry.theme.substring(0,20))}${entry.theme.length>20?'…':''}</span>` : '';
+
+    const div = document.createElement('div');
+    div.className = 'rh-item' + (entry.starred ? ' starred' : '');
+    div.dataset.id = entry.id;
+    div.innerHTML = `
+      <div class="rh-header" data-action="expand">
+        <button class="rh-star ${entry.starred?'active':''}" data-action="star">${entry.starred?'★':'☆'}</button>
+        <div class="rh-title-area">
+          <div class="rh-title">${escapeHtml(displayTitle)}</div>
+          <div class="rh-meta">
+            ${r.genre ? `<span class="rh-genre">${escapeHtml(r.genre)}</span>` : ''}
+            ${themeChip}
+            <span class="rh-date">${formatDate(entry.timestamp)}</span>
+          </div>
+        </div>
+        <span class="rh-expand-arrow">▶</span>
+        <button class="rh-delete" data-action="delete">×</button>
+      </div>
+      <div class="rh-detail">
+        ${titles.length ? `
+        <div class="rh-section">
+          <div class="rh-section-head"><div class="rh-section-label">Title Candidates</div></div>
+          <div class="rh-titles">
+            ${titles.map(t => `<button class="rh-title-chip" data-action="copy-title" data-text="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}
+          </div>
+        </div>` : ''}
+        <div class="rh-section">
+          <div class="rh-section-head">
+            <div class="rh-section-label">Style Prompt</div>
+            <button class="icon-btn" data-action="copy-style">Copy</button>
+          </div>
+          <div class="rh-section-value mono">${escapeHtml(r.stylePrompt || '')}</div>
+        </div>
+        ${r.vocal ? `
+        <div class="rh-section">
+          <div class="rh-section-head">
+            <div class="rh-section-label">Vocal Spec</div>
+            <button class="icon-btn" data-action="copy-vocal">Copy</button>
+          </div>
+          <div class="rh-section-value mono">${escapeHtml(r.vocal)}</div>
+        </div>` : ''}
+        <div class="rh-section">
+          <div class="rh-section-head">
+            <div class="rh-section-label">Lyrics</div>
+            <button class="icon-btn" data-action="copy-lyrics">Copy</button>
+          </div>
+          <div class="rh-section-value lyrics">${escapeHtml(lyricsText)}</div>
+        </div>
+      </div>
+    `;
+
+    div.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if(!btn) return;
+      e.stopPropagation();
+      const a = btn.dataset.action;
+      const id = entry.id;
+      if(a === 'star'){
+        toggleRecipeStar(id);
+      }else if(a === 'delete'){
+        if(confirm('このレシピを削除しますか?')){
+          deleteRecipeFromHistory(id);
+        }
+      }else if(a === 'expand'){
+        div.classList.toggle('expanded');
+      }else if(a === 'copy-style'){
+        copyText(r.stylePrompt, btn);
+      }else if(a === 'copy-vocal'){
+        copyText(r.vocal, btn);
+      }else if(a === 'copy-lyrics'){
+        copyText(lyricsText, btn);
+      }else if(a === 'copy-title'){
+        copyText(btn.dataset.text, btn);
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1200);
+      }
+    });
+
+    list.appendChild(div);
+  });
+}
+
+function toggleRecipeStar(id){
+  const entry = STATE.recipeHistory.find(e => e.id === id);
+  if(!entry) return;
+  entry.starred = !entry.starred;
+  saveRecipeHistory();
+  renderRecipeHistory();
+}
+
+function deleteRecipeFromHistory(id){
+  STATE.recipeHistory = STATE.recipeHistory.filter(e => e.id !== id);
+  saveRecipeHistory();
+  renderRecipeHistory();
+}
+
+function clearAllRecipeHistory(){
+  if(!confirm('履歴を全て削除しますか?(★スター付きも削除されます)')) return;
+  STATE.recipeHistory = [];
+  saveRecipeHistory();
+  renderRecipeHistory();
+}
+
+/* ========== END RECIPE HISTORY ========== */
+
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -1204,6 +1431,7 @@ async function roll(){
   try{
     const recipes = await callClaudeAPI(theme, STATE.lang, STATE.count, selectedVocals, STATE.adv, STATE.advFreetext);
     renderResults(recipes);
+    addRecipesToHistory(recipes, theme);
     if(theme && theme.trim()){ addToHistory(theme); renderHistory(); }
   }catch(err){
     console.error(err);
