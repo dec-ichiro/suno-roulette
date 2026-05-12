@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja" data-theme="dark">
 <head>
 <meta charset="UTF-8">
@@ -32,258 +33,299 @@ body{min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right
 .app{max-width:560px;margin:0 auto;padding:20px 18px 80px}
 @media (min-width:960px){.app{max-width:1100px;padding:24px 28px 80px}}
 
-header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px;position:relative}
-.logo{font-family:"Times New Roman",serif;font-size:34px;font-weight:900;letter-spacing:0.02em;line-height:0.9}
-.logo .r{color:var(--accent);font-style:italic;font-size:46px}
-.tagline{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.4em;color:var(--ink-faint);margin-top:10px;text-transform:uppercase;font-weight:600}
-.header-meta{position:absolute;top:18px;right:0;font-family:"Helvetica Neue",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-dim);text-align:right;line-height:1.6}
-.settings-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase;font-weight:600}
-.settings-btn:hover{color:var(--accent);border-color:var(--accent)}
+header{padding:18px 0 24px;border-bottom:1px solid var(–line);margin-bottom:24px;position:relative}
+.logo{font-family:“Times New Roman”,serif;font-size:34px;font-weight:900;letter-spacing:0.02em;line-height:0.9}
+.logo .r{color:var(–accent);font-style:italic;font-size:46px}
+.tagline{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.4em;color:var(–ink-faint);margin-top:10px;text-transform:uppercase;font-weight:600}
+.header-meta{position:absolute;top:18px;right:0;font-family:“Helvetica Neue”,monospace;font-size:10px;letter-spacing:0.15em;color:var(–ink-dim);text-align:right;line-height:1.6}
+.settings-btn{background:transparent;border:1px solid var(–line-strong);color:var(–ink-dim);padding:6px 10px;cursor:pointer;border-radius:2px;font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.2em;margin-top:6px;text-transform:uppercase;font-weight:600}
+.settings-btn:hover{color:var(–accent);border-color:var(–accent)}
 .header-btns{display:flex;flex-direction:column;gap:4px;align-items:flex-end;margin-top:6px}
 .header-btns .settings-btn{margin-top:0}
 
 /* Setup screen */
-.setup-screen{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:24px;margin-bottom:20px}
-.setup-title{font-family:"Times New Roman",serif;font-size:22px;font-weight:bold;margin-bottom:12px;color:var(--ink)}
-.setup-desc{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:18px;font-family:"Helvetica Neue",sans-serif}
-.setup-desc strong{color:var(--accent);font-weight:700}
-.setup-input{width:100%;padding:12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Helvetica Neue",monospace;font-size:12px;border-radius:2px;margin-bottom:12px}
-.setup-input:focus{outline:none;border-color:var(--accent)}
-.setup-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;font-family:"Times New Roman",serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
+.setup-screen{background:var(–bg-2);border:1px solid var(–line);border-radius:2px;padding:24px;margin-bottom:20px}
+.setup-title{font-family:“Times New Roman”,serif;font-size:22px;font-weight:bold;margin-bottom:12px;color:var(–ink)}
+.setup-desc{font-size:13px;line-height:1.7;color:var(–ink-dim);margin-bottom:18px;font-family:“Helvetica Neue”,sans-serif}
+.setup-desc strong{color:var(–accent);font-weight:700}
+.setup-input{width:100%;padding:12px;background:var(–bg);border:1px solid var(–line-strong);color:var(–ink);font-family:“Helvetica Neue”,monospace;font-size:12px;border-radius:2px;margin-bottom:12px}
+.setup-input:focus{outline:none;border-color:var(–accent)}
+.setup-btn{width:100%;padding:14px;background:var(–accent);color:#fff;border:none;font-family:“Times New Roman”,serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
 .setup-btn:active{transform:scale(0.98)}
-.setup-error{color:var(--error);font-size:12px;font-family:"Helvetica Neue",sans-serif;margin-top:10px;padding:10px;background:rgba(255,85,85,0.08);border:1px solid var(--error);border-radius:2px;display:none}
+.setup-error{color:var(–error);font-size:12px;font-family:“Helvetica Neue”,sans-serif;margin-top:10px;padding:10px;background:rgba(255,85,85,0.08);border:1px solid var(–error);border-radius:2px;display:none}
 .setup-error.visible{display:block}
-.setup-help{font-size:12px;line-height:1.6;color:var(--ink-dim);margin-top:14px;font-family:"Helvetica Neue",sans-serif;padding-top:14px;border-top:1px solid var(--line)}
-.setup-help a{color:var(--accent);text-decoration:none;font-weight:600}
+.setup-help{font-size:12px;line-height:1.6;color:var(–ink-dim);margin-top:14px;font-family:“Helvetica Neue”,sans-serif;padding-top:14px;border-top:1px solid var(–line)}
+.setup-help a{color:var(–accent);text-decoration:none;font-weight:600}
 
 /* Main layout */
 .main-layout{display:grid;grid-template-columns:1fr;gap:0}
 @media (min-width:960px){
-  .main-layout{grid-template-columns:1fr 1.3fr;gap:28px}
-  .input-pane{position:sticky;top:20px;align-self:start}
+.main-layout{grid-template-columns:1fr 1.3fr;gap:28px}
+.input-pane{position:sticky;top:20px;align-self:start}
 }
 
 /* Theme input */
 .theme-input-wrap{margin-bottom:14px}
-.theme-input-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
-.theme-input{width:100%;padding:12px 14px;background:var(--bg-2);border:1px solid var(--accent);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:14px;border-radius:2px;transition:border-color 0.15s}
-.theme-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
-.theme-input::placeholder{color:var(--ink-faint)}
-.theme-hint{font-size:11px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:6px;letter-spacing:0.05em}
+.theme-input-label{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
+.theme-input{width:100%;padding:12px 14px;background:var(–bg-2);border:1px solid var(–accent);color:var(–ink);font-family:“Hiragino Mincho ProN”,serif;font-size:14px;border-radius:2px;transition:border-color 0.15s}
+.theme-input:focus{outline:none;border-color:var(–accent);box-shadow:0 0 0 2px var(–accent-soft)}
+.theme-input::placeholder{color:var(–ink-faint)}
+.theme-hint{font-size:11px;color:var(–ink-dim);font-family:“Helvetica Neue”,sans-serif;margin-top:6px;letter-spacing:0.05em}
 
 /* Active vocal display */
-.active-vocal-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:10px 12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.active-vocal-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;font-weight:700}
+.active-vocal-bar{background:var(–bg-2);border:1px solid var(–accent);border-radius:2px;padding:10px 12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.active-vocal-label{font-family:“Helvetica Neue”,sans-serif;font-size:9px;letter-spacing:0.25em;color:var(–accent);text-transform:uppercase;font-weight:700}
 .active-vocal-list{flex:1;display:flex;gap:6px;flex-wrap:wrap;min-width:0}
-.active-vocal-chip{display:inline-flex;align-items:center;gap:5px;background:var(--accent-soft);border:1px solid var(--accent);padding:3px 8px;border-radius:12px;font-size:11px;color:var(--ink);font-family:"Helvetica Neue",sans-serif;font-weight:600}
-.active-vocal-chip .remove{cursor:pointer;color:var(--accent);font-weight:700}
-.active-vocal-empty{font-size:11px;color:var(--ink-faint);font-style:italic;font-family:"Helvetica Neue",sans-serif}
-.lib-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:5px 10px;font-size:10px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;font-weight:600;flex-shrink:0}
-.lib-btn:hover{color:var(--accent);border-color:var(--accent)}
+.active-vocal-chip{display:inline-flex;align-items:center;gap:5px;background:var(–accent-soft);border:1px solid var(–accent);padding:3px 8px;border-radius:12px;font-size:11px;color:var(–ink);font-family:“Helvetica Neue”,sans-serif;font-weight:600}
+.active-vocal-chip .remove{cursor:pointer;color:var(–accent);font-weight:700}
+.active-vocal-empty{font-size:11px;color:var(–ink-faint);font-style:italic;font-family:“Helvetica Neue”,sans-serif}
+.lib-btn{background:transparent;border:1px solid var(–line-strong);color:var(–ink-dim);padding:5px 10px;font-size:10px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:“Helvetica Neue”,sans-serif;font-weight:600;flex-shrink:0}
+.lib-btn:hover{color:var(–accent);border-color:var(–accent)}
 
 /* Advanced settings */
-.adv-toggle{background:transparent;border:none;color:var(--ink-dim);padding:10px 0;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:6px;width:100%;justify-content:flex-start;margin-bottom:6px}
-.adv-toggle:hover{color:var(--accent)}
+.adv-toggle{background:transparent;border:none;color:var(–ink-dim);padding:10px 0;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.2em;cursor:pointer;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:6px;width:100%;justify-content:flex-start;margin-bottom:6px}
+.adv-toggle:hover{color:var(–accent)}
 .adv-toggle .arrow{display:inline-block;transition:transform 0.2s}
 .adv-toggle.open .arrow{transform:rotate(90deg)}
-.adv-toggle .badge{background:var(--accent);color:#fff;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:0}
-.adv-panel{display:none;margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:14px}
+.adv-toggle .badge{background:var(–accent);color:#fff;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:0}
+.adv-panel{display:none;margin-bottom:16px;background:var(–bg-2);border:1px solid var(–line);border-radius:2px;padding:14px}
 .adv-panel.open{display:block}
-@media (min-width:960px){.adv-panel{display:block;border-color:var(--line)} .adv-toggle{display:none}}
+@media (min-width:960px){.adv-panel{display:block;border-color:var(–line)} .adv-toggle{display:none}}
 .adv-row{margin-bottom:14px}
 .adv-row:last-child{margin-bottom:0}
-.adv-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:6px;display:block}
+.adv-label{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:6px;display:block}
 .adv-options{display:flex;flex-wrap:wrap;gap:4px}
-.adv-option{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 10px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;transition:all 0.15s;text-transform:uppercase;font-weight:600}
-.adv-option:hover{color:var(--ink);border-color:var(--ink-dim)}
-.adv-option.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
-.adv-freetext{width:100%;min-height:70px;padding:10px 12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:13px;border-radius:2px;resize:vertical;line-height:1.5}
-.adv-freetext:focus{outline:none;border-color:var(--accent)}
-.adv-freetext::placeholder{color:var(--ink-faint)}
-.adv-freetext-hint{font-size:11px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:4px;letter-spacing:0.05em}
+.adv-option{background:transparent;border:1px solid var(–line-strong);color:var(–ink-dim);padding:6px 10px;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;transition:all 0.15s;text-transform:uppercase;font-weight:600}
+.adv-option:hover{color:var(–ink);border-color:var(–ink-dim)}
+.adv-option.active{background:var(–accent);color:#fff;border-color:var(–accent);font-weight:700}
+.adv-freetext{width:100%;min-height:70px;padding:10px 12px;background:var(–bg);border:1px solid var(–line-strong);color:var(–ink);font-family:“Hiragino Mincho ProN”,serif;font-size:13px;border-radius:2px;resize:vertical;line-height:1.5}
+.adv-freetext:focus{outline:none;border-color:var(–accent)}
+.adv-freetext::placeholder{color:var(–ink-faint)}
+.adv-freetext-hint{font-size:11px;color:var(–ink-dim);font-family:“Helvetica Neue”,sans-serif;margin-top:4px;letter-spacing:0.05em}
 
 /* History */
-.history-section{margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px 10px 8px}
-.history-header{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-.history-clear{background:transparent;border:none;color:var(--accent);font-size:10px;font-family:"Helvetica Neue",sans-serif;letter-spacing:0.15em;cursor:pointer;padding:0;text-transform:uppercase;font-weight:600}
+.history-section{margin-bottom:16px;background:var(–bg-2);border:1px solid var(–line);border-radius:2px;padding:10px 10px 8px}
+.history-header{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;color:var(–ink-dim);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.history-clear{background:transparent;border:none;color:var(–accent);font-size:10px;font-family:“Helvetica Neue”,sans-serif;letter-spacing:0.15em;cursor:pointer;padding:0;text-transform:uppercase;font-weight:600}
 .history-clear:hover{text-decoration:underline}
 .history-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto}
-.history-item{display:flex;align-items:center;gap:8px;padding:7px 8px;background:var(--bg);border-radius:2px;border-left:2px solid transparent;transition:border-color 0.15s}
-.history-item.starred{border-left-color:var(--accent)}
-.history-star{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:16px;flex-shrink:0}
-.history-star.active{color:var(--accent)}
-.history-text{flex:1;font-family:"Hiragino Mincho ProN",serif;font-size:13px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.history-text:hover{color:var(--accent)}
-.history-delete{background:transparent;border:none;color:var(--ink-faint);font-size:15px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
-.history-delete:hover{color:var(--error)}
+.history-item{display:flex;align-items:center;gap:8px;padding:7px 8px;background:var(–bg);border-radius:2px;border-left:2px solid transparent;transition:border-color 0.15s}
+.history-item.starred{border-left-color:var(–accent)}
+.history-star{background:transparent;border:none;color:var(–ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:16px;flex-shrink:0}
+.history-star.active{color:var(–accent)}
+.history-text{flex:1;font-family:“Hiragino Mincho ProN”,serif;font-size:13px;color:var(–ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.history-text:hover{color:var(–accent)}
+.history-delete{background:transparent;border:none;color:var(–ink-faint);font-size:15px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
+.history-delete:hover{color:var(–error)}
 
 /* Segment controls */
 .controls{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
-.seg-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;color:var(--ink-dim);padding:0 12px;border-right:1px solid var(--line);text-transform:uppercase;align-self:center;min-width:70px;font-weight:700}
-.seg button{background:transparent;border:none;color:var(--ink-dim);padding:10px 12px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;transition:all 0.15s;text-transform:uppercase;font-weight:600;flex:1}
-.seg button.active{background:var(--accent);color:#fff;font-weight:700}
-.seg button:not(.active):hover{color:var(--ink)}
+.seg{display:flex;background:var(–bg-2);border:1px solid var(–line);border-radius:2px;overflow:hidden}
+.seg-label{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.2em;color:var(–ink-dim);padding:0 12px;border-right:1px solid var(–line);text-transform:uppercase;align-self:center;min-width:70px;font-weight:700}
+.seg button{background:transparent;border:none;color:var(–ink-dim);padding:10px 12px;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;transition:all 0.15s;text-transform:uppercase;font-weight:600;flex:1}
+.seg button.active{background:var(–accent);color:#fff;font-weight:700}
+.seg button:not(.active):hover{color:var(–ink)}
 
 /* Roll button */
 .roll-wrap{margin:8px 0 22px;position:relative}
-.roll{width:100%;background:var(--accent);color:#fff;border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:0.05em;cursor:pointer;position:relative;overflow:hidden;border-radius:2px;transition:transform 0.1s;box-shadow:var(--shadow)}
+.roll{width:100%;background:var(–accent);color:#fff;border:none;padding:26px 24px;font-family:“Times New Roman”,serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:0.05em;cursor:pointer;position:relative;overflow:hidden;border-radius:2px;transition:transform 0.1s;box-shadow:var(–shadow)}
 .roll:active{transform:scale(0.98)}
 .roll:disabled{opacity:0.5;cursor:not-allowed}
-.roll::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(255,255,255,0.5);pointer-events:none}
+.roll::before{content:’’;position:absolute;inset:4px;border:1px dashed rgba(255,255,255,0.5);pointer-events:none}
 .roll .arrow{display:inline-block;margin-left:10px;font-style:normal;font-size:22px}
 
 /* Loading */
-.loading-state{text-align:center;padding:30px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;margin-bottom:18px}
-.loading-dots{font-family:"Times New Roman",serif;font-size:36px;color:var(--accent);letter-spacing:0.1em;margin-bottom:12px}
+.loading-state{text-align:center;padding:30px 20px;background:var(–bg-2);border:1px solid var(–line);border-radius:2px;margin-bottom:18px}
+.loading-dots{font-family:“Times New Roman”,serif;font-size:36px;color:var(–accent);letter-spacing:0.1em;margin-bottom:12px}
 .loading-dots span{display:inline-block;animation:bounce 1.4s infinite}
 .loading-dots span:nth-child(2){animation-delay:0.2s}
 .loading-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:0.3}40%{transform:translateY(-8px);opacity:1}}
-.loading-text{font-family:"Helvetica Neue",sans-serif;font-size:12px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:600}
+.loading-text{font-family:“Helvetica Neue”,sans-serif;font-size:12px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:600}
 
-.empty{text-align:center;padding:60px 20px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600}
-.empty .big{font-family:"Times New Roman",serif;font-size:60px;color:var(--ink-faint);margin-bottom:16px;font-style:italic;opacity:0.5}
+.empty{text-align:center;padding:60px 20px;color:var(–ink-faint);font-family:“Helvetica Neue”,sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600}
+.empty .big{font-family:“Times New Roman”,serif;font-size:60px;color:var(–ink-faint);margin-bottom:16px;font-style:italic;opacity:0.5}
 
-.error-banner{background:rgba(255,85,85,0.08);border:1px solid var(--error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:"Helvetica Neue",sans-serif;font-size:12px;line-height:1.6;color:var(--error)}
-.error-banner strong{color:var(--error);font-weight:700}
-.error-banner a{color:var(--accent);font-weight:600}
+.error-banner{background:rgba(255,85,85,0.08);border:1px solid var(–error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:“Helvetica Neue”,sans-serif;font-size:12px;line-height:1.6;color:var(–error)}
+.error-banner strong{color:var(–error);font-weight:700}
+.error-banner a{color:var(–accent);font-weight:600}
 
 /* Cards */
 .cards{display:flex;flex-direction:column;gap:18px}
-.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:reveal 0.5s ease-out;box-shadow:var(--shadow)}
+.card{background:var(–bg-2);border:1px solid var(–line);border-radius:2px;overflow:hidden;animation:reveal 0.5s ease-out;box-shadow:var(–shadow)}
 @keyframes reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.card-head{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg-3)}
-.card-num{font-family:"Times New Roman",serif;font-size:11px;letter-spacing:0.3em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:8px;font-weight:600}
-.card-num span{color:var(--accent);font-weight:bold}
+.card-head{padding:14px 16px;border-bottom:1px solid var(–line);background:var(–bg-3)}
+.card-num{font-family:“Times New Roman”,serif;font-size:11px;letter-spacing:0.3em;color:var(–ink-dim);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.card-num span{color:var(–accent);font-weight:bold}
 .card-tags{display:flex;gap:5px;flex-wrap:wrap}
-.tag{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.1em;padding:3px 8px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink-dim);border-radius:2px;text-transform:uppercase;font-weight:600}
-.tag.genre{color:var(--accent);background:var(--accent-soft);border-color:var(--accent)}
+.tag{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.1em;padding:3px 8px;background:var(–bg);border:1px solid var(–line-strong);color:var(–ink-dim);border-radius:2px;text-transform:uppercase;font-weight:600}
+.tag.genre{color:var(–accent);background:var(–accent-soft);border-color:var(–accent)}
 
 .card-body{padding:16px}
 .field{margin-bottom:14px}
 .field:last-child{margin-bottom:0}
 .field-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
-.field-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
+.field-label{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:700}
 .field-actions{display:flex;gap:6px;flex-shrink:0}
-.icon-btn{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:5px 9px;font-size:10px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;transition:all 0.15s;font-weight:600}
-.icon-btn:hover{background:var(--accent-soft)}
-.icon-btn.copied{background:var(--accent);color:#fff}
-.icon-btn.neutral{border-color:var(--line-strong);color:var(--ink-dim)}
-.icon-btn.neutral:hover{border-color:var(--ink-dim);background:transparent;color:var(--ink)}
+.icon-btn{background:transparent;border:1px solid var(–accent);color:var(–accent);padding:5px 9px;font-size:10px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-family:“Helvetica Neue”,sans-serif;text-transform:uppercase;transition:all 0.15s;font-weight:600}
+.icon-btn:hover{background:var(–accent-soft)}
+.icon-btn.copied{background:var(–accent);color:#fff}
+.icon-btn.neutral{border-color:var(–line-strong);color:var(–ink-dim)}
+.icon-btn.neutral:hover{border-color:var(–ink-dim);background:transparent;color:var(–ink)}
 
-.field-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;font-size:14px}
-.field-value.style{font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);letter-spacing:0.01em;line-height:1.6}
-.field-value.vocal{font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);letter-spacing:0.01em;line-height:1.6}
-.field-value.lyrics{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);line-height:1.85}
+.field-value{background:var(–bg);border:1px solid var(–line);border-radius:2px;padding:12px;line-height:1.7;color:var(–ink);white-space:pre-wrap;word-break:break-word;font-size:14px}
+.field-value.style{font-family:“Helvetica Neue”,monospace;font-size:12px;color:var(–ink-dim);letter-spacing:0.01em;line-height:1.6}
+.field-value.vocal{font-family:“Helvetica Neue”,monospace;font-size:12px;color:var(–ink-dim);letter-spacing:0.01em;line-height:1.6}
+.field-value.lyrics{font-family:“Hiragino Mincho ProN”,serif;font-size:14px;color:var(–ink);line-height:1.85}
 
 /* Title candidates */
-.title-list{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:6px;display:flex;flex-direction:column;gap:4px}
+.title-list{background:var(–bg);border:1px solid var(–line);border-radius:2px;padding:6px;display:flex;flex-direction:column;gap:4px}
 .title-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:transparent;border-radius:2px;cursor:pointer;transition:background 0.15s;border:1px solid transparent}
-.title-item:hover{background:var(--bg-3);border-color:var(--line)}
-.title-num{font-family:"Times New Roman",serif;font-size:11px;color:var(--accent);font-weight:700;width:18px;flex-shrink:0}
-.title-text{flex:1;font-family:"Times New Roman",serif;font-size:17px;font-weight:600;font-style:italic;color:var(--ink);letter-spacing:0.02em}
-.title-copy-hint{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.15em;color:var(--ink-faint);text-transform:uppercase;font-weight:600;flex-shrink:0;opacity:0;transition:opacity 0.15s}
+.title-item:hover{background:var(–bg-3);border-color:var(–line)}
+.title-num{font-family:“Times New Roman”,serif;font-size:11px;color:var(–accent);font-weight:700;width:18px;flex-shrink:0}
+.title-text{flex:1;font-family:“Times New Roman”,serif;font-size:17px;font-weight:600;font-style:italic;color:var(–ink);letter-spacing:0.02em}
+.title-copy-hint{font-family:“Helvetica Neue”,sans-serif;font-size:9px;letter-spacing:0.15em;color:var(–ink-faint);text-transform:uppercase;font-weight:600;flex-shrink:0;opacity:0;transition:opacity 0.15s}
 .title-item:hover .title-copy-hint{opacity:1}
-.title-item.copied{background:var(--accent-soft);border-color:var(--accent)}
-.title-item.copied .title-copy-hint{opacity:1;color:var(--accent)}
+.title-item.copied{background:var(–accent-soft);border-color:var(–accent)}
+.title-item.copied .title-copy-hint{opacity:1;color:var(–accent)}
 
 /* Modal */
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
 .modal-backdrop.visible{display:flex}
-.modal{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:2px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow)}
-.modal-title{font-family:"Times New Roman",serif;font-size:22px;font-weight:bold;margin-bottom:14px;color:var(--ink)}
-.modal-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.modal{background:var(–bg-2);border:1px solid var(–line-strong);border-radius:2px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(–shadow)}
+.modal-title{font-family:“Times New Roman”,serif;font-size:22px;font-weight:bold;margin-bottom:14px;color:var(–ink)}
+.modal-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(–line)}
 .modal-section:last-of-type{border-bottom:none;padding-bottom:0}
-.modal-section-title{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:10px}
-.modal-text{font-size:13px;line-height:1.7;color:var(--ink-dim);margin-bottom:14px;font-family:"Helvetica Neue",sans-serif}
+.modal-section-title{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.modal-text{font-size:13px;line-height:1.7;color:var(–ink-dim);margin-bottom:14px;font-family:“Helvetica Neue”,sans-serif}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
-.modal-btn{padding:10px 16px;border:1px solid var(--line-strong);background:transparent;color:var(--ink-dim);cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
-.modal-btn:hover{color:var(--ink);border-color:var(--ink-dim)}
-.modal-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.modal-btn.primary:hover{background:var(--accent);color:#fff;opacity:0.9}
-.modal-btn.danger{background:var(--error);color:#fff;border-color:var(--error)}
+.modal-btn{padding:10px 16px;border:1px solid var(–line-strong);background:transparent;color:var(–ink-dim);cursor:pointer;border-radius:2px;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.modal-btn:hover{color:var(–ink);border-color:var(–ink-dim)}
+.modal-btn.primary{background:var(–accent);color:#fff;border-color:var(–accent)}
+.modal-btn.primary:hover{background:var(–accent);color:#fff;opacity:0.9}
+.modal-btn.danger{background:var(–error);color:#fff;border-color:var(–error)}
 
 /* Theme toggle in settings */
-.theme-toggle{display:flex;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:4px}
-.theme-toggle button{flex:1;background:transparent;border:none;color:var(--ink-dim);padding:8px 12px;font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-weight:600}
-.theme-toggle button.active{background:var(--accent);color:#fff;font-weight:700}
+.theme-toggle{display:flex;gap:6px;background:var(–bg);border:1px solid var(–line);border-radius:2px;padding:4px}
+.theme-toggle button{flex:1;background:transparent;border:none;color:var(–ink-dim);padding:8px 12px;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-weight:600}
+.theme-toggle button.active{background:var(–accent);color:#fff;font-weight:700}
 
 /* Toggle switch */
 .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
-.toggle-row .label{font-family:"Helvetica Neue",sans-serif;font-size:13px;color:var(--ink);font-weight:600}
-.toggle-row .desc{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-top:2px}
-.toggle-switch{position:relative;width:44px;height:24px;background:var(--bg-3);border:1px solid var(--line-strong);border-radius:12px;cursor:pointer;flex-shrink:0;transition:background 0.2s}
-.toggle-switch.on{background:var(--accent);border-color:var(--accent)}
-.toggle-switch::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.toggle-row .label{font-family:“Helvetica Neue”,sans-serif;font-size:13px;color:var(–ink);font-weight:600}
+.toggle-row .desc{font-family:“Helvetica Neue”,sans-serif;font-size:11px;color:var(–ink-dim);margin-top:2px}
+.toggle-switch{position:relative;width:44px;height:24px;background:var(–bg-3);border:1px solid var(–line-strong);border-radius:12px;cursor:pointer;flex-shrink:0;transition:background 0.2s}
+.toggle-switch.on{background:var(–accent);border-color:var(–accent)}
+.toggle-switch::after{content:’’;position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
 .toggle-switch.on::after{transform:translateX(20px)}
 
 /* Vocal library */
 .vocal-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;max-height:300px;overflow-y:auto}
-.vocal-empty{text-align:center;padding:30px 16px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;font-style:italic}
-.vocal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:2px;transition:all 0.15s}
-.vocal-item.selected{border-color:var(--accent);background:var(--accent-soft)}
-.vocal-item .check{width:18px;height:18px;flex-shrink:0;border:2px solid var(--line-strong);border-radius:3px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;transition:all 0.15s;margin-top:2px}
-.vocal-item.selected .check{background:var(--accent);border-color:var(--accent)}
+.vocal-empty{text-align:center;padding:30px 16px;color:var(–ink-faint);font-family:“Helvetica Neue”,sans-serif;font-size:12px;font-style:italic}
+.vocal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(–bg);border:1px solid var(–line);border-radius:2px;transition:all 0.15s}
+.vocal-item.selected{border-color:var(–accent);background:var(–accent-soft)}
+.vocal-item .check{width:18px;height:18px;flex-shrink:0;border:2px solid var(–line-strong);border-radius:3px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;transition:all 0.15s;margin-top:2px}
+.vocal-item.selected .check{background:var(–accent);border-color:var(–accent)}
 .vocal-item .info{flex:1;min-width:0;cursor:pointer}
-.vocal-item .name{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);font-weight:600;margin-bottom:3px}
-.vocal-item .spec{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.5;word-break:break-word}
+.vocal-item .name{font-family:“Hiragino Mincho ProN”,serif;font-size:14px;color:var(–ink);font-weight:600;margin-bottom:3px}
+.vocal-item .spec{font-family:“Helvetica Neue”,monospace;font-size:11px;color:var(–ink-dim);line-height:1.5;word-break:break-word}
 .vocal-item .actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.vocal-item .actions button{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:4px 8px;font-size:10px;cursor:pointer;border-radius:2px;font-family:"Helvetica Neue",sans-serif;text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
-.vocal-item .actions button:hover{color:var(--ink)}
-.vocal-item .actions button.danger:hover{color:var(--error);border-color:var(--error)}
+.vocal-item .actions button{background:transparent;border:1px solid var(–line-strong);color:var(–ink-dim);padding:4px 8px;font-size:10px;cursor:pointer;border-radius:2px;font-family:“Helvetica Neue”,sans-serif;text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+.vocal-item .actions button:hover{color:var(–ink)}
+.vocal-item .actions button.danger:hover{color:var(–error);border-color:var(–error)}
 
-.vocal-helper{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-bottom:10px;line-height:1.6}
+.vocal-helper{font-family:“Helvetica Neue”,sans-serif;font-size:11px;color:var(–ink-dim);margin-bottom:10px;line-height:1.6}
 
 /* Save vocal prompt */
-.save-vocal-input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:14px;border-radius:2px;margin:8px 0 4px}
-.save-vocal-input:focus{outline:none;border-color:var(--accent)}
-.save-vocal-preview{background:var(--bg);border:1px solid var(--line);padding:10px;border-radius:2px;font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.6;margin:10px 0;max-height:80px;overflow-y:auto}
+.save-vocal-input{width:100%;padding:10px 12px;background:var(–bg);border:1px solid var(–line-strong);color:var(–ink);font-family:“Hiragino Mincho ProN”,serif;font-size:14px;border-radius:2px;margin:8px 0 4px}
+.save-vocal-input:focus{outline:none;border-color:var(–accent)}
+.save-vocal-preview{background:var(–bg);border:1px solid var(–line);padding:10px;border-radius:2px;font-family:“Helvetica Neue”,monospace;font-size:11px;color:var(–ink-dim);line-height:1.6;margin:10px 0;max-height:80px;overflow-y:auto}
 
 /* Recipe history */
 .modal-wide{max-width:720px}
-.history-count{font-family:"Helvetica Neue",sans-serif;font-size:12px;color:var(--ink-faint);font-weight:600;letter-spacing:0.15em;margin-left:8px}
+.history-count{font-family:“Helvetica Neue”,sans-serif;font-size:12px;color:var(–ink-faint);font-weight:600;letter-spacing:0.15em;margin-left:8px}
+.rh-controls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.rh-search{flex:1;min-width:200px;padding:10px 12px;background:var(–bg);border:1px solid var(–line-strong);color:var(–ink);font-family:“Hiragino Mincho ProN”,serif;font-size:13px;border-radius:2px}
+.rh-search:focus{outline:none;border-color:var(–accent)}
+.rh-search::placeholder{color:var(–ink-faint)}
+.rh-filter{display:flex;gap:0;background:var(–bg);border:1px solid var(–line-strong);border-radius:2px;overflow:hidden}
+.rh-filter-btn{background:transparent;border:none;color:var(–ink-dim);padding:9px 14px;font-family:“Helvetica Neue”,sans-serif;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;font-weight:600}
+.rh-filter-btn.active{background:var(–accent);color:#fff;font-weight:700}
+.rh-filter-btn:not(.active):hover{color:var(–ink)}
 .recipe-history-list{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow-y:auto;margin-bottom:14px}
-.rh-empty{text-align:center;padding:40px 16px;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:12px;font-style:italic}
-.rh-item{background:var(--bg);border:1px solid var(--line);border-radius:2px;overflow:hidden;transition:border-color 0.15s}
-.rh-item.starred{border-left:3px solid var(--accent)}
+.rh-empty{text-align:center;padding:40px 16px;color:var(–ink-faint);font-family:“Helvetica Neue”,sans-serif;font-size:12px;font-style:italic}
+.rh-item{background:var(–bg);border:1px solid var(–line);border-radius:2px;overflow:hidden;transition:border-color 0.15s}
+.rh-item.starred{border-left:3px solid var(–accent)}
 .rh-header{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;background:transparent;transition:background 0.15s}
-.rh-header:hover{background:var(--bg-3)}
-.rh-star{background:transparent;border:none;color:var(--ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:18px;flex-shrink:0}
-.rh-star.active{color:var(--accent)}
+.rh-header:hover{background:var(–bg-3)}
+.rh-star{background:transparent;border:none;color:var(–ink-faint);font-size:14px;cursor:pointer;padding:0;line-height:1;width:18px;flex-shrink:0}
+.rh-star.active{color:var(–accent)}
 .rh-title-area{flex:1;min-width:0;overflow:hidden}
-.rh-title{font-family:"Times New Roman",serif;font-size:15px;font-weight:700;font-style:italic;color:var(--ink);letter-spacing:0.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rh-title{font-family:“Times New Roman”,serif;font-size:15px;font-weight:700;font-style:italic;color:var(–ink);letter-spacing:0.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rh-meta{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
-.rh-genre{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.1em;padding:1px 5px;background:var(--accent-soft);color:var(--accent);border-radius:2px;text-transform:uppercase;font-weight:700}
-.rh-date{font-family:"Helvetica Neue",monospace;font-size:10px;color:var(--ink-faint);letter-spacing:0.05em}
-.rh-expand-arrow{color:var(--ink-faint);font-size:12px;flex-shrink:0;transition:transform 0.2s}
+.rh-genre{font-family:“Helvetica Neue”,sans-serif;font-size:9px;letter-spacing:0.1em;padding:1px 5px;background:var(–accent-soft);color:var(–accent);border-radius:2px;text-transform:uppercase;font-weight:700}
+.rh-date{font-family:“Helvetica Neue”,monospace;font-size:10px;color:var(–ink-faint);letter-spacing:0.05em}
+.rh-expand-arrow{color:var(–ink-faint);font-size:12px;flex-shrink:0;transition:transform 0.2s}
 .rh-item.expanded .rh-expand-arrow{transform:rotate(90deg)}
-.rh-delete{background:transparent;border:none;color:var(--ink-faint);font-size:16px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
-.rh-delete:hover{color:var(--error)}
-.rh-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--line);background:var(--bg-2)}
+.rh-delete{background:transparent;border:none;color:var(–ink-faint);font-size:16px;cursor:pointer;padding:0 4px;line-height:1;flex-shrink:0}
+.rh-delete:hover{color:var(–error)}
+.rh-detail{display:none;padding:0 14px 14px;border-top:1px solid var(–line);background:var(–bg-2)}
 .rh-item.expanded .rh-detail{display:block}
 .rh-section{margin-top:12px}
 .rh-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:8px}
-.rh-section-label{font-family:"Helvetica Neue",sans-serif;font-size:9px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
-.rh-section-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:10px;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word}
-.rh-section-value.mono{font-family:"Helvetica Neue",monospace;font-size:11px;color:var(--ink-dim);line-height:1.6}
-.rh-section-value.lyrics{font-family:"Hiragino Mincho ProN",serif;font-size:13px;line-height:1.85}
+.rh-section-label{font-family:“Helvetica Neue”,sans-serif;font-size:9px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:700}
+.rh-section-value{background:var(–bg);border:1px solid var(–line);border-radius:2px;padding:10px;font-size:13px;line-height:1.7;color:var(–ink);white-space:pre-wrap;word-break:break-word}
+.rh-section-value.mono{font-family:“Helvetica Neue”,monospace;font-size:11px;color:var(–ink-dim);line-height:1.6}
+.rh-section-value.lyrics{font-family:“Hiragino Mincho ProN”,serif;font-size:13px;line-height:1.85}
 .rh-titles{display:flex;flex-wrap:wrap;gap:6px}
-.rh-title-chip{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:4px 10px;font-size:12px;font-family:"Times New Roman",serif;font-style:italic;font-weight:600;border-radius:2px;cursor:pointer;transition:all 0.15s}
-.rh-title-chip:hover{background:var(--accent-soft)}
-.rh-title-chip.copied{background:var(--accent);color:#fff}
+.rh-title-chip{background:transparent;border:1px solid var(–accent);color:var(–accent);padding:4px 10px;font-size:12px;font-family:“Times New Roman”,serif;font-style:italic;font-weight:600;border-radius:2px;cursor:pointer;transition:all 0.15s}
+.rh-title-chip:hover{background:var(–accent-soft)}
+.rh-title-chip.copied{background:var(–accent);color:#fff}
 
-footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8;font-weight:600}
+/* Expand modal - full screen view of single field */
+.expand-modal{position:fixed;inset:0;background:var(–bg);display:none;flex-direction:column;z-index:200;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.expand-modal.visible{display:flex}
+.expand-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(–line);background:var(–bg-2);flex-shrink:0}
+.expand-title{font-family:“Helvetica Neue”,sans-serif;font-size:12px;letter-spacing:0.25em;color:var(–ink-dim);text-transform:uppercase;font-weight:700}
+.expand-close{background:transparent;border:1px solid var(–line-strong);color:var(–ink-dim);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
+.expand-close:hover{color:var(–accent);border-color:var(–accent)}
+.expand-content{flex:1;overflow-y:auto;padding:24px 20px;-webkit-overflow-scrolling:touch}
+.expand-text{font-family:“Hiragino Mincho ProN”,serif;font-size:20px;line-height:1.9;color:var(–ink);white-space:pre-wrap;word-break:break-word;max-width:720px;margin:0 auto}
+.expand-text.mono{font-family:“Helvetica Neue”,monospace;font-size:16px;line-height:1.7}
+.expand-text.title-list-large{display:flex;flex-direction:column;gap:10px}
+.expand-title-item{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(–bg-2);border:1px solid var(–line);border-radius:4px;cursor:pointer;transition:all 0.15s}
+.expand-title-item:hover{border-color:var(–accent);background:var(–accent-soft)}
+.expand-title-item.copied{background:var(–accent);border-color:var(–accent)}
+.expand-title-item.copied .et-text,.expand-title-item.copied .et-num,.expand-title-item.copied .et-hint{color:#fff}
+.et-num{font-family:“Times New Roman”,serif;font-size:18px;color:var(–accent);font-weight:700;width:24px;flex-shrink:0}
+.et-text{flex:1;font-family:“Times New Roman”,serif;font-size:26px;font-weight:700;font-style:italic;color:var(–ink);letter-spacing:0.02em}
+.et-hint{font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.15em;color:var(–ink-faint);text-transform:uppercase;font-weight:600;flex-shrink:0}
+.expand-footer{padding:14px 18px;border-top:1px solid var(–line);background:var(–bg-2);flex-shrink:0;display:flex;gap:10px}
+.expand-copy-btn{flex:1;padding:16px;background:var(–accent);color:#fff;border:none;font-family:“Times New Roman”,serif;font-size:18px;font-weight:bold;font-style:italic;letter-spacing:0.05em;cursor:pointer;border-radius:2px}
+.expand-copy-btn:active{transform:scale(0.98)}
+.expand-copy-btn.copied{background:#2a9d4a}
+.expand-hint-mobile{font-family:“Helvetica Neue”,sans-serif;font-size:11px;color:var(–ink-faint);text-align:center;letter-spacing:0.1em;margin-top:8px;font-style:italic}
+
+/* Make field-value tappable */
+.field-value{cursor:pointer;transition:background 0.15s}
+.field-value:hover{background:var(–bg-3)}
+
+/* Title list - now 5 candidates, all clickable */
+.title-list .title-item{cursor:pointer}
+.title-item.copied{background:var(–accent-soft);border-color:var(–accent)}
+
+footer{margin-top:36px;padding-top:20px;border-top:1px solid var(–line);text-align:center;color:var(–ink-faint);font-family:“Helvetica Neue”,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;line-height:1.8;font-weight:600}
 
 @media (max-width:380px){.logo{font-size:30px}.logo .r{font-size:40px}.roll{font-size:22px;padding:22px}}
 </style>
+
 </head>
 <body>
 <div class="app">
 
 <header>
   <div class="logo"><span class="r">R</span>OULETTE</div>
-  <div class="tagline">Suno Prompt Generator / v3.2</div>
+  <div class="tagline">Suno Prompt Generator / v3.4</div>
   <div class="header-meta">
     DEC<br>
     <span id="dateLabel"></span><br>
@@ -317,86 +359,89 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
       <div class="theme-hint">空欄ならランダムテーマで生成されます</div>
     </div>
 
-    <div class="active-vocal-bar" id="activeVocalBar">
-      <div class="active-vocal-label">使用ボーカル</div>
-      <div class="active-vocal-list" id="activeVocalList"></div>
-      <button class="lib-btn" id="openLibraryBtn">ライブラリ</button>
-    </div>
+```
+<div class="active-vocal-bar" id="activeVocalBar">
+  <div class="active-vocal-label">使用ボーカル</div>
+  <div class="active-vocal-list" id="activeVocalList"></div>
+  <button class="lib-btn" id="openLibraryBtn">ライブラリ</button>
+</div>
 
-    <button class="adv-toggle" id="advToggle">
-      <span class="arrow">▶</span>
-      <span>詳細設定</span>
-      <span class="badge" id="advBadge" style="display:none">0</span>
-    </button>
+<button class="adv-toggle" id="advToggle">
+  <span class="arrow">▶</span>
+  <span>詳細設定</span>
+  <span class="badge" id="advBadge" style="display:none">0</span>
+</button>
 
-    <div class="adv-panel" id="advPanel">
-      <div class="adv-row">
-        <label class="adv-label">ジャンル傾向</label>
-        <div class="adv-options" data-adv="genre">
-          <button class="adv-option active" data-value="">指定なし</button>
-          <button class="adv-option" data-value="jazz_family">ジャズ系</button>
-          <button class="adv-option" data-value="rock_family">ロック系</button>
-          <button class="adv-option" data-value="hiphop_family">ヒップホップ系</button>
-          <button class="adv-option" data-value="electronic_family">電子音楽系</button>
-          <button class="adv-option" data-value="acoustic_family">アコースティック系</button>
-          <button class="adv-option" data-value="world_family">ワールド系</button>
-          <button class="adv-option" data-value="pop_family">ポップス系</button>
-        </div>
-      </div>
-      <div class="adv-row">
-        <label class="adv-label">時代感</label>
-        <div class="adv-options" data-adv="era">
-          <button class="adv-option active" data-value="">指定なし</button>
-          <button class="adv-option" data-value="60s_70s">60-70年代</button>
-          <button class="adv-option" data-value="80s">80年代</button>
-          <button class="adv-option" data-value="90s">90年代</button>
-          <button class="adv-option" data-value="2000s">2000年代</button>
-          <button class="adv-option" data-value="modern">現代</button>
-        </div>
-      </div>
-      <div class="adv-row">
-        <label class="adv-label">テンポ感</label>
-        <div class="adv-options" data-adv="tempo">
-          <button class="adv-option active" data-value="">指定なし</button>
-          <button class="adv-option" data-value="ballad">バラード(遅め)</button>
-          <button class="adv-option" data-value="midtempo">ミディアム</button>
-          <button class="adv-option" data-value="uptempo">アップテンポ(速め)</button>
-        </div>
-      </div>
-      <div class="adv-row">
-        <label class="adv-label">追加の指示(自由入力)</label>
-        <textarea class="adv-freetext" id="advFreetext" placeholder="例: Steely Danみたいな雰囲気 / サックスを入れて / 80年代風で男性ファルセット / 絶対にロックは避けて"></textarea>
-        <div class="adv-freetext-hint">楽器・アーティスト名・除外条件など何でも書けます</div>
-      </div>
+<div class="adv-panel" id="advPanel">
+  <div class="adv-row">
+    <label class="adv-label">ジャンル傾向</label>
+    <div class="adv-options" data-adv="genre">
+      <button class="adv-option active" data-value="">指定なし</button>
+      <button class="adv-option" data-value="jazz_family">ジャズ系</button>
+      <button class="adv-option" data-value="rock_family">ロック系</button>
+      <button class="adv-option" data-value="hiphop_family">ヒップホップ系</button>
+      <button class="adv-option" data-value="electronic_family">電子音楽系</button>
+      <button class="adv-option" data-value="acoustic_family">アコースティック系</button>
+      <button class="adv-option" data-value="world_family">ワールド系</button>
+      <button class="adv-option" data-value="pop_family">ポップス系</button>
     </div>
+  </div>
+  <div class="adv-row">
+    <label class="adv-label">時代感</label>
+    <div class="adv-options" data-adv="era">
+      <button class="adv-option active" data-value="">指定なし</button>
+      <button class="adv-option" data-value="60s_70s">60-70年代</button>
+      <button class="adv-option" data-value="80s">80年代</button>
+      <button class="adv-option" data-value="90s">90年代</button>
+      <button class="adv-option" data-value="2000s">2000年代</button>
+      <button class="adv-option" data-value="modern">現代</button>
+    </div>
+  </div>
+  <div class="adv-row">
+    <label class="adv-label">テンポ感</label>
+    <div class="adv-options" data-adv="tempo">
+      <button class="adv-option active" data-value="">指定なし</button>
+      <button class="adv-option" data-value="ballad">バラード(遅め)</button>
+      <button class="adv-option" data-value="midtempo">ミディアム</button>
+      <button class="adv-option" data-value="uptempo">アップテンポ(速め)</button>
+    </div>
+  </div>
+  <div class="adv-row">
+    <label class="adv-label">追加の指示(自由入力)</label>
+    <textarea class="adv-freetext" id="advFreetext" placeholder="例: Steely Danみたいな雰囲気 / サックスを入れて / 80年代風で男性ファルセット / 絶対にロックは避けて"></textarea>
+    <div class="adv-freetext-hint">楽器・アーティスト名・除外条件など何でも書けます</div>
+  </div>
+</div>
 
-    <div class="history-section" id="historySection" style="display:none">
-      <div class="history-header">
-        <span>テーマ履歴</span>
-        <button class="history-clear" id="historyClearBtn">CLEAR ALL</button>
-      </div>
-      <div class="history-list" id="historyList"></div>
-    </div>
+<div class="history-section" id="historySection" style="display:none">
+  <div class="history-header">
+    <span>テーマ履歴</span>
+    <button class="history-clear" id="historyClearBtn">CLEAR ALL</button>
+  </div>
+  <div class="history-list" id="historyList"></div>
+</div>
 
-    <div class="controls">
-      <div class="seg">
-        <span class="seg-label">出力数</span>
-        <button data-count="1" class="active">1案</button>
-        <button data-count="3">3案</button>
-        <button data-count="5">5案</button>
-      </div>
-      <div class="seg">
-        <span class="seg-label">歌詞</span>
-        <button data-lang="ja" class="active">日本語</button>
-        <button data-lang="en">英語</button>
-        <button data-lang="mix">混合</button>
-        <button data-lang="random">ランダム</button>
-      </div>
-    </div>
+<div class="controls">
+  <div class="seg">
+    <span class="seg-label">出力数</span>
+    <button data-count="1" class="active">1案</button>
+    <button data-count="3">3案</button>
+    <button data-count="5">5案</button>
+  </div>
+  <div class="seg">
+    <span class="seg-label">歌詞</span>
+    <button data-lang="ja" class="active">日本語</button>
+    <button data-lang="en">英語</button>
+    <button data-lang="mix">混合</button>
+    <button data-lang="random">ランダム</button>
+  </div>
+</div>
 
-    <div class="roll-wrap">
-      <button class="roll" id="rollBtn">SPIN THE ROULETTE<span class="arrow">→</span></button>
-    </div>
+<div class="roll-wrap">
+  <button class="roll" id="rollBtn">SPIN THE ROULETTE<span class="arrow">→</span></button>
+</div>
+```
+
   </div>
 
   <div class="output-pane">
@@ -407,64 +452,72 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
       </div>
     </div>
 
-    <div id="errorBanner" class="error-banner" style="display:none"></div>
+```
+<div id="errorBanner" class="error-banner" style="display:none"></div>
 
-    <div id="results">
-      <div class="empty">
-        <div class="big">∞</div>
-        テーマを入れて<br>SPINボタンで生成
-      </div>
-    </div>
+<div id="results">
+  <div class="empty">
+    <div class="big">∞</div>
+    テーマを入れて<br>SPINボタンで生成
+  </div>
+</div>
+```
+
   </div>
 
 </div>
 
 <footer>
-  SUNO ROULETTE v3.2 / DEC<br>
+  SUNO ROULETTE v3.4 / DEC<br>
   Built for ICHIRO
 </footer>
 
 </div>
 
 <!-- Settings Modal -->
+
 <div class="modal-backdrop" id="settingsModal">
   <div class="modal">
     <div class="modal-title">設定</div>
 
-    <div class="modal-section">
-      <div class="modal-section-title">表示テーマ</div>
-      <div class="theme-toggle">
-        <button data-theme-set="dark" class="active">🌙 ダーク</button>
-        <button data-theme-set="light">☀️ ライト</button>
-      </div>
-    </div>
+```
+<div class="modal-section">
+  <div class="modal-section-title">表示テーマ</div>
+  <div class="theme-toggle">
+    <button data-theme-set="dark" class="active">🌙 ダーク</button>
+    <button data-theme-set="light">☀️ ライト</button>
+  </div>
+</div>
 
-    <div class="modal-section">
-      <div class="modal-section-title">表示オプション</div>
-      <div class="toggle-row">
-        <div>
-          <div class="label">VOCAL SPEC を表示</div>
-          <div class="desc">生成結果のVOCAL SPEC欄(参考用)</div>
-        </div>
-        <div class="toggle-switch on" id="showVocalSpecToggle"></div>
-      </div>
+<div class="modal-section">
+  <div class="modal-section-title">表示オプション</div>
+  <div class="toggle-row">
+    <div>
+      <div class="label">VOCAL SPEC を表示</div>
+      <div class="desc">生成結果のVOCAL SPEC欄(参考用)</div>
     </div>
+    <div class="toggle-switch on" id="showVocalSpecToggle"></div>
+  </div>
+</div>
 
-    <div class="modal-section">
-      <div class="modal-section-title">データ管理</div>
-      <div class="modal-actions" style="justify-content:flex-start">
-        <button class="modal-btn" id="resetKeyBtn">APIキー変更</button>
-        <button class="modal-btn danger" id="clearAllBtn">全データ削除</button>
-      </div>
-    </div>
+<div class="modal-section">
+  <div class="modal-section-title">データ管理</div>
+  <div class="modal-actions" style="justify-content:flex-start">
+    <button class="modal-btn" id="resetKeyBtn">APIキー変更</button>
+    <button class="modal-btn danger" id="clearAllBtn">全データ削除</button>
+  </div>
+</div>
 
-    <div class="modal-actions">
-      <button class="modal-btn primary" id="closeModalBtn">閉じる</button>
-    </div>
+<div class="modal-actions">
+  <button class="modal-btn primary" id="closeModalBtn">閉じる</button>
+</div>
+```
+
   </div>
 </div>
 
 <!-- Vocal Library Modal -->
+
 <div class="modal-backdrop" id="libraryModal">
   <div class="modal">
     <div class="modal-title">ボーカルライブラリ</div>
@@ -481,6 +534,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 
 <!-- Save Vocal Modal -->
+
 <div class="modal-backdrop" id="saveVocalModal">
   <div class="modal">
     <div class="modal-title">ボーカルを保存</div>
@@ -495,17 +549,37 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 
 <!-- Recipe History Modal -->
+
 <div class="modal-backdrop" id="historyModal">
   <div class="modal modal-wide">
     <div class="modal-title">生成履歴 <span id="historyCount" class="history-count"></span></div>
-    <div class="vocal-helper">
-      過去にSPINで生成したレシピが自動保存されます(最大100件、★スター付きは保護)。
+    <div class="rh-controls">
+      <input type="text" class="rh-search" id="historySearchInput" placeholder="検索: タイトル / 歌詞 / ジャンル / テーマ ...">
+      <div class="rh-filter">
+        <button class="rh-filter-btn active" data-filter="all">すべて</button>
+        <button class="rh-filter-btn" data-filter="starred">★のみ</button>
+      </div>
     </div>
     <div class="recipe-history-list" id="recipeHistoryList"></div>
     <div class="modal-actions">
       <button class="modal-btn danger" id="clearRecipeHistoryBtn">全削除</button>
       <button class="modal-btn primary" id="closeHistoryBtn">閉じる</button>
     </div>
+  </div>
+</div>
+
+<!-- Expand Modal - full screen single-field view -->
+
+<div class="expand-modal" id="expandModal">
+  <div class="expand-header">
+    <div class="expand-title" id="expandTitle">FIELD</div>
+    <button class="expand-close" id="expandCloseBtn">×</button>
+  </div>
+  <div class="expand-content">
+    <div id="expandTextArea"></div>
+  </div>
+  <div class="expand-footer">
+    <button class="expand-copy-btn" id="expandCopyBtn">COPY TO CLIPBOARD</button>
   </div>
 </div>
 
@@ -539,7 +613,9 @@ const STATE = {
   uiTheme: "dark",
   showVocalSpec: true,
   pendingSaveVocalSpec: null,
-  recipeHistory: []
+  recipeHistory: [],
+  historyFilter: "all",
+  historySearch: ""
 };
 
 const LOADING_MESSAGES = [
@@ -586,6 +662,39 @@ function init(){
   document.getElementById('historyBtn').addEventListener('click', openRecipeHistory);
   document.getElementById('closeHistoryBtn').addEventListener('click', () => closeModal('historyModal'));
   document.getElementById('clearRecipeHistoryBtn').addEventListener('click', clearAllRecipeHistory);
+
+  // History search
+  document.getElementById('historySearchInput').addEventListener('input', e => {
+    STATE.historySearch = e.target.value;
+    renderRecipeHistory();
+  });
+
+  // History filter
+  document.querySelectorAll('.rh-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.rh-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.historyFilter = btn.dataset.filter;
+      renderRecipeHistory();
+    });
+  });
+
+  // Expand modal
+  document.getElementById('expandCloseBtn').addEventListener('click', closeExpand);
+  document.getElementById('expandCopyBtn').addEventListener('click', () => {
+    if(currentExpandMode === 'titles'){
+      closeExpand();
+    }else{
+      const btn = document.getElementById('expandCopyBtn');
+      copyText(currentExpandText, btn);
+      btn.textContent = 'COPIED ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'COPY TO CLIPBOARD';
+        btn.classList.remove('copied');
+      }, 1500);
+    }
+  });
 
   // Theme toggle
   document.querySelectorAll('[data-theme-set]').forEach(btn => {
@@ -972,7 +1081,60 @@ function confirmSaveVocal(){
   setTimeout(() => tmpBanner.remove(), 2000);
 }
 
-/* ========== RECIPE HISTORY ========== */
+/* ========== EXPAND MODAL ========== */
+let currentExpandText = '';
+let currentExpandMode = 'text'; // 'text' | 'titles'
+
+function openExpand(title, text, style){
+  if(!text) return;
+  currentExpandText = text;
+  currentExpandMode = 'text';
+  document.getElementById('expandTitle').textContent = title;
+  const area = document.getElementById('expandTextArea');
+  const styleClass = style === 'mono' ? 'expand-text mono' : (style === 'lyrics' ? 'expand-text' : 'expand-text');
+  area.innerHTML = `<div class="${styleClass}">${escapeHtml(text)}</div>`;
+  document.getElementById('expandCopyBtn').textContent = 'COPY TO CLIPBOARD';
+  document.getElementById('expandCopyBtn').classList.remove('copied');
+  document.getElementById('expandModal').classList.add('visible');
+}
+
+function openExpandTitles(titles){
+  if(!titles || !titles.length) return;
+  currentExpandMode = 'titles';
+  document.getElementById('expandTitle').textContent = `TITLE CANDIDATES (${titles.length})`;
+  const area = document.getElementById('expandTextArea');
+  area.innerHTML = `
+    <div class="expand-text title-list-large">
+      ${titles.map((t, i) => `
+        <div class="expand-title-item" data-text="${escapeHtml(t)}">
+          <span class="et-num">${i+1}</span>
+          <span class="et-text">${escapeHtml(t)}</span>
+          <span class="et-hint">Tap to copy</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  // Attach click handlers
+  area.querySelectorAll('.expand-title-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const text = item.dataset.text;
+      copyText(text, item);
+      item.classList.add('copied');
+      setTimeout(() => item.classList.remove('copied'), 1500);
+    });
+  });
+  // Hide main copy button for titles mode (each title has its own copy)
+  document.getElementById('expandCopyBtn').textContent = 'CLOSE';
+  document.getElementById('expandCopyBtn').classList.remove('copied');
+  document.getElementById('expandModal').classList.add('visible');
+}
+
+function closeExpand(){
+  document.getElementById('expandModal').classList.remove('visible');
+}
+
+/* ========== END EXPAND MODAL ========== */
+
 function saveRecipeHistory(){ try{ localStorage.setItem(STORAGE_KEYS.recipeHistory, JSON.stringify(STATE.recipeHistory)); }catch(e){} }
 
 function addRecipesToHistory(recipes, theme){
@@ -1000,6 +1162,14 @@ function addRecipesToHistory(recipes, theme){
 }
 
 function openRecipeHistory(){
+  // Reset to default view when opening
+  STATE.historySearch = '';
+  STATE.historyFilter = 'all';
+  const searchInput = document.getElementById('historySearchInput');
+  if(searchInput) searchInput.value = '';
+  document.querySelectorAll('.rh-filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === 'all');
+  });
   renderRecipeHistory();
   document.getElementById('historyModal').classList.add('visible');
 }
@@ -1020,13 +1190,36 @@ function formatDate(ts){
 function renderRecipeHistory(){
   const list = document.getElementById('recipeHistoryList');
   const countEl = document.getElementById('historyCount');
-  countEl.textContent = `(${STATE.recipeHistory.length} / ${RECIPE_HISTORY_MAX})`;
+
+  // Apply filter and search
+  const searchQuery = (STATE.historySearch || '').toLowerCase().trim();
+  const filtered = STATE.recipeHistory.filter(entry => {
+    if(STATE.historyFilter === 'starred' && !entry.starred) return false;
+    if(searchQuery){
+      const r = entry.recipe;
+      const haystack = [
+        ...(Array.isArray(r.titles) ? r.titles : []),
+        r.genre, r.mood, r.era, r.tempo, r.vocal, r.stylePrompt, r.lyrics,
+        entry.theme
+      ].filter(Boolean).join(' ').toLowerCase();
+      if(!haystack.includes(searchQuery)) return false;
+    }
+    return true;
+  });
+
+  countEl.textContent = `(${filtered.length} / ${STATE.recipeHistory.length})`;
   list.innerHTML = '';
+
   if(!STATE.recipeHistory.length){
     list.innerHTML = '<div class="rh-empty">まだ履歴はありません。<br>SPINで生成すると自動的に保存されます。</div>';
     return;
   }
-  STATE.recipeHistory.forEach((entry, idx) => {
+  if(!filtered.length){
+    list.innerHTML = '<div class="rh-empty">該当する履歴がありません。<br>検索キーワードやフィルターを変更してください。</div>';
+    return;
+  }
+
+  filtered.forEach(entry => {
     const r = entry.recipe;
     const titles = Array.isArray(r.titles) ? r.titles : [];
     const displayTitle = titles[0] || r.genre || '(タイトルなし)';
@@ -1061,7 +1254,10 @@ function renderRecipeHistory(){
         <div class="rh-section">
           <div class="rh-section-head">
             <div class="rh-section-label">Style Prompt</div>
-            <button class="icon-btn" data-action="copy-style">Copy</button>
+            <div style="display:flex;gap:6px">
+              <button class="icon-btn neutral" data-action="expand-style">⤢ 拡大</button>
+              <button class="icon-btn" data-action="copy-style">Copy</button>
+            </div>
           </div>
           <div class="rh-section-value mono">${escapeHtml(r.stylePrompt || '')}</div>
         </div>
@@ -1069,14 +1265,21 @@ function renderRecipeHistory(){
         <div class="rh-section">
           <div class="rh-section-head">
             <div class="rh-section-label">Vocal Spec</div>
-            <button class="icon-btn" data-action="copy-vocal">Copy</button>
+            <div style="display:flex;gap:6px">
+              <button class="icon-btn neutral" data-action="save-vocal-from-history">＋ Save</button>
+              <button class="icon-btn neutral" data-action="expand-vocal">⤢ 拡大</button>
+              <button class="icon-btn" data-action="copy-vocal">Copy</button>
+            </div>
           </div>
           <div class="rh-section-value mono">${escapeHtml(r.vocal)}</div>
         </div>` : ''}
         <div class="rh-section">
           <div class="rh-section-head">
             <div class="rh-section-label">Lyrics</div>
-            <button class="icon-btn" data-action="copy-lyrics">Copy</button>
+            <div style="display:flex;gap:6px">
+              <button class="icon-btn neutral" data-action="expand-lyrics">⤢ 拡大</button>
+              <button class="icon-btn" data-action="copy-lyrics">Copy</button>
+            </div>
           </div>
           <div class="rh-section-value lyrics">${escapeHtml(lyricsText)}</div>
         </div>
@@ -1103,6 +1306,14 @@ function renderRecipeHistory(){
         copyText(r.vocal, btn);
       }else if(a === 'copy-lyrics'){
         copyText(lyricsText, btn);
+      }else if(a === 'expand-style'){
+        openExpand('STYLE PROMPT', r.stylePrompt, 'mono');
+      }else if(a === 'expand-vocal'){
+        openExpand('VOCAL SPEC', r.vocal, 'mono');
+      }else if(a === 'expand-lyrics'){
+        openExpand('LYRICS', lyricsText, 'lyrics');
+      }else if(a === 'save-vocal-from-history'){
+        openSaveVocalDialog(r.vocal);
       }else if(a === 'copy-title'){
         copyText(btn.dataset.text, btn);
         btn.classList.add('copied');
@@ -1158,25 +1369,27 @@ function renderResults(recipes){
           <div class="field-head">
             <div class="field-label">Vocal Spec</div>
             <div class="field-actions">
-              <button class="icon-btn neutral" data-action="save-vocal">＋ Save to Library</button>
+              <button class="icon-btn neutral" data-action="expand-vocal">⤢ 拡大</button>
+              <button class="icon-btn neutral" data-action="save-vocal">＋ Save</button>
               <button class="icon-btn" data-action="copy-vocal">Copy</button>
             </div>
           </div>
-          <div class="field-value vocal" data-vocal>${escapeHtml(r.vocal || '')}</div>
+          <div class="field-value vocal" data-action="expand-vocal" data-vocal>${escapeHtml(r.vocal || '')}</div>
         </div>` : '';
 
-    const titles = Array.isArray(r.titles) ? r.titles.slice(0,3) : [];
+    const titles = Array.isArray(r.titles) ? r.titles.slice(0,5) : [];
     const titlesFieldHtml = titles.length ? `
         <div class="field">
           <div class="field-head">
-            <div class="field-label">Title Candidates</div>
+            <div class="field-label">Title Candidates (${titles.length})</div>
+            <div class="field-actions"><button class="icon-btn neutral" data-action="expand-titles">⤢ 拡大</button></div>
           </div>
           <div class="title-list">
             ${titles.map((t, ti) => `
               <div class="title-item" data-action="copy-title" data-title-idx="${ti}">
                 <span class="title-num">${ti+1}</span>
                 <span class="title-text">${escapeHtml(t)}</span>
-                <span class="title-copy-hint">Click to copy</span>
+                <span class="title-copy-hint">Tap to copy</span>
               </div>
             `).join('')}
           </div>
@@ -1197,17 +1410,23 @@ function renderResults(recipes){
         <div class="field">
           <div class="field-head">
             <div class="field-label">Style Prompt</div>
-            <div class="field-actions"><button class="icon-btn" data-action="copy-style">Copy</button></div>
+            <div class="field-actions">
+              <button class="icon-btn neutral" data-action="expand-style">⤢ 拡大</button>
+              <button class="icon-btn" data-action="copy-style">Copy</button>
+            </div>
           </div>
-          <div class="field-value style">${escapeHtml(r.stylePrompt || '')}</div>
+          <div class="field-value style" data-action="expand-style">${escapeHtml(r.stylePrompt || '')}</div>
         </div>
         ${vocalFieldHtml}
         <div class="field">
           <div class="field-head">
             <div class="field-label">Lyrics (${lyricLangLabel})</div>
-            <div class="field-actions"><button class="icon-btn" data-action="copy-lyrics">Copy</button></div>
+            <div class="field-actions">
+              <button class="icon-btn neutral" data-action="expand-lyrics">⤢ 拡大</button>
+              <button class="icon-btn" data-action="copy-lyrics">Copy</button>
+            </div>
           </div>
-          <div class="field-value lyrics">${escapeHtml(lyricsText)}</div>
+          <div class="field-value lyrics" data-action="expand-lyrics">${escapeHtml(lyricsText)}</div>
         </div>
       </div>
     `;
@@ -1220,6 +1439,10 @@ function renderResults(recipes){
       else if(a === 'copy-vocal') copyText(r.vocal, btn);
       else if(a === 'copy-lyrics') copyText(lyricsText, btn);
       else if(a === 'save-vocal') openSaveVocalDialog(r.vocal);
+      else if(a === 'expand-style') openExpand('STYLE PROMPT', r.stylePrompt, 'mono');
+      else if(a === 'expand-vocal') openExpand('VOCAL SPEC', r.vocal, 'mono');
+      else if(a === 'expand-lyrics') openExpand('LYRICS', lyricsText, 'lyrics');
+      else if(a === 'expand-titles') openExpandTitles(titles);
       else if(a === 'copy-title'){
         const ti = parseInt(btn.dataset.titleIdx);
         const t = titles[ti];
@@ -1342,16 +1565,18 @@ CRITICAL RULES:
 4. Style prompts must be in ENGLISH, comma-separated, ~40-70 words. Include: genre(s), era, mood, tempo+BPM, key/mode, vocal spec, instrumentation, production texture.
 5. Lyrics must be FULL SONG STRUCTURE ready to paste into Suno's Lyrics field. Use Suno section tags: [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro]. Each section 2-4 lines. Total 20-30 lines including tags. Evocative and SPECIFIC (concrete imagery, sensory detail). In requested language. Chorus repeatable and memorable.
 6. Tags (genre/mood/era/tempo) are short labels for display, separate from full style prompt.
-7. Title candidates: provide EXACTLY 3 English song title candidates for each recipe.
+7. Title candidates: provide EXACTLY 5 English song title candidates for each recipe.
    - ALWAYS English, regardless of the lyrics language.
    - STRICT length: 1 word minimum, 2 words MAXIMUM. NEVER 3+ words.
    - NO articles "the/a/an" unless they ARE the whole title (like "The Drift").
    - NO descriptive sentences. NO explanatory phrases.
    - Stylish, evocative, memorable. Think iconic single-word band/album titles: "Static", "Drift", "Neon", "Vapor", "Tailights", "After Hours", "Blue Hour", "Last Call", "Midnight Run".
-   - Make the 3 candidates STYLISTICALLY DIFFERENT from each other:
+   - Make the 5 candidates STYLISTICALLY DIFFERENT from each other so user has real choices:
      * Title 1: single evocative noun or vivid one-word image
      * Title 2: two-word noun phrase (e.g., "Neon Drift")
-     * Title 3: verb-based or unusual angle (e.g., "Burn Slow", "Hold Still")
+     * Title 3: verb-based or action (e.g., "Burn Slow", "Hold Still")
+     * Title 4: abstract/poetic single word (e.g., "Aftermath", "Reverie")
+     * Title 5: unexpected angle, oblique reference, or short statement (e.g., "Soft Crash", "No Signal")
 
 Output ONLY valid JSON, no markdown code fences, no explanation. Format:
 {
@@ -1365,7 +1590,7 @@ Output ONLY valid JSON, no markdown code fences, no explanation. Format:
       "stylePrompt": "full Suno style prompt, English, comma-separated",
       "lyrics": "FULL song lyrics with [Verse 1], [Chorus], [Verse 2], [Chorus], [Bridge], [Chorus], [Outro] tags, separated by \\n",
       "lyricsLang": "ja | en | mix",
-      "titles": ["Title 1 (English, 1-2 words)", "Title 2 (English, 1-2 words)", "Title 3 (English, 1-2 words)"]
+      "titles": ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5"]
     }
   ]
 }`;
@@ -1447,5 +1672,6 @@ async function roll(){
 
 init();
 </script>
+
 </body>
 </html>
