@@ -344,7 +344,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(–line);text-a
 
 <header>
   <div class="logo"><span class="r">R</span>OULETTE</div>
-  <div class="tagline">Suno Prompt Generator / v3.5.2</div>
+  <div class="tagline">Suno Prompt Generator / v3.5.3</div>
   <div class="header-meta">
     DEC<br>
     <span id="dateLabel"></span><br>
@@ -355,7 +355,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(–line);text-a
   </div>
 </header>
 
-<div id="setupScreen" class="setup-screen" style="display:none">
+<div id="setupScreen" class="setup-screen">
   <div class="setup-title">最初に APIキー を入力してください</div>
   <div class="setup-desc">
     SUNO ROULETTE は <strong>Anthropic Claude API</strong> を使って毎回オリジナルの歌詞・スタイル提案を生成します。<br><br>
@@ -487,7 +487,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(–line);text-a
 </div>
 
 <footer>
-  SUNO ROULETTE v3.5.2 / DEC<br>
+  SUNO ROULETTE v3.5.3 / DEC<br>
   Built for ICHIRO
 </footer>
 
@@ -796,14 +796,21 @@ function init(){
     });
   }catch(e){
     console.error("Init error:", e);
+    // Try to show setup screen as last resort
+    try{
+      const setup = document.getElementById('setupScreen');
+      const main = document.getElementById('mainApp');
+      if(setup) setup.style.display = 'block';
+      if(main) main.style.display = 'none';
+    }catch(_){}
     // Show user-friendly error
     document.body.innerHTML = '<div style="padding:40px;color:#fff;background:#1a1a1a;font-family:sans-serif;min-height:100vh">' +
       '<h2 style="color:#ff7a2c">アプリの起動でエラーが発生しました</h2>' +
       '<p>データに不整合がある可能性があります。以下を試してください:</p>' +
-      '<ol><li>ページを再読み込み(Ctrl+F5)</li>' +
+      '<ol><li>ページを再読み込み(Ctrl+F5、またはiPhoneは下にスワイプで更新)</li>' +
       '<li>それでもダメなら、ブラウザの設定で<br>「サイトデータを削除」してから再読み込み</li></ol>' +
       '<details style="margin-top:20px"><summary>技術的な詳細</summary>' +
-      '<pre style="background:#2a2a2a;padding:14px;border-radius:4px;overflow:auto">' + (e.message || e) + '</pre></details></div>';
+      '<pre style="background:#2a2a2a;padding:14px;border-radius:4px;overflow:auto;color:#fff">' + (e.message || e) + '\n\n' + (e.stack || '') + '</pre></details></div>';
 
 }
 }
@@ -1828,7 +1835,12 @@ showError("<strong>" + title + "</strong>" + detail + '<details style="margin-to
 }finally{ setLoading(false); }
 }
 
-init();
+if(document.readyState === ‘loading’){
+document.addEventListener(‘DOMContentLoaded’, init);
+}else{
+// DOM already loaded
+setTimeout(init, 0);
+}
 </script>
 
 </body>
