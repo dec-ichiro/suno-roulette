@@ -14,9 +14,9 @@
 [data-theme="dark"]{--bg:#1a1a1a;--bg-2:#232323;--bg-3:#2a2a2a;--ink:#f0f0f0;--ink-dim:#c0c0c0;--ink-faint:#8a8a8a;--accent:#ff7a2c;--accent-soft:rgba(255,122,44,0.15);--line:rgba(240,240,240,0.12);--line-strong:rgba(240,240,240,0.3);--error:#ff5555;--shadow:0 2px 8px rgba(0,0,0,0.3)}
 [data-theme="light"]{--bg:#ffffff;--bg-2:#f5f5f5;--bg-3:#ebebeb;--ink:#1a1a1a;--ink-dim:#4a4a4a;--ink-faint:#777777;--accent:#ff7a2c;--accent-soft:rgba(255,122,44,0.12);--line:rgba(0,0,0,0.1);--line-strong:rgba(0,0,0,0.25);--error:#cc3333;--shadow:0 2px 8px rgba(0,0,0,0.06)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+html,body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none;overflow-x:hidden;max-width:100vw}
 body{min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-.app{max-width:560px;margin:0 auto;padding:20px 18px 80px}
+.app{max-width:560px;margin:0 auto;padding:20px 18px 80px;width:100%;overflow-x:hidden;box-sizing:border-box}
 @media(min-width:960px){.app{max-width:680px;padding:24px 28px 80px}}
 header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px;position:relative}
 .logo{font-family:"Times New Roman",serif;font-size:34px;font-weight:900;letter-spacing:0.02em;line-height:0.9}
@@ -136,7 +136,7 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .icon-btn.copied{background:var(--accent);color:#fff}
 .icon-btn.neutral{border-color:var(--line-strong);color:var(--ink-dim)}
 .icon-btn.neutral:hover{border-color:var(--ink-dim);color:var(--ink)}
-.field-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;font-size:14px;cursor:pointer}
+.field-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;overflow-wrap:break-word;font-size:14px;cursor:pointer;max-width:100%;overflow-x:hidden}
 .field-value:hover{background:var(--bg-3)}
 .field-value.style{font-family:"Helvetica Neue",monospace;font-size:13px;color:var(--ink-dim);line-height:1.6}
 .field-value.vocal{font-family:"Helvetica Neue",monospace;font-size:13px;color:var(--ink-dim);line-height:1.6}
@@ -219,23 +219,24 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .rh-section{margin-top:12px}
 .rh-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:8px;flex-wrap:wrap}
 .rh-section-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
-.rh-section-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:10px;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+.rh-section-value{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:10px;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-break:break-word;overflow-wrap:break-word;max-width:100%;overflow-x:hidden}
 .rh-section-value.mono{font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);line-height:1.6}
 .rh-section-value.lyrics{font-family:"Hiragino Mincho ProN",serif;font-size:14px;line-height:1.85}
 .rh-titles{display:flex;flex-wrap:wrap;gap:6px}
 .rh-title-chip{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:6px 12px;font-size:13px;font-family:"Times New Roman",serif;font-style:italic;font-weight:600;border-radius:2px;cursor:pointer;min-height:34px}
 .rh-title-chip:hover{background:var(--accent-soft)}
 .rh-title-chip.copied{background:var(--accent);color:#fff}
-.expand-modal{position:fixed;inset:0;background:#0a0a0a;display:none;flex-direction:column;z-index:200;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.expand-modal{position:fixed;inset:0;background:#0a0a0a;display:none;flex-direction:column;z-index:200;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);overflow-x:hidden;width:100%;max-width:100vw}
 [data-theme="light"] .expand-modal{background:#ffffff}
 .expand-modal.visible{display:flex}
 .expand-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg-2);flex-shrink:0}
 .expand-title{font-family:"Helvetica Neue",sans-serif;font-size:13px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;font-weight:700}
 .expand-close{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;line-height:1}
 .expand-close:hover{color:var(--accent);border-color:var(--accent)}
-.expand-content{flex:1;overflow-y:auto;padding:24px 20px;-webkit-overflow-scrolling:touch}
-.expand-text{font-family:"Hiragino Mincho ProN",serif;font-size:20px;line-height:1.9;color:var(--ink);white-space:pre-wrap;word-break:break-word;max-width:720px;margin:0 auto}
-.expand-text.mono{font-family:"Helvetica Neue",monospace;font-size:16px;line-height:1.7}
+.expand-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 20px;-webkit-overflow-scrolling:touch;width:100%;box-sizing:border-box}
+.expand-text{font-family:"Hiragino Mincho ProN",serif;font-size:18px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-break:break-word;overflow-wrap:break-word;max-width:100%;width:100%;margin:0 auto;box-sizing:border-box}
+.expand-text.mono{font-family:"Helvetica Neue",monospace;font-size:14px;line-height:1.7;word-break:break-word;overflow-wrap:break-word}
+@media(min-width:960px){.expand-text{max-width:720px}}
 .expand-titles{display:flex;flex-direction:column;gap:10px;max-width:720px;margin:0 auto}
 .expand-title-item{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:4px;cursor:pointer;min-height:60px}
 .expand-title-item:hover{border-color:var(--accent);background:var(--accent-soft)}
@@ -269,13 +270,19 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 .et-ja{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink-faint);font-style:normal;font-weight:400;letter-spacing:0.02em}
 .expand-save-vocal-btn{padding:18px 22px;background:transparent;color:var(--accent);border:1px solid var(--accent);font-family:"Helvetica Neue",sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;min-height:54px}
 .expand-save-vocal-btn:hover{background:var(--accent-soft)}
+.regen-section{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.regen-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-faint);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.regen-btns{display:flex;gap:8px;flex-wrap:wrap}
+.regen-btn{flex:1;min-width:0;background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:11px 12px;font-family:"Helvetica Neue",sans-serif;font-size:12px;letter-spacing:0.05em;cursor:pointer;border-radius:2px;font-weight:600;min-height:44px;white-space:nowrap}
+.regen-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.regen-btn:active{transform:scale(0.98)}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
 <div class="logo"><span class="r">R</span>OULETTE</div>
-<div class="tagline">Suno Prompt Generator / v4.1</div>
+<div class="tagline">Suno Prompt Generator / v4.3</div>
 <div class="header-meta">DEC<br><span id="dateLabel"></span>
 <div class="header-btns" id="headerBtns" style="display:none">
 <button class="header-btn" onclick="openRecipeHistory()">📜 履歴</button>
@@ -347,7 +354,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div id="results"><div class="empty"><div class="big">∞</div>テーマを入れて<br>SPINボタンで生成</div></div>
 </div>
 </div>
-<footer>SUNO ROULETTE v4.1 / DEC<br>Built for ICHIRO</footer>
+<footer>SUNO ROULETTE v4.3 / DEC<br>Built for ICHIRO</footer>
 </div>
 <div class="modal-backdrop" id="settingsModal" onclick="if(event.target===this)closeModal('settingsModal')">
 <div class="modal">
@@ -503,7 +510,7 @@ function getTitleEn(t){if(!t)return"";if(typeof t==="string")return t;return t.e
 function getTitleJa(t){if(!t)return"";if(typeof t==="string")return"";return t.ja||"";}
 function normalizeTitles(arr){if(!Array.isArray(arr))return[];return arr.slice(0,5).map(function(t){if(typeof t==="string")return{en:t,ja:""};if(t&&typeof t==="object")return{en:t.en||"",ja:t.ja||""};return{en:"",ja:""};}).filter(function(t){return t.en;});}
 function clearResults(){STATE.lastResults=null;try{localStorage.removeItem(STORAGE.lastResults);}catch(e){}document.getElementById("results").innerHTML='<div class="empty"><div class="big">∞</div>テーマを入れて<br>SPINボタンで生成</div>';}
-function renderResults(recipes){var c=document.getElementById("results");c.innerHTML="";var bar=document.createElement("div");bar.className="results-clear-bar";bar.innerHTML='<button class="results-clear-btn" onclick="clearResults()">× 結果をクリア</button>';c.appendChild(bar);var cards=document.createElement("div");cards.className="cards";recipes.forEach(function(r,idx){var card=document.createElement("div");card.className="card";var titles=normalizeTitles(r.titles);var lyrics=r.lyrics||"";var lang=r.lyricsLang==="ja"?"JA":r.lyricsLang==="en"?"EN":"MIX";var combinedPrompt=(r.stylePrompt||"")+(r.vocal?", vocal: "+r.vocal:"");var titlesHtml="";if(titles.length){var items=titles.map(function(t,ti){var en=escHtml(t.en);var ja=t.ja?'<span class="title-ja">'+escHtml(t.ja)+'</span>':"";return '<div class="title-item" data-title-en="'+en+'"><span class="title-num">'+(ti+1)+'</span><div class="title-textwrap"><div class="title-text">'+en+'</div>'+ja+'</div><span class="title-hint">Tap to copy</span></div>';}).join("");titlesHtml='<div class="field"><div class="field-head"><div class="field-label">Title Candidates ('+titles.length+')</div><div class="field-actions"><button class="icon-btn neutral" data-act="expand-titles">⤢ 拡大</button></div></div><div class="title-list">'+items+'</div></div>';}var tag="";if(r.genre)tag+='<span class="tag genre">'+escHtml(r.genre)+'</span>';if(r.mood)tag+='<span class="tag">'+escHtml(r.mood)+'</span>';if(r.era)tag+='<span class="tag">'+escHtml(r.era)+'</span>';if(r.tempo)tag+='<span class="tag">'+escHtml(r.tempo)+'</span>';var vocalBtn=STATE.showVocalSpec?'<button class="popup-btn" data-act="popup-vocal"><span class="pb-icon">🎤</span><span class="pb-label">Vocal Spec</span><span class="pb-hint">タップで表示・コピー</span></button>':"";card.innerHTML='<div class="card-head"><div class="card-num">RECIPE / <span>'+String(idx+1).padStart(2,"0")+'</span></div><div class="card-tags">'+tag+'</div></div><div class="card-body">'+titlesHtml+'<div class="popup-btns"><button class="popup-btn primary" data-act="popup-combined"><span class="pb-icon">🎚️</span><span class="pb-label">Style + Vocal(Suno用)</span><span class="pb-hint">タップで表示・コピー</span></button><button class="popup-btn" data-act="popup-lyrics"><span class="pb-icon">🎵</span><span class="pb-label">Lyrics ('+lang+')</span><span class="pb-hint">タップで表示・コピー</span></button><button class="popup-btn" data-act="popup-style"><span class="pb-icon">🎛</span><span class="pb-label">Style Prompt 単独</span><span class="pb-hint">タップで表示・コピー</span></button>'+vocalBtn+'</div></div>';card.addEventListener("click",function(e){var btn=e.target.closest("[data-act]");if(!btn)return;var act=btn.getAttribute("data-act");if(act==="popup-combined")openExpand("STYLE + VOCAL (Suno用)",combinedPrompt,"mono",r.vocal);else if(act==="popup-style")openExpand("STYLE PROMPT 単独",r.stylePrompt,"mono",null);else if(act==="popup-vocal")openExpand("VOCAL SPEC",r.vocal,"mono",r.vocal);else if(act==="popup-lyrics")openExpand("LYRICS",lyrics,"lyrics",null);else if(act==="expand-titles")openExpandTitles(titles);});var titleItems=card.querySelectorAll(".title-item");for(var ti=0;ti<titleItems.length;ti++){(function(item){item.addEventListener("click",function(){var enText=item.getAttribute("data-title-en");copyToClipboard(enText,item);item.classList.add("copied");setTimeout(function(){item.classList.remove("copied");},1200);});})(titleItems[ti]);}cards.appendChild(card);});c.appendChild(cards);}
+function renderResults(recipes){var c=document.getElementById("results");c.innerHTML="";var bar=document.createElement("div");bar.className="results-clear-bar";bar.innerHTML='<button class="results-clear-btn" onclick="clearResults()">× 結果をクリア</button>';c.appendChild(bar);var cards=document.createElement("div");cards.className="cards";recipes.forEach(function(r,idx){var card=document.createElement("div");card.className="card";var titles=normalizeTitles(r.titles);var lyrics=r.lyrics||"";var lang=r.lyricsLang==="ja"?"JA":r.lyricsLang==="en"?"EN":"MIX";var combinedPrompt=(r.stylePrompt||"")+(r.vocal?", vocal: "+r.vocal:"");var titlesHtml="";if(titles.length){var items=titles.map(function(t,ti){var en=escHtml(t.en);var ja=t.ja?'<span class="title-ja">'+escHtml(t.ja)+'</span>':"";return '<div class="title-item" data-title-en="'+en+'"><span class="title-num">'+(ti+1)+'</span><div class="title-textwrap"><div class="title-text">'+en+'</div>'+ja+'</div><span class="title-hint">Tap to copy</span></div>';}).join("");titlesHtml='<div class="field"><div class="field-head"><div class="field-label">Title Candidates ('+titles.length+')</div><div class="field-actions"><button class="icon-btn neutral" data-act="regen-titles">🔄 やり直し</button><button class="icon-btn neutral" data-act="expand-titles">⤢ 拡大</button></div></div><div class="title-list">'+items+'</div></div>';}var tag="";if(r.genre)tag+='<span class="tag genre">'+escHtml(r.genre)+'</span>';if(r.mood)tag+='<span class="tag">'+escHtml(r.mood)+'</span>';if(r.era)tag+='<span class="tag">'+escHtml(r.era)+'</span>';if(r.tempo)tag+='<span class="tag">'+escHtml(r.tempo)+'</span>';var vocalBtn=STATE.showVocalSpec?'<button class="popup-btn" data-act="popup-vocal"><span class="pb-icon">🎤</span><span class="pb-label">Vocal Spec</span><span class="pb-hint">タップで表示・コピー</span></button>':"";card.innerHTML='<div class="card-head"><div class="card-num">RECIPE / <span>'+String(idx+1).padStart(2,"0")+'</span></div><div class="card-tags">'+tag+'</div></div><div class="card-body">'+titlesHtml+'<div class="popup-btns"><button class="popup-btn primary" data-act="popup-combined"><span class="pb-icon">🎚️</span><span class="pb-label">Style + Vocal(Suno用)</span><span class="pb-hint">タップで表示・コピー</span></button><button class="popup-btn" data-act="popup-lyrics"><span class="pb-icon">🎵</span><span class="pb-label">Lyrics ('+lang+')</span><span class="pb-hint">タップで表示・コピー</span></button><button class="popup-btn" data-act="popup-style"><span class="pb-icon">🎛</span><span class="pb-label">Style Prompt 単独</span><span class="pb-hint">タップで表示・コピー</span></button>'+vocalBtn+'</div><div class="regen-section"><div class="regen-label">部分やり直し</div><div class="regen-btns"><button class="regen-btn" data-act="regen-lyrics">🔄 歌詞だけ</button><button class="regen-btn" data-act="regen-style">🔄 スタイルだけ</button></div></div></div>';card.addEventListener("click",function(e){var btn=e.target.closest("[data-act]");if(!btn)return;var act=btn.getAttribute("data-act");if(act==="popup-combined")openExpand("STYLE + VOCAL (Suno用)",combinedPrompt,"mono",r.vocal);else if(act==="popup-style")openExpand("STYLE PROMPT 単独",r.stylePrompt,"mono",null);else if(act==="popup-vocal")openExpand("VOCAL SPEC",r.vocal,"mono",r.vocal);else if(act==="popup-lyrics")openExpand("LYRICS",lyrics,"lyrics",null);else if(act==="expand-titles")openExpandTitles(titles);else if(act==="regen-lyrics"){if(confirm("歌詞だけをAI再生成します。現在の歌詞は上書きされます。よろしいですか?"))regenerateRecipePart(idx,"lyrics");}else if(act==="regen-style"){if(confirm("スタイル+ボーカルだけをAI再生成します。現在のスタイルは上書きされます。よろしいですか?"))regenerateRecipePart(idx,"style");}else if(act==="regen-titles"){if(confirm("5つのタイトルだけをAI再生成します。現在のタイトルは上書きされます。よろしいですか?"))regenerateRecipePart(idx,"titles");}});var titleItems=card.querySelectorAll(".title-item");for(var ti=0;ti<titleItems.length;ti++){(function(item){item.addEventListener("click",function(){var enText=item.getAttribute("data-title-en");copyToClipboard(enText,item);item.classList.add("copied");setTimeout(function(){item.classList.remove("copied");},1200);});})(titleItems[ti]);}cards.appendChild(card);});c.appendChild(cards);}
 function copyToClipboard(text,btn){if(!text)return;var fb=function(){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(ta);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).catch(fb);}else{fb();}if(btn&&btn.classList){var orig=btn.innerHTML;btn.classList.add("copied");if(btn.classList.contains("icon-btn"))btn.innerHTML="Copied ✓";setTimeout(function(){btn.classList.remove("copied");if(btn.classList.contains("icon-btn"))btn.innerHTML=orig;},1200);}}
 function showError(html){var b=document.getElementById("errorBanner");b.innerHTML=html;b.style.display="block";}
 function hideError(){document.getElementById("errorBanner").style.display="none";}
@@ -558,6 +565,48 @@ return 'Generate '+count+' music recipe(s) for Suno AI.\n\n'+themeBlock+'\n\nLyr
 }
 function callClaudeAPI(theme,lang,count,vocals,adv,freetext){
 return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":STATE.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:8000,system:buildSystemPrompt(),messages:[{role:"user",content:buildUserPrompt(theme,lang,count,vocals,adv,freetext)}]})}).then(function(res){if(!res.ok){return res.json().catch(function(){return{};}).then(function(d){var m="API error "+res.status;if(d&&d.error&&d.error.message)m+=": "+d.error.message;throw new Error(m);});}return res.json();}).then(function(data){console.log("API response:",data);var text="";if(typeof data==="string"){text=data;}else if(data&&typeof data==="object"){if(typeof data.content==="string"){text=data.content;}else if(Array.isArray(data.content)){text=data.content.map(function(b){if(typeof b==="string")return b;if(b&&typeof b.text==="string")return b.text;return"";}).filter(function(s){return s;}).join("\n");}else if(data.content&&typeof data.content.text==="string"){text=data.content.text;}if(!text&&data.completion)text=String(data.completion);}if(!text||!text.trim())throw new Error("APIから空のレスポンスが返ってきました。");text=text.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"").trim();if(text.charAt(0)!=="{"){var m=text.match(/\{[\s\S]*\}/);if(m)text=m[0];}var parsed;try{parsed=JSON.parse(text);}catch(e){console.error("Parse failed. Raw:",text);throw new Error("生成結果の読み取りに失敗しました。もう一度SPINボタンを押してください。");}if(!parsed.recipes||!Array.isArray(parsed.recipes)||!parsed.recipes.length)throw new Error("レシピが生成されませんでした。");return parsed.recipes;});
+}
+function callPartialRegen(mode,originalRecipe,theme,lang){
+var sys,user;
+if(mode==="lyrics"){
+sys='You rewrite ONLY the lyrics of a music recipe. Keep style, vocal, genre, mood, era, tempo, and titles unchanged. Output ONLY a JSON object: {"lyrics":"FULL lyrics with [Verse 1] [Chorus] etc tags separated by \\\\n","lyricsLang":"ja|en|mix"}\nLyrics must be FULL STRUCTURE [Verse 1] [Chorus] [Verse 2] [Chorus] [Bridge] [Chorus] [Outro]. Each section 2-4 lines, total 20-30 lines.';
+user='Rewrite the lyrics for this music recipe, KEEPING the same style and mood. Theme: "'+(theme||"")+'". Lyrics language: '+lang+'.\n\nCurrent recipe (DO NOT change the style/genre/vocal, only rewrite lyrics):\nGenre: '+(originalRecipe.genre||"")+'\nMood: '+(originalRecipe.mood||"")+'\nEra: '+(originalRecipe.era||"")+'\nTempo: '+(originalRecipe.tempo||"")+'\nVocal: '+(originalRecipe.vocal||"")+'\nStyle: '+(originalRecipe.stylePrompt||"")+'\n\nGenerate NEW lyrics that match this style but feel fresh — different angle, different imagery, different structure. Output JSON only.';
+}else if(mode==="style"){
+sys='You rewrite ONLY the style prompt and vocal spec of a music recipe. Keep lyrics, titles, and the overall theme intent unchanged. Output ONLY a JSON object: {"genre":"label","mood":"1-3 word","era":"era","tempo":"tempo with BPM","vocal":"English vocal spec","stylePrompt":"English comma-separated, ~50-80 words, includes vocal description"}\nThe new style should fit the EXISTING LYRICS but try a different sonic approach.';
+user='Rewrite the style and vocal for this music recipe, KEEPING the same lyrics. Theme: "'+(theme||"")+'".\n\nExisting lyrics (DO NOT change these — only describe a new sound for them):\n"""\n'+(originalRecipe.lyrics||"")+'\n"""\n\nPrevious style was: '+(originalRecipe.stylePrompt||"")+'\nVocal was: '+(originalRecipe.vocal||"")+'\n\nGenerate a DIFFERENT but coherent style/vocal combination that suits the same lyrics. Output JSON only.';
+}else if(mode==="titles"){
+sys='You rewrite ONLY the 5 title candidates for a music recipe. Keep lyrics, style, vocal unchanged. Output ONLY a JSON object: {"titles":[{"en":"T1","ja":"日本語ニュアンス"},{"en":"T2","ja":"日本語"},{"en":"T3","ja":"日本語"},{"en":"T4","ja":"日本語"},{"en":"T5","ja":"日本語"}]}\nEach title: EN 1-2 words MAX (never 3+). JA 6-10 character Japanese nuance.';
+user='Generate 5 NEW alternative English titles for this music recipe.\n\nTheme: "'+(theme||"")+'"\nGenre: '+(originalRecipe.genre||"")+'\nMood: '+(originalRecipe.mood||"")+'\nLyrics excerpt: '+(originalRecipe.lyrics||"").substring(0,300)+'\n\nProvide 5 fresh, stylish titles different from the previous ones. Output JSON only.';
+}
+return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":STATE.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:4000,system:sys,messages:[{role:"user",content:user}]})}).then(function(res){if(!res.ok){return res.json().catch(function(){return{};}).then(function(d){var m="API error "+res.status;if(d&&d.error&&d.error.message)m+=": "+d.error.message;throw new Error(m);});}return res.json();}).then(function(data){var text="";if(Array.isArray(data.content))text=data.content.map(function(b){return b&&b.text?b.text:"";}).join("\n");else if(typeof data.content==="string")text=data.content;if(!text||!text.trim())throw new Error("APIから空のレスポンスが返ってきました。");text=text.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"").trim();if(text.charAt(0)!=="{"){var m=text.match(/\{[\s\S]*\}/);if(m)text=m[0];}var parsed;try{parsed=JSON.parse(text);}catch(e){console.error("Parse failed. Raw:",text);throw new Error("生成結果の読み取りに失敗しました。");}return parsed;});
+}
+function regenerateRecipePart(recipeIdx,mode){
+if(STATE.loading)return;
+if(!STATE.lastResults||!STATE.lastResults[recipeIdx])return;
+var original=STATE.lastResults[recipeIdx];
+hideError();setLoading(true);
+var theme=document.getElementById("themeInput").value;
+callPartialRegen(mode,original,theme,STATE.lang).then(function(partial){
+if(mode==="lyrics"){if(partial.lyrics)original.lyrics=partial.lyrics;if(partial.lyricsLang)original.lyricsLang=partial.lyricsLang;}
+else if(mode==="style"){if(partial.genre)original.genre=partial.genre;if(partial.mood)original.mood=partial.mood;if(partial.era)original.era=partial.era;if(partial.tempo)original.tempo=partial.tempo;if(partial.vocal)original.vocal=partial.vocal;if(partial.stylePrompt)original.stylePrompt=partial.stylePrompt;}
+else if(mode==="titles"){if(Array.isArray(partial.titles)&&partial.titles.length)original.titles=partial.titles;}
+STATE.lastResults[recipeIdx]=original;
+safeSetJSON(STORAGE.lastResults,STATE.lastResults);
+// Update history: find and replace the matching entry
+for(var i=0;i<STATE.recipeHistory.length;i++){
+if(STATE.recipeHistory[i].recipe===original||(STATE.recipeHistory[i].timestamp&&STATE.recipeHistory[i].recipe&&STATE.recipeHistory[i].recipe.stylePrompt===original.stylePrompt&&i<STATE.lastResults.length)){
+STATE.recipeHistory[i].recipe=original;
+break;
+}
+}
+saveRecipeHistory();
+renderResults(STATE.lastResults);
+showToast(mode==="lyrics"?"歌詞を更新しました":mode==="style"?"スタイルを更新しました":"タイトルを更新しました");
+}).catch(function(err){
+console.error(err);
+var msg=String(err.message||err);
+showError("<strong>再生成に失敗しました</strong><br>"+escHtml(msg)+'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--ink-faint);font-size:12px">技術情報</summary><pre style="margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:2px;font-size:11px;overflow:auto;color:var(--ink-faint)">'+escHtml(err.stack||msg)+'</pre></details>');
+}).then(function(){setLoading(false);});
 }
 function doRoll(){if(STATE.loading)return;hideError();var theme=document.getElementById("themeInput").value;var vocals=[];STATE.vocalSelection.forEach(function(id){for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){vocals.push(STATE.vocalLibrary[i]);break;}});setLoading(true);callClaudeAPI(theme,STATE.lang,STATE.count,vocals,STATE.adv,STATE.advFreetext).then(function(recipes){renderResults(recipes);addRecipesToHistory(recipes,theme);STATE.lastResults=recipes;safeSetJSON(STORAGE.lastResults,recipes);if(theme&&theme.trim()){addToThemeHistory(theme);renderThemeHistory();}}).catch(function(err){console.error(err);var msg=String(err.message||err);var t="エラーが発生しました",d="";if(msg.indexOf("401")!==-1||msg.toLowerCase().indexOf("authentication")!==-1||msg.toLowerCase().indexOf("invalid api key")!==-1){t="APIキーが無効です";d='<br>右上の ⚙ Settings → APIキー変更 から再入力できます。';}else if(msg.indexOf("429")!==-1||msg.toLowerCase().indexOf("rate_limit")!==-1){t="API呼び出し制限に達しました";d="<br>少し時間を置いてからお試しください。";}else if(msg.toLowerCase().indexOf("credit")!==-1||msg.toLowerCase().indexOf("billing")!==-1){t="クレジット残高が不足しています";d='<br><a href="https://console.anthropic.com/settings/billing" target="_blank">Anthropic Console</a>で確認してください。';}else if(msg.toLowerCase().indexOf("network")!==-1||msg.toLowerCase().indexOf("failed to fetch")!==-1){t="ネットワーク接続を確認してください";}else{d="<br>もう一度SPINしてみてください。";}showError("<strong>"+t+"</strong>"+d+'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--ink-faint);font-size:12px">技術情報</summary><pre style="margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:2px;font-size:11px;overflow:auto;color:var(--ink-faint)">'+escHtml(msg)+'</pre></details>');}).then(function(){setLoading(false);});}
 function init(){
