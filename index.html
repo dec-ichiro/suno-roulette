@@ -38,15 +38,16 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .setup-error.visible{display:block}
 .setup-help{font-size:13px;line-height:1.6;color:var(--ink-dim);margin-top:14px;font-family:"Helvetica Neue",sans-serif;padding-top:14px;border-top:1px solid var(--line)}
 .setup-help a{color:var(--accent);text-decoration:none;font-weight:600}
-.main-layout{display:grid;grid-template-columns:1fr;gap:0}
+.main-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0;width:100%;max-width:100%}
+.input-pane,.output-pane{min-width:0;width:100%;max-width:100%;overflow-x:hidden}
 /* 1-column always */
-.field-block{margin-bottom:14px}
+.field-block{margin-bottom:14px;max-width:100%}
 .field-block-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px;font-weight:700;display:block}
-.theme-input{width:100%;padding:13px 15px;background:var(--bg-2);border:1px solid var(--accent);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:16px;border-radius:2px}
+.theme-input{width:100%;max-width:100%;padding:13px 15px;background:var(--bg-2);border:1px solid var(--accent);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:16px;border-radius:2px;box-sizing:border-box}
 .theme-input:focus{outline:none;box-shadow:0 0 0 2px var(--accent-soft)}
 .theme-input::placeholder{color:var(--ink-faint)}
 .theme-hint{font-size:12px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:6px}
-.vocal-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:10px 12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vocal-bar{background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;padding:10px 12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:100%;overflow:hidden}
 .vocal-bar-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;font-weight:700}
 .vocal-bar-list{flex:1;display:flex;gap:6px;flex-wrap:wrap;min-width:0}
 .vocal-chip{display:inline-flex;align-items:center;gap:5px;background:var(--accent-soft);border:1px solid var(--accent);padding:4px 9px;border-radius:12px;font-size:12px;color:var(--ink);font-family:"Helvetica Neue",sans-serif;font-weight:600}
@@ -74,29 +75,29 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .adv-sub-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.2em;color:var(--ink-faint);text-transform:uppercase;font-weight:700;margin-bottom:6px}
 .adv-sub-toggle{background:transparent;border:none;color:var(--accent);font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.15em;cursor:pointer;text-transform:uppercase;font-weight:700;margin-top:6px;padding:6px 0;display:inline-flex;align-items:center;gap:5px;min-height:32px}
 .adv-sub-toggle:hover{text-decoration:underline}
-.adv-freetext{width:100%;min-height:80px;padding:11px 13px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:16px;border-radius:2px;resize:vertical;line-height:1.5}
+.adv-freetext{width:100%;max-width:100%;min-height:80px;padding:11px 13px;background:var(--bg);border:1px solid var(--line-strong);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:16px;border-radius:2px;resize:vertical;line-height:1.5;box-sizing:border-box}
 .adv-freetext:focus{outline:none;border-color:var(--accent)}
 .adv-freetext::placeholder{color:var(--ink-faint)}
 .adv-hint{font-size:12px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:4px}
-.history-section{margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px}
+.history-section{margin-bottom:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;padding:10px;max-width:100%;overflow:hidden}
 .history-header{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--ink-dim);margin-bottom:8px;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center}
 .history-clear{background:transparent;border:none;color:var(--accent);font-size:11px;font-family:"Helvetica Neue",sans-serif;cursor:pointer;padding:0;text-transform:uppercase;font-weight:600}
 .history-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto}
-.history-item{display:flex;align-items:center;gap:8px;padding:8px 9px;background:var(--bg);border-radius:2px;border-left:2px solid transparent}
+.history-item{display:flex;align-items:center;gap:8px;padding:8px 9px;background:var(--bg);border-radius:2px;border-left:2px solid transparent;min-width:0;max-width:100%}
 .history-item.starred{border-left-color:var(--accent)}
 .history-star{background:transparent;border:none;color:var(--ink-faint);font-size:16px;cursor:pointer;padding:0;width:20px;flex-shrink:0;min-height:30px}
 .history-star.active{color:var(--accent)}
-.history-text{flex:1;font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.history-text{flex:1;font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .history-text:hover{color:var(--accent)}
 .history-delete{background:transparent;border:none;color:var(--ink-faint);font-size:17px;cursor:pointer;padding:0 4px;min-height:30px}
 .history-delete:hover{color:var(--error)}
-.controls{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;min-height:42px}
+.controls{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;max-width:100%}
+.seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;min-height:42px;max-width:100%}
 .seg-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;color:var(--ink-dim);padding:0 12px;border-right:1px solid var(--line);text-transform:uppercase;align-self:center;min-width:70px;font-weight:700}
 .seg button{background:transparent;border:none;color:var(--ink-dim);padding:11px 12px;font-family:"Helvetica Neue",sans-serif;font-size:12px;cursor:pointer;text-transform:uppercase;font-weight:600;flex:1;min-height:42px}
 .seg button.active{background:var(--accent);color:#fff;font-weight:700}
-.roll-wrap{margin:8px 0 22px;position:relative}
-.roll{width:100%;background:var(--accent);color:#fff;border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;cursor:pointer;border-radius:2px;box-shadow:var(--shadow);min-height:80px;position:relative}
+.roll-wrap{margin:8px 0 22px;position:relative;max-width:100%}
+.roll{width:100%;max-width:100%;background:var(--accent);color:#fff;border:none;padding:26px 24px;font-family:"Times New Roman",serif;font-size:26px;font-weight:900;font-style:italic;cursor:pointer;border-radius:2px;box-shadow:var(--shadow);min-height:80px;position:relative;box-sizing:border-box}
 .roll:active{transform:scale(0.98)}
 .roll:disabled{opacity:0.5;cursor:not-allowed}
 .roll::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(255,255,255,0.5);pointer-events:none}
@@ -113,11 +114,11 @@ header{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24p
 .error{background:rgba(255,85,85,0.08);border:1px solid var(--error);border-radius:2px;padding:14px;margin-bottom:18px;font-family:"Helvetica Neue",sans-serif;font-size:13px;line-height:1.6;color:var(--error)}
 .error strong{color:var(--error);font-weight:700}
 .error a{color:var(--accent);font-weight:600}
-.results-clear-bar{display:flex;justify-content:flex-end;margin-bottom:10px}
-.results-clear-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:7px 13px;font-family:"Helvetica Neue",sans-serif;font-size:11px;cursor:pointer;border-radius:2px;text-transform:uppercase;font-weight:600;min-height:36px}
+.results-clear-bar{display:flex;justify-content:flex-end;margin-bottom:10px;max-width:100%}
+.results-clear-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:7px 13px;font-family:"Helvetica Neue",sans-serif;font-size:11px;cursor:pointer;border-radius:2px;text-transform:uppercase;font-weight:600;min-height:36px;flex-shrink:0}
 .results-clear-btn:hover{color:var(--error);border-color:var(--error)}
-.cards{display:flex;flex-direction:column;gap:18px}
-.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:r 0.5s ease-out;box-shadow:var(--shadow)}
+.cards{display:flex;flex-direction:column;gap:18px;max-width:100%}
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden;animation:r 0.5s ease-out;box-shadow:var(--shadow);max-width:100%}
 @keyframes r{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card-head{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg-3)}
 .card-num{font-family:"Times New Roman",serif;font-size:12px;letter-spacing:0.3em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:8px;font-weight:600}
@@ -282,7 +283,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div class="app">
 <header>
 <div class="logo"><span class="r">R</span>OULETTE</div>
-<div class="tagline">Suno Prompt Generator / v4.3</div>
+<div class="tagline">Suno Prompt Generator / v4.4</div>
 <div class="header-meta">DEC<br><span id="dateLabel"></span>
 <div class="header-btns" id="headerBtns" style="display:none">
 <button class="header-btn" onclick="openRecipeHistory()">📜 履歴</button>
@@ -354,7 +355,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div id="results"><div class="empty"><div class="big">∞</div>テーマを入れて<br>SPINボタンで生成</div></div>
 </div>
 </div>
-<footer>SUNO ROULETTE v4.3 / DEC<br>Built for ICHIRO</footer>
+<footer>SUNO ROULETTE v4.4 / DEC<br>Built for ICHIRO</footer>
 </div>
 <div class="modal-backdrop" id="settingsModal" onclick="if(event.target===this)closeModal('settingsModal')">
 <div class="modal">
