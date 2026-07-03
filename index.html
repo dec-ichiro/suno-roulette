@@ -323,13 +323,36 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 .text-edit-area{width:100%;min-height:38vh;padding:14px;background:var(--bg-2);border:1px solid var(--accent);color:var(--ink);font-family:"Hiragino Mincho ProN",serif;font-size:16px;line-height:1.7;border-radius:2px;resize:vertical;box-sizing:border-box;margin-top:6px}
 .text-edit-area:focus{outline:none;box-shadow:0 0 0 2px var(--accent-soft)}
 .text-edit-hint{font-size:12px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:8px;line-height:1.6}
+.vb-section{margin-bottom:16px}
+.vb-section-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;margin-bottom:8px;display:block}
+.vb-count-row,.vb-gender-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.vb-chip{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:9px 14px;font-family:"Helvetica Neue",sans-serif;font-size:13px;cursor:pointer;border-radius:2px;font-weight:600;min-height:40px}
+.vb-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.vb-member{border:1px solid var(--line);border-radius:2px;padding:12px;margin-bottom:10px;background:var(--bg-2)}
+.vb-member-title{font-family:"Times New Roman",serif;font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.vb-mini-label{font-family:"Helvetica Neue",sans-serif;font-size:10px;letter-spacing:0.15em;color:var(--ink-faint);text-transform:uppercase;font-weight:700;margin:8px 0 5px}
+.vb-timbre-grid{display:flex;flex-wrap:wrap;gap:5px}
+.vb-timbre{background:var(--bg);border:1px solid var(--line-strong);color:var(--ink-dim);padding:8px 10px;font-family:"Hiragino Mincho ProN",serif;font-size:13px;cursor:pointer;border-radius:2px;font-weight:600;min-height:36px;text-align:left;line-height:1.3}
+.vb-timbre.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.vb-timbre-desc{font-size:11px;color:var(--ink-dim);font-family:"Helvetica Neue",sans-serif;margin-top:6px;min-height:0;line-height:1.5}
+.vb-small-row{display:flex;gap:5px;flex-wrap:wrap}
+.vb-small{background:var(--bg);border:1px solid var(--line-strong);color:var(--ink-dim);padding:7px 11px;font-family:"Helvetica Neue",sans-serif;font-size:12px;cursor:pointer;border-radius:2px;font-weight:600;min-height:34px}
+.vb-small.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.vb-preview{background:var(--bg);border:1px dashed var(--accent);border-radius:2px;padding:11px;font-family:"Helvetica Neue",monospace;font-size:12px;color:var(--ink-dim);line-height:1.6;margin-top:6px;word-break:break-word}
+.vb-lib-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:2px;margin-bottom:6px}
+.vb-lib-item.selected{border-color:var(--accent);background:var(--accent-soft)}
+.vb-lib-item .info{flex:1;min-width:0;cursor:pointer}
+.vb-lib-item .name{font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);font-weight:600}
+.vb-lib-item .sum{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-top:2px}
+.vb-lib-item .del{background:transparent;border:none;color:var(--ink-faint);font-size:16px;cursor:pointer;padding:0 4px;min-height:30px}
+.vb-lib-item .del:hover{color:var(--error)}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
 <div class="logo"><span class="r">R</span>OULETTE</div>
-<div class="tagline">Suno Prompt Generator / v6.5</div>
+<div class="tagline">Suno Prompt Generator / v6.7</div>
 <div class="header-meta">DEC<br><span id="dateLabel"></span></div>
 <div class="header-btns" id="headerBtns" style="display:none">
 <button class="header-btn" onclick="resetInputsAndSettings()">↺ リセット</button>
@@ -360,7 +383,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div class="vocal-bar">
 <div class="vocal-bar-label">使用ボーカル</div>
 <div class="vocal-bar-list" id="vocalBarList"></div>
-<button class="lib-btn" onclick="openLibrary()">ライブラリ</button>
+<button class="lib-btn" onclick="openLibrary()">声を設定</button>
 </div>
 <button class="adv-toggle" id="advToggle" onclick="toggleAdvPanel()">
 <span class="arrow">▶</span><span>詳細設定</span>
@@ -426,7 +449,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div id="results"><div class="empty"><div class="big">∞</div>テーマを入れて<br>SPINボタンで生成</div></div>
 </div>
 </div>
-<footer>SUNO ROULETTE v6.5 / DEC<br>Built for ICHIRO</footer>
+<footer>SUNO ROULETTE v6.7 / DEC<br>Built for ICHIRO</footer>
 </div>
 <div class="modal-backdrop" id="textEditModal" onclick="if(event.target===this)closeModal('textEditModal')">
 <div class="modal">
@@ -476,27 +499,33 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 </div>
 <div class="modal-backdrop" id="libraryModal" onclick="if(event.target===this)closeModal('libraryModal')">
-<div class="modal">
-<div class="modal-title">ボーカルライブラリ</div>
-<div class="vocal-helper">気に入ったボーカルを保存して次回以降使えます。<br><strong>1人</strong>選択 → そのボーカルで生成 / <strong>2人</strong>選択 → デュエット生成</div>
-<div class="vocal-list" id="vocalList"></div>
-<div class="modal-actions">
-<button class="modal-btn" onclick="clearVocalSelection()">選択解除</button>
-<button class="modal-btn primary" onclick="closeModal('libraryModal')">閉じる</button>
+<div class="modal modal-wide">
+<div class="modal-title">ボーカル設定</div>
+<div class="vocal-helper">性別・人数・声質を選んでボーカルを組み立てます。選択した内容は生成に<strong>確実に反映</strong>されます(AIが勝手に変更しません)。</div>
+<div class="vb-section">
+<label class="vb-section-label">人数</label>
+<div class="vb-count-row" id="vbCountRow"></div>
+</div>
+<div id="vbMembers"></div>
+<div class="vb-section">
+<label class="vb-section-label">この設定のプレビュー(英語スペック)</label>
+<div class="vb-preview" id="vbPreview"></div>
+</div>
+<div class="modal-actions" style="justify-content:space-between">
+<button class="modal-btn" onclick="saveVocalDraftToLibrary()">＋ ライブラリに保存</button>
+<div style="display:flex;gap:8px">
+<button class="modal-btn" onclick="clearVocalDraft()">クリア</button>
+<button class="modal-btn primary" onclick="applyVocalDraft()">この声で決定</button>
+</div>
+</div>
+<div class="vb-section" style="margin-top:18px;border-top:1px solid var(--line);padding-top:14px">
+<label class="vb-section-label">保存済みライブラリ</label>
+<div id="vbLibList"></div>
 </div>
 </div>
 </div>
-<div class="modal-backdrop" id="saveVocalModal" onclick="if(event.target===this)closeModal('saveVocalModal')">
-<div class="modal">
-<div class="modal-title">ボーカルを保存</div>
-<div class="modal-text">このボーカルに名前を付けてライブラリに保存します。</div>
-<input type="text" class="save-vocal-input" id="saveVocalNameInput" placeholder="例: クール男声 / Aimer風" autocomplete="off" onkeydown="if(event.key==='Enter')confirmSaveVocal()">
-<div class="save-vocal-preview" id="saveVocalPreview"></div>
-<div class="modal-actions">
-<button class="modal-btn" onclick="cancelSaveVocal()">キャンセル</button>
-<button class="modal-btn primary" onclick="confirmSaveVocal()">保存</button>
 </div>
-</div>
+
 </div>
 <div class="modal-backdrop" id="historyModal" onclick="if(event.target===this)closeModal('historyModal')">
 <div class="modal modal-wide">
@@ -530,7 +559,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <script>
 "use strict";
 var STORAGE={apiKey:"suno_roulette_api_key_v4",themeHistory:"suno_roulette_theme_history_v4",adv:"suno_roulette_adv_v4",advFreetext:"suno_roulette_adv_freetext_v4",vocalLibrary:"suno_roulette_vocal_library_v4",vocalSelection:"suno_roulette_vocal_selection_v4",uiTheme:"suno_roulette_ui_theme_v4",showVocalSpec:"suno_roulette_show_vocal_spec_v4",recipeHistory:"suno_roulette_recipe_history_v4",lastResults:"suno_roulette_last_results_v4",themeInput:"suno_roulette_theme_input_v4",titleLang:"suno_roulette_title_lang_v4",refArtist:"suno_roulette_ref_artist_v4",mixRatio:"suno_roulette_mix_ratio_v4",creativity:"suno_roulette_creativity_v4",model:"suno_roulette_model_v4"};
-var THEME_HISTORY_MAX=10,RECIPE_HISTORY_MAX=100,VOCAL_MAX_SELECTION=2;
+var THEME_HISTORY_MAX=10,RECIPE_HISTORY_MAX=100,VOCAL_MAX_SELECTION=2,VOCAL_MEMBER_MAX=3;
 var GENRE_FAMILIES=[
 {id:"acoustic_folk",label:"Acoustic / Folk",subs:[{id:"indie_folk",label:"Indie Folk"},{id:"americana",label:"Americana"},{id:"singer_songwriter",label:"Singer-Songwriter"},{id:"celtic_folk",label:"Celtic Folk"},{id:"chamber_folk",label:"Chamber Folk"},{id:"freak_folk",label:"Freak Folk"}],prompt:"Acoustic/Folk: indie folk, americana, singer-songwriter, chamber folk, freak folk, celtic folk."},
 {id:"jazz_bossa",label:"Jazz / Bossa Nova",subs:[{id:"bebop",label:"Bebop"},{id:"cool_jazz",label:"Cool Jazz"},{id:"jazz_fusion",label:"Jazz Fusion"},{id:"nu_jazz",label:"Nu Jazz"},{id:"bossa_nova",label:"Bossa Nova"},{id:"smooth_jazz",label:"Smooth Jazz"},{id:"jazz_hop",label:"Jazz Hop"},{id:"swing",label:"Swing"}],prompt:"Jazz/Bossa: jazz, bossa nova, fusion, nu jazz, swing, acid jazz, cool jazz, smooth jazz, bebop, jazz hop."},
@@ -647,7 +676,66 @@ var lines=picks.map(function(p){return "- "+p.n+": "+p.t;}).join("\n");
 return '\n\n*** LYRIC CRAFT ANCHORS (this spin\'s randomly drawn masters) ***\nWrite lyrics at the professional tier of these writers. Absorb their TECHNIQUES listed below — but NEVER imitate their actual lines, titles, or signature phrases, and never mention them:\n'+lines+'\nThe listener should feel "this was written by a professional at that level", not "this sounds like that artist".';
 }
 var TITLE_STYLES=["a single evocative noun","an imperative verb phrase","a coined/invented word that sounds real","a number + noun combination","a place name or street name","a sensory adjective + unexpected noun","a time expression (hour, season, date)","two clashing/contradictory words","an onomatopoeia-inspired word","an abstract concept made concrete"];
-var STATE={count:1,lang:"ja",apiKey:null,loading:false,themeHistory:[],adv:{genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""},advFreetext:"",vocalLibrary:[],vocalSelection:[],uiTheme:"dark",showVocalSpec:true,pendingSaveVocalSpec:null,recipeHistory:[],historyFilter:"all",historySearch:"",lastResults:null,themeInputValue:"",expandText:"",expandMode:"text",expandLyricsMode:"original",currentExpandRecipe:null,titleLang:"en",refArtist:"",mixRatio:50,creativity:"standard",model:"sonnet",expandLyricsEditing:false,expandLyricsRecipe:null};
+var VOICE_TIMBRES=[
+{id:"clear",label:"クリア・透明",en:"clear, pure, transparent tone",desc:"澄んでいて濁りのない、まっすぐ抜ける声"},
+{id:"husky",label:"ハスキー",en:"husky, raspy, breathy-edged",desc:"かすれた質感のある、色気とざらつきのある声"},
+{id:"smoky",label:"スモーキー",en:"smoky, smoldering, husky-warm, sultry lower tone",desc:"煙がかったように少しかすれ、燻んだ深みと大人の艶がある声"},
+{id:"powerful",label:"太い・パワフル",en:"thick, powerful, chesty, resonant",desc:"芯が太く力強い、押し出しの強い声"},
+{id:"thin",label:"細い・繊細",en:"thin, delicate, light",desc:"線が細く儚げな、優しく軽い声"},
+{id:"warm",label:"温かい・甘い",en:"warm, sweet, mellow",desc:"丸くて甘い、包み込むような声"},
+{id:"cool",label:"クール・硬質",en:"cool, crisp, controlled",desc:"感情を抑えた、都会的でクールな声"},
+{id:"bright",label:"明るい・華やか",en:"bright, vibrant, energetic",desc:"華やかで元気な、前向きに弾ける声"},
+{id:"deep",label:"低音・渋い",en:"deep, low-register, smoky",desc:"低くて渋い、落ち着いた大人の声"},
+{id:"airy",label:"ウィスパー・囁き",en:"airy, whispery, intimate, soft ASMR-like",desc:"息多めで囁くような、近く親密な声"},
+{id:"soulful",label:"ソウルフル・情感",en:"soulful, emotive, expressive with rich vibrato",desc:"ビブラート豊かで情感たっぷりの歌い上げる声"}
+];
+var VOICE_REGISTERS=[
+{id:"",label:"おまかせ",en:""},
+{id:"high",label:"高め",enM:"high tenor register",enF:"high soprano register"},
+{id:"mid",label:"中音域",enM:"mid baritone-tenor register",enF:"mid mezzo register"},
+{id:"low",label:"低め",enM:"low bass-baritone register",enF:"low contralto register"}
+];
+var VOICE_AGES=[
+{id:"",label:"おまかせ",en:""},
+{id:"young",label:"若い",en:"youthful"},
+{id:"mature",label:"大人っぽい",en:"mature adult"}
+];
+function genderWord(g){return g==="male"?"male":g==="female"?"female":"androgynous";}
+function buildVoiceSpec(members){
+if(!members||!members.length)return "";
+if(members.length===1){
+var m=members[0];
+var parts=[];
+var reg=VOICE_REGISTERS.filter(function(r){return r.id===m.register;})[0];
+var age=VOICE_AGES.filter(function(a){return a.id===m.age;})[0];
+var tim=VOICE_TIMBRES.filter(function(t){return t.id===m.timbre;})[0];
+var s=(age&&age.en?age.en+" ":"")+genderWord(m.gender)+" vocal";
+if(reg&&reg.id)s+=", "+(m.gender==="female"?reg.enF:reg.enM);
+if(tim)s+=", "+tim.en;
+return s;
+}
+// duet / group
+var labeled=members.map(function(m,i){
+var reg=VOICE_REGISTERS.filter(function(r){return r.id===m.register;})[0];
+var age=VOICE_AGES.filter(function(a){return a.id===m.age;})[0];
+var tim=VOICE_TIMBRES.filter(function(t){return t.id===m.timbre;})[0];
+var s=(age&&age.en?age.en+" ":"")+genderWord(m.gender)+(reg&&reg.id?" "+(m.gender==="female"?reg.enF:reg.enM):"")+(tim?" "+tim.en:"");
+return "Voice "+String.fromCharCode(65+i)+" ("+s+")";
+});
+var genders=members.map(function(m){return genderWord(m.gender);});
+var combo=genders.join(" + ");
+var kind=members.length===2?"duet":members.length+"-part group vocal";
+return kind+" ["+combo+"]: "+labeled.join("; ")+", interweaving harmonies and trade-off lines";
+}
+function summarizeVoice(members){
+if(!members||!members.length)return "";
+var gmap={male:"男",female:"女"};
+var g=members.map(function(m){return gmap[m.gender]||"?";}).join("×");
+var tims=members.map(function(m){var t=VOICE_TIMBRES.filter(function(x){return x.id===m.timbre;})[0];return t?t.label:"";}).filter(Boolean);
+var kind=members.length===1?"ソロ":members.length===2?"デュエット":members.length+"人";
+return kind+" "+g+" / "+tims.join("・");
+}
+var STATE={count:1,lang:"ja",apiKey:null,loading:false,themeHistory:[],adv:{genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""},advFreetext:"",vocalLibrary:[],vocalSelection:[],activeVocal:null,uiTheme:"dark",showVocalSpec:true,pendingSaveVocalSpec:null,recipeHistory:[],historyFilter:"all",historySearch:"",lastResults:null,themeInputValue:"",expandText:"",expandMode:"text",expandLyricsMode:"original",currentExpandRecipe:null,titleLang:"en",refArtist:"",mixRatio:50,creativity:"standard",model:"sonnet",expandLyricsEditing:false,expandLyricsRecipe:null,vocalDraft:null};
 var MAX_GENRES=2;
 function escHtml(s){if(s===null||s===undefined)return"";return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function safeGet(k,f){try{var v=localStorage.getItem(k);return(v===null||v===undefined)?f:v;}catch(e){return f;}}
@@ -662,7 +750,7 @@ function showSetupScreen(){document.getElementById("setupScreen").style.display=
 function showMainApp(){document.getElementById("setupScreen").style.display="none";document.getElementById("mainApp").style.display="grid";document.getElementById("headerBtns").style.display="flex";if(!STATE._slidersAttached){attachSliderDrag("genreMixTrack",setGenreMix);attachSliderDrag("lyricsMixTrack",setLyricsMix);STATE._slidersAttached=true;}renderAllInputUi();if(STATE.lastResults&&Array.isArray(STATE.lastResults)&&STATE.lastResults.length)renderResults(STATE.lastResults);}
 function handleSaveKey(){var i=document.getElementById("apiKeyInput");var e=document.getElementById("setupError");var k=i.value.trim();if(!k){e.textContent="APIキーを入力してください";e.classList.add("visible");return;}if(k.substr(0,7)!=="sk-ant-"){e.textContent="APIキーの形式が正しくありません(sk-ant-で始まる必要があります)";e.classList.add("visible");return;}if(!safeSet(STORAGE.apiKey,k)){e.textContent="保存に失敗しました";e.classList.add("visible");return;}STATE.apiKey=k;e.classList.remove("visible");i.value="";showMainApp();}
 function resetApiKey(){if(confirm("APIキーを変更しますか?")){try{localStorage.removeItem(STORAGE.apiKey);}catch(e){}STATE.apiKey=null;closeModal("settingsModal");showSetupScreen();}}
-function clearAllData(){if(confirm("全てのデータ(APIキー・履歴・生成履歴・ボーカルライブラリ・詳細設定)を削除しますか?")){for(var k in STORAGE){try{localStorage.removeItem(STORAGE[k]);}catch(e){}}STATE.apiKey=null;STATE.themeHistory=[];STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};STATE.advFreetext="";STATE.vocalLibrary=[];STATE.vocalSelection=[];STATE.recipeHistory=[];STATE.lastResults=null;STATE.themeInputValue="";STATE.refArtist="";STATE.titleLang="en";STATE.mixRatio=50;STATE.creativity="standard";STATE.model="sonnet";closeModal("settingsModal");showSetupScreen();}}
+function clearAllData(){if(confirm("全てのデータ(APIキー・履歴・生成履歴・ボーカルライブラリ・詳細設定)を削除しますか?")){for(var k in STORAGE){try{localStorage.removeItem(STORAGE[k]);}catch(e){}}STATE.apiKey=null;STATE.themeHistory=[];STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};STATE.advFreetext="";STATE.vocalLibrary=[];STATE.vocalSelection=[];STATE.activeVocal=null;STATE.recipeHistory=[];STATE.lastResults=null;STATE.themeInputValue="";STATE.refArtist="";STATE.titleLang="en";STATE.mixRatio=50;STATE.creativity="standard";STATE.model="sonnet";closeModal("settingsModal");showSetupScreen();}}
 function renderCountSeg(){STATE.count=1;}
 function renderAllInputUi(){renderEditCards();renderLangSeg();renderTitleLangSeg();renderCreativitySeg();renderLyricsMix();renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderEraOptions();renderTempoOptions();renderStructureOptions();renderDynamicsOptions();renderFidelityOptions();renderLengthOptions();renderAdvBadge();renderThemeHistory();renderVocalBar();}
 function renderLangSeg(){var s=document.getElementById("langSeg");var ex=s.querySelectorAll("button");for(var i=0;i<ex.length;i++)ex[i].remove();[{v:"ja",l:"日本語"},{v:"en",l:"英語"},{v:"mix",l:"混合"},{v:"random",l:"ランダム"}].forEach(function(o){var b=document.createElement("button");b.textContent=o.l;b.className=STATE.lang===o.v?"active":"";b.onclick=function(){STATE.lang=o.v;renderLangSeg();renderLyricsMix();};s.appendChild(b);});}
@@ -698,7 +786,7 @@ function renderEditCards(){[["theme","themeCardText"],["refArtist","refArtistCar
 function openTextEdit(kind){if(!TEXT_FIELDS[kind])return;STATE.editingTextField=kind;document.getElementById("textEditTitle").textContent=TEXT_FIELDS[kind].title;document.getElementById("textEditHint").textContent=TEXT_FIELDS[kind].hint;var ta=document.getElementById("textEditArea");ta.value=getTextField(kind);ta.placeholder=TEXT_FIELDS[kind].ph;document.getElementById("textEditModal").classList.add("visible");setTimeout(function(){ta.focus();},100);}
 function textEditClear(){document.getElementById("textEditArea").value="";}
 function textEditSave(){var k=STATE.editingTextField;if(!k)return;setTextField(k,document.getElementById("textEditArea").value.trim());renderEditCards();renderAdvBadge();closeModal("textEditModal");}
-function resetInputsAndSettings(){if(!confirm("入力と設定(テーマ・参考アーティスト・詳細設定・歌詞言語・ボーカル選択)をリセットしますか?\n※APIキー・ライブラリ・履歴は残ります"))return;setTextField("theme","");setTextField("refArtist","");setTextField("freetext","");STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};saveAdv();STATE.lang="ja";STATE.titleLang="en";safeSet(STORAGE.titleLang,"en");STATE.mixRatio=50;safeSet(STORAGE.mixRatio,"50");STATE.creativity="standard";safeSet(STORAGE.creativity,"standard");STATE.vocalSelection=[];saveVocalSelection();var gsp=document.getElementById("genreSubPanel");if(gsp)gsp.classList.remove("open");var gsa=document.getElementById("genreSubArrow");if(gsa)gsa.textContent="▶";renderAllInputUi();showToast("入力と設定をリセットしました");}
+function resetInputsAndSettings(){if(!confirm("入力と設定(テーマ・参考アーティスト・詳細設定・歌詞言語・ボーカル選択)をリセットしますか?\n※APIキー・ライブラリ・履歴は残ります"))return;setTextField("theme","");setTextField("refArtist","");setTextField("freetext","");STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};saveAdv();STATE.lang="ja";STATE.titleLang="en";safeSet(STORAGE.titleLang,"en");STATE.mixRatio=50;safeSet(STORAGE.mixRatio,"50");STATE.creativity="standard";safeSet(STORAGE.creativity,"standard");STATE.vocalSelection=[];STATE.activeVocal=null;try{localStorage.removeItem(STORAGE.vocalSelection);}catch(e){}var gsp=document.getElementById("genreSubPanel");if(gsp)gsp.classList.remove("open");var gsa=document.getElementById("genreSubArrow");if(gsa)gsa.textContent="▶";renderAllInputUi();showToast("入力と設定をリセットしました");}
 function saveAdv(){safeSetJSON(STORAGE.adv,STATE.adv);}
 function renderAdvBadge(){var c=0;if(STATE.adv.genres&&STATE.adv.genres.length)c+=STATE.adv.genres.length;if(STATE.adv.genreSubs&&STATE.adv.genreSubs.length)c+=STATE.adv.genreSubs.length;if(STATE.adv.era)c++;if(STATE.adv.tempo)c++;if(STATE.adv.length&&STATE.adv.length!=="normal")c++;if(STATE.adv.structure)c++;if(STATE.adv.dynamics)c++;if(STATE.adv.fidelity)c++;if(STATE.advFreetext&&STATE.advFreetext.trim())c++;if(STATE.refArtist&&STATE.refArtist.trim())c++;var b=document.getElementById("advBadge");if(c>0){b.style.display="inline-block";b.textContent=c;}else{b.style.display="none";}}
 function toggleAdvPanel(){var t=document.getElementById("advToggle");var p=document.getElementById("advPanel");t.classList.toggle("open");p.classList.toggle("open");}
@@ -711,16 +799,71 @@ function useThemeFromHistory(i){if(!STATE.themeHistory[i])return;setTextField("t
 function renderThemeHistory(){var s=document.getElementById("historySection");var l=document.getElementById("historyList");if(!STATE.themeHistory.length){s.style.display="none";return;}s.style.display="block";l.innerHTML="";STATE.themeHistory.forEach(function(item,idx){var d=document.createElement("div");d.className="history-item"+(item.starred?" starred":"");d.innerHTML='<button class="history-star '+(item.starred?"active":"")+'" onclick="toggleThemeStar('+idx+')">'+(item.starred?"★":"☆")+'</button><span class="history-text" onclick="useThemeFromHistory('+idx+')">'+escHtml(item.text)+'</span><button class="history-delete" onclick="deleteThemeItem('+idx+')">×</button>';l.appendChild(d);});}
 function saveVocalLibrary(){safeSetJSON(STORAGE.vocalLibrary,STATE.vocalLibrary);}
 function saveVocalSelection(){safeSetJSON(STORAGE.vocalSelection,STATE.vocalSelection);}
-function openLibrary(){renderVocalLibrary();document.getElementById("libraryModal").classList.add("visible");}
-function renderVocalLibrary(){var l=document.getElementById("vocalList");l.innerHTML="";if(!STATE.vocalLibrary.length){l.innerHTML='<div class="vocal-list-empty">保存されたボーカルはまだありません。<br>生成結果のVOCAL SPEC欄から「+ Save」を押して保存できます。</div>';return;}STATE.vocalLibrary.forEach(function(v){var sel=STATE.vocalSelection.indexOf(v.id)!==-1;var d=document.createElement("div");d.className="vocal-item"+(sel?" selected":"");d.innerHTML='<div class="check" onclick="toggleVocalSelection(\''+v.id+'\')">'+(sel?"✓":"")+'</div><div class="info" onclick="toggleVocalSelection(\''+v.id+'\')"><div class="name">'+escHtml(v.name)+'</div><div class="spec">'+escHtml(v.spec)+'</div></div><div class="actions"><button onclick="renameVocal(\''+v.id+'\')">改名</button><button class="danger" onclick="deleteVocal(\''+v.id+'\')">削除</button></div>';l.appendChild(d);});}
-function toggleVocalSelection(id){var i=STATE.vocalSelection.indexOf(id);if(i!==-1){STATE.vocalSelection.splice(i,1);}else{if(STATE.vocalSelection.length>=VOCAL_MAX_SELECTION){alert("選択できるのは最大"+VOCAL_MAX_SELECTION+"人までです。");return;}STATE.vocalSelection.push(id);}saveVocalSelection();renderVocalLibrary();renderVocalBar();}
-function renameVocal(id){var v=null;for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){v=STATE.vocalLibrary[i];break;}if(!v)return;var n=prompt("ボーカル名を変更",v.name);if(n&&n.trim()){v.name=n.trim();saveVocalLibrary();renderVocalLibrary();renderVocalBar();}}
-function deleteVocal(id){var v=null;for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){v=STATE.vocalLibrary[i];break;}if(!v)return;if(confirm("「"+v.name+"」を削除しますか?")){STATE.vocalLibrary=STATE.vocalLibrary.filter(function(x){return x.id!==id;});STATE.vocalSelection=STATE.vocalSelection.filter(function(x){return x!==id;});saveVocalLibrary();saveVocalSelection();renderVocalLibrary();renderVocalBar();}}
-function clearVocalSelection(){STATE.vocalSelection=[];saveVocalSelection();renderVocalLibrary();renderVocalBar();}
-function renderVocalBar(){var l=document.getElementById("vocalBarList");if(!STATE.vocalSelection.length){l.innerHTML='<span class="vocal-empty">なし(AIが自由に選定)</span>';return;}l.innerHTML="";STATE.vocalSelection.forEach(function(id){var v=null;for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){v=STATE.vocalLibrary[i];break;}if(!v)return;var c=document.createElement("span");c.className="vocal-chip";c.innerHTML=escHtml(v.name)+' <span class="remove" onclick="event.stopPropagation();toggleVocalSelection(\''+v.id+'\')">×</span>';l.appendChild(c);});}
-function openSaveVocalDialog(spec){STATE.pendingSaveVocalSpec=spec;document.getElementById("saveVocalPreview").textContent=spec||"";document.getElementById("saveVocalNameInput").value="";document.getElementById("saveVocalModal").classList.add("visible");setTimeout(function(){var i=document.getElementById("saveVocalNameInput");if(i)i.focus();},100);}
-function confirmSaveVocal(){var n=document.getElementById("saveVocalNameInput").value.trim();if(!n){alert("名前を入力してください");return;}if(!STATE.pendingSaveVocalSpec)return;var id="v_"+Date.now()+"_"+Math.random().toString(36).slice(2,8);STATE.vocalLibrary.unshift({id:id,name:n,spec:STATE.pendingSaveVocalSpec});saveVocalLibrary();STATE.pendingSaveVocalSpec=null;closeModal("saveVocalModal");renderVocalBar();showToast("「"+n+"」を保存しました");}
-function cancelSaveVocal(){closeModal("saveVocalModal");STATE.pendingSaveVocalSpec=null;}
+function defaultMember(){return {gender:"female",timbre:"clear",register:"",age:""};}
+function ensureVocalDraft(){if(!STATE.vocalDraft||!Array.isArray(STATE.vocalDraft.members)||!STATE.vocalDraft.members.length){STATE.vocalDraft={members:[defaultMember()]};}}
+function openLibrary(){ensureVocalDraft();renderVocalBuilder();renderVbLibList();document.getElementById("libraryModal").classList.add("visible");}
+function setVocalCount(n){ensureVocalDraft();var cur=STATE.vocalDraft.members;var out=[];for(var i=0;i<n;i++){out.push(cur[i]?cur[i]:defaultMember());}STATE.vocalDraft.members=out;renderVocalBuilder();}
+function setMemberField(idx,field,val){ensureVocalDraft();if(!STATE.vocalDraft.members[idx])return;STATE.vocalDraft.members[idx][field]=val;renderVocalBuilder();}
+function renderVocalBuilder(){
+ensureVocalDraft();
+var count=STATE.vocalDraft.members.length;
+var cr=document.getElementById("vbCountRow");cr.innerHTML="";
+[[1,"ソロ"],[2,"デュエット"],[3,"3人"]].forEach(function(p){var b=document.createElement("button");b.className="vb-chip"+(count===p[0]?" active":"");b.textContent=p[1];b.onclick=function(){setVocalCount(p[0]);};cr.appendChild(b);});
+var mc=document.getElementById("vbMembers");mc.innerHTML="";
+STATE.vocalDraft.members.forEach(function(m,idx){
+var wrap=document.createElement("div");wrap.className="vb-member";
+var title=count===1?"ボーカル":"ボーカル "+String.fromCharCode(65+idx);
+var html='<div class="vb-member-title">'+title+'</div>';
+html+='<div class="vb-mini-label">性別</div><div class="vb-gender-row" data-role="gender"></div>';
+html+='<div class="vb-mini-label">声質(声色)</div><div class="vb-timbre-grid" data-role="timbre"></div><div class="vb-timbre-desc" data-role="tdesc"></div>';
+html+='<div class="vb-mini-label">音域</div><div class="vb-small-row" data-role="register"></div>';
+html+='<div class="vb-mini-label">年齢感</div><div class="vb-small-row" data-role="age"></div>';
+wrap.innerHTML=html;
+var gr=wrap.querySelector('[data-role="gender"]');
+[["male","男性"],["female","女性"]].forEach(function(p){var b=document.createElement("button");b.className="vb-chip"+(m.gender===p[0]?" active":"");b.textContent=p[1];b.onclick=function(){setMemberField(idx,"gender",p[0]);};gr.appendChild(b);});
+var tg=wrap.querySelector('[data-role="timbre"]');
+VOICE_TIMBRES.forEach(function(t){var b=document.createElement("button");b.className="vb-timbre"+(m.timbre===t.id?" active":"");b.textContent=t.label;b.onclick=function(){setMemberField(idx,"timbre",t.id);};tg.appendChild(b);});
+var td=wrap.querySelector('[data-role="tdesc"]');var curT=VOICE_TIMBRES.filter(function(x){return x.id===m.timbre;})[0];td.textContent=curT?curT.desc:"";
+var rr=wrap.querySelector('[data-role="register"]');
+VOICE_REGISTERS.forEach(function(r){var b=document.createElement("button");b.className="vb-small"+(m.register===r.id?" active":"");b.textContent=r.label;b.onclick=function(){setMemberField(idx,"register",r.id);};rr.appendChild(b);});
+var ar=wrap.querySelector('[data-role="age"]');
+VOICE_AGES.forEach(function(a){var b=document.createElement("button");b.className="vb-small"+(m.age===a.id?" active":"");b.textContent=a.label;b.onclick=function(){setMemberField(idx,"age",a.id);};ar.appendChild(b);});
+mc.appendChild(wrap);
+});
+document.getElementById("vbPreview").textContent=buildVoiceSpec(STATE.vocalDraft.members);
+}
+function clearVocalDraft(){STATE.vocalDraft={members:[defaultMember()]};renderVocalBuilder();}
+function applyVocalDraft(){
+ensureVocalDraft();
+var spec=buildVoiceSpec(STATE.vocalDraft.members);
+var sum=summarizeVoice(STATE.vocalDraft.members);
+STATE.activeVocal={spec:spec,summary:sum,members:JSON.parse(JSON.stringify(STATE.vocalDraft.members))};
+safeSetJSON(STORAGE.vocalSelection,STATE.activeVocal);
+closeModal("libraryModal");renderVocalBar();showToast("ボーカルを設定しました");
+}
+function saveVocalDraftToLibrary(){
+ensureVocalDraft();
+var sum=summarizeVoice(STATE.vocalDraft.members);
+var nm=prompt("この声に名前を付けて保存します",sum);
+if(nm===null)return;nm=nm.trim()||sum;
+var id="v_"+Date.now()+"_"+Math.random().toString(36).slice(2,8);
+STATE.vocalLibrary.unshift({id:id,name:nm,members:JSON.parse(JSON.stringify(STATE.vocalDraft.members)),spec:buildVoiceSpec(STATE.vocalDraft.members),summary:sum});
+saveVocalLibrary();renderVbLibList();showToast("「"+nm+"」を保存しました");
+}
+function renderVbLibList(){
+var l=document.getElementById("vbLibList");if(!l)return;l.innerHTML="";
+if(!STATE.vocalLibrary.length){l.innerHTML='<div class="vocal-list-empty" style="padding:16px">保存済みの声はまだありません。上で組み立てて「ライブラリに保存」で追加できます。</div>';return;}
+STATE.vocalLibrary.forEach(function(v){
+var d=document.createElement("div");d.className="vb-lib-item";
+var sum=v.summary||summarizeVoice(v.members)||"";
+d.innerHTML='<div class="info"><div class="name">'+escHtml(v.name)+'</div><div class="sum">'+escHtml(sum)+'</div></div><button class="modal-btn" style="min-height:34px;padding:7px 12px" data-act="load">使う</button><button class="del" data-act="del">×</button>';
+d.querySelector('[data-act="load"]').onclick=function(){if(v.members){STATE.vocalDraft={members:JSON.parse(JSON.stringify(v.members))};renderVocalBuilder();showToast("読み込みました。「この声で決定」で適用");}};
+d.querySelector('[data-act="del"]').onclick=function(){if(confirm("「"+v.name+"」を削除しますか?")){STATE.vocalLibrary=STATE.vocalLibrary.filter(function(x){return x.id!==v.id;});saveVocalLibrary();renderVbLibList();}};
+l.appendChild(d);
+});
+}
+function clearActiveVocal(){STATE.activeVocal=null;try{localStorage.removeItem(STORAGE.vocalSelection);}catch(e){}renderVocalBar();}
+function renderVocalBar(){var l=document.getElementById("vocalBarList");if(!STATE.activeVocal){l.innerHTML='<span class="vocal-empty">なし(AIが自由に選定)</span>';return;}l.innerHTML="";var c=document.createElement("span");c.className="vocal-chip";c.innerHTML=escHtml(STATE.activeVocal.summary||"設定済み")+' <span class="remove" onclick="event.stopPropagation();clearActiveVocal()">×</span>';l.appendChild(c);}
 function showToast(m){var t=document.createElement("div");t.style.cssText="position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:11px 22px;border-radius:2px;font-family:sans-serif;font-size:14px;font-weight:600;z-index:300;box-shadow:0 4px 12px rgba(0,0,0,0.3)";t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove();},2000);}
 function getTitleEn(t){if(!t)return"";if(typeof t==="string")return t;return t.en||"";}
 function getTitleJa(t){if(!t)return"";if(typeof t==="string")return"";return t.ja||"";}
@@ -732,7 +875,7 @@ function showError(html){var b=document.getElementById("errorBanner");b.innerHTM
 function hideError(){document.getElementById("errorBanner").style.display="none";}
 var LOADING_MSGS=["Mixing genres","Tuning vocals","Drafting lyrics","Spinning the wheel","Calling the muse","Hunting for the right vibe"];
 function setLoading(on){STATE.loading=on;document.getElementById("loadingState").style.display=on?"block":"none";document.getElementById("rollBtn").disabled=on;if(on){document.getElementById("loadingText").textContent=LOADING_MSGS[Math.floor(Math.random()*LOADING_MSGS.length)];}}
-function openExpand(title,text,style,vocalSpec,charLimit){if(!text)return;STATE.expandText=text;STATE.expandMode="text";STATE.expandVocalSpec=vocalSpec||null;document.getElementById("expandTitle").textContent=title;var a=document.getElementById("expandTextArea");var c=style==="mono"?"expand-text mono":"expand-text";var counter="";if(charLimit){var n=text.length;var over=n>charLimit;counter='<div class="expand-text-note" style="'+(over?"color:var(--error);border:1px solid var(--error);":"")+'">文字数: '+n+' / '+charLimit+(over?" — 超過!Sunoで切られる可能性があります":" — OK")+'</div>';}a.innerHTML='<div class="'+c+'">'+escHtml(text)+'</div>'+counter;var b=document.getElementById("expandCopyBtn");b.textContent="COPY TO CLIPBOARD";b.classList.remove("copied");var eb0=document.getElementById("expandEditLyricsBtn");if(eb0)eb0.style.display="none";var sb=document.getElementById("expandSaveVocalBtn");if(sb){if(vocalSpec){sb.style.display="block";sb.onclick=function(){closeExpand();openSaveVocalDialog(vocalSpec);};}else{sb.style.display="none";}}document.getElementById("expandModal").classList.add("visible");}
+function openExpand(title,text,style,vocalSpec,charLimit){if(!text)return;STATE.expandText=text;STATE.expandMode="text";STATE.expandVocalSpec=vocalSpec||null;document.getElementById("expandTitle").textContent=title;var a=document.getElementById("expandTextArea");var c=style==="mono"?"expand-text mono":"expand-text";var counter="";if(charLimit){var n=text.length;var over=n>charLimit;counter='<div class="expand-text-note" style="'+(over?"color:var(--error);border:1px solid var(--error);":"")+'">文字数: '+n+' / '+charLimit+(over?" — 超過!Sunoで切られる可能性があります":" — OK")+'</div>';}a.innerHTML='<div class="'+c+'">'+escHtml(text)+'</div>'+counter;var b=document.getElementById("expandCopyBtn");b.textContent="COPY TO CLIPBOARD";b.classList.remove("copied");var eb0=document.getElementById("expandEditLyricsBtn");if(eb0)eb0.style.display="none";var sb=document.getElementById("expandSaveVocalBtn");if(sb){if(vocalSpec){sb.style.display="none";}else{sb.style.display="none";}}document.getElementById("expandModal").classList.add("visible");}
 function openExpandLyrics(lyricsOriginal,lyricsTranslation,lyricsLang,recipe){
 if(!lyricsOriginal)return;
 STATE.expandMode="lyrics";
@@ -903,7 +1046,7 @@ else b+='"en" = English title (1-2 words MAX, never 3+). "ja" = 6-10 character J
 b+='\nMake the 5 titles use DIFFERENT patterns. For this spin, at least 3 of the 5 should follow these randomly chosen patterns: '+styles.join(" / ")+'. Avoid overused AI-title words: Neon, Static, Midnight, Echo, Drift, Fade, Glow, Velvet, Shadow, Gravity.';
 return b;
 }
-function buildUserPrompt(theme,lang,count,vocals,adv,freetext){
+function buildUserPrompt(theme,lang,count,vocalSpec,vocalMembers,adv,freetext){
 var langDesc;
 if(lang==="ja")langDesc="Japanese (modern contemporary spoken Japanese, NOT old-fashioned ballad cliches)";
 else if(lang==="en")langDesc="English";
@@ -914,8 +1057,11 @@ var themeBlock;
 if(hasTheme){themeBlock='User theme: "'+theme.trim()+'"\nIncorporate into lyrics, shape mood.';}
 else{var scene=pickRand(SEED_SCENES);themeBlock='No specific theme from user. Use this randomly drawn scenario as the lyrical starting point (adapt it freely, keep its concreteness): 「'+scene+'」\nGround the lyrics in this specific situation with concrete details.';}
 var vocalBlock;
-if(vocals.length===1){vocalBlock='*** LOCKED VOCAL (MANDATORY for ALL '+count+' recipes) ***\nThe "vocal" field MUST be exactly this spec (you may lightly adapt delivery words to fit the genre, but gender/register/timbre are FIXED): "'+vocals[0].spec+'" (named "'+vocals[0].name+'")\nDo NOT describe any vocal in stylePrompt.';}
-else if(vocals.length===2){vocalBlock='*** LOCKED DUET (MANDATORY for ALL '+count+' recipes) ***\n- Vocal A ("'+vocals[0].name+'"): "'+vocals[0].spec+'"\n- Vocal B ("'+vocals[1].name+'"): "'+vocals[1].spec+'"\nArrange as duet. The "vocal" field must combine both specs. Do NOT describe any vocal in stylePrompt.';}
+if(vocalSpec){
+var genderList=(vocalMembers&&vocalMembers.length)?vocalMembers.map(function(m){return genderWord(m.gender);}):[];
+var gEmph=genderList.length?'\n*** GENDER IS ABSOLUTELY FIXED: '+genderList.join(" and ")+'. Under NO circumstances output a different gender. This is the user\'s explicit choice. ***':'';
+vocalBlock='*** LOCKED VOCAL (MANDATORY for ALL '+count+' recipes) ***\nThe "vocal" field MUST be exactly: "'+vocalSpec+'"\nYou may append minor genre-appropriate delivery words, but gender, count, register and timbre are FIXED and must not change.'+gEmph+'\nDo NOT describe any vocal in stylePrompt.';
+}
 else{vocalBlock='Vocal: choose a fresh, specific vocal description for each recipe (gender, register, timbre, era, technique) in the "vocal" field ONLY. Distinct per recipe. Do NOT describe vocals in stylePrompt.';}
 var con=[];
 if(adv){
@@ -939,7 +1085,7 @@ var useDefaultSections=!(adv&&adv.structure);
 var lengthBlock='\n\n*** SONG LENGTH (CRITICAL — HARD REQUIREMENT) ***\nTarget song duration: '+lenObj.label+'\nLyrics line count: '+lenObj.lineCount+' lines TOTAL. The LOWER bound is a MINIMUM — count your lines before finalizing and add more if under.'+(useDefaultSections?'\nSection structure: '+lenObj.sections:' Fit this line count into the SONG STRUCTURE specified below.')+'\nEach section 2-4 lines. Song duration in Suno is driven mostly by lyrics volume and instrumental tags — for longer songs KEEP the [Instrumental Break]/[Interlude] tags, Suno plays them as instrumental time. Include in stylePrompt: "'+lenObj.stylePrompt+'".';
 var structBlock=buildStructureBlock(adv?adv.structure:"");
 var dynBlock=buildDynamicsBlock(adv?adv.dynamics:"")+buildFidelityBlock(adv?adv.fidelity:"");
-var artistBlock=buildArtistBlock(STATE.refArtist,vocals.length>0);
+var artistBlock=buildArtistBlock(STATE.refArtist,!!vocalSpec);
 var seedBlock=buildSeedBlock(hasTheme);
 var masterBlock=buildLyricMasterBlock(lang);
 var avoidBlock=buildAvoidBlock();
@@ -950,10 +1096,11 @@ return 'Generate '+count+' music recipe(s) for Suno AI.\n\n'+themeBlock+artistBl
 }
 function getModelString(){return STATE.model==="sonnet"?"claude-sonnet-4-6":"claude-haiku-4-5-20251001";}
 function stampRecipe(r,i){if(!r||typeof r!=="object")return;if(!r._id)r._id="rid_"+Date.now().toString(36)+"_"+(i||0)+"_"+Math.random().toString(36).slice(2,6);}
-function composeLockedVocal(vocals){if(vocals.length===1)return vocals[0].spec;if(vocals.length===2)return "Duet — Vocal A: "+vocals[0].spec+" / Vocal B: "+vocals[1].spec;return null;}
+function getActiveVocalSpec(){return (STATE.activeVocal&&STATE.activeVocal.spec)?STATE.activeVocal.spec:null;}
+function getActiveVocalMembers(){return (STATE.activeVocal&&Array.isArray(STATE.activeVocal.members))?STATE.activeVocal.members:[];}
 function syncRecipeEverywhere(recipe){if(!recipe)return;var id=recipe._id;if(STATE.lastResults&&Array.isArray(STATE.lastResults)){for(var i=0;i<STATE.lastResults.length;i++){if(STATE.lastResults[i]===recipe||(id&&STATE.lastResults[i]&&STATE.lastResults[i]._id===id))STATE.lastResults[i]=recipe;}safeSetJSON(STORAGE.lastResults,STATE.lastResults);}var changed=false;for(var j=0;j<STATE.recipeHistory.length;j++){var e=STATE.recipeHistory[j];if(e&&e.recipe&&(e.recipe===recipe||(id&&e.recipe._id===id))){e.recipe=recipe;changed=true;}}if(changed)saveRecipeHistory();}
-function callClaudeAPI(theme,lang,count,vocals,adv,freetext){
-return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":STATE.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:getModelString(),max_tokens:8000,temperature:1,system:buildSystemPrompt(),messages:[{role:"user",content:buildUserPrompt(theme,lang,count,vocals,adv,freetext)}]})}).then(function(res){if(!res.ok){return res.json().catch(function(){return{};}).then(function(d){var m="API error "+res.status;if(d&&d.error&&d.error.message)m+=": "+d.error.message;throw new Error(m);});}return res.json();}).then(function(data){console.log("API response:",data);var text="";if(typeof data==="string"){text=data;}else if(data&&typeof data==="object"){if(typeof data.content==="string"){text=data.content;}else if(Array.isArray(data.content)){text=data.content.map(function(b){if(typeof b==="string")return b;if(b&&typeof b.text==="string")return b.text;return"";}).filter(function(s){return s;}).join("\n");}else if(data.content&&typeof data.content.text==="string"){text=data.content.text;}if(!text&&data.completion)text=String(data.completion);}if(!text||!text.trim())throw new Error("APIから空のレスポンスが返ってきました。");text=text.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"").trim();if(text.charAt(0)!=="{"){var m=text.match(/\{[\s\S]*\}/);if(m)text=m[0];}var parsed;try{parsed=JSON.parse(text);}catch(e){console.error("Parse failed. Raw:",text);throw new Error("生成結果の読み取りに失敗しました。もう一度SPINボタンを押してください。");}if(!parsed.recipes||!Array.isArray(parsed.recipes)||!parsed.recipes.length)throw new Error("レシピが生成されませんでした。");return parsed.recipes;});
+function callClaudeAPI(theme,lang,count,vocalSpec,vocalMembers,adv,freetext){
+return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":STATE.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:getModelString(),max_tokens:8000,temperature:1,system:buildSystemPrompt(),messages:[{role:"user",content:buildUserPrompt(theme,lang,count,vocalSpec,vocalMembers,adv,freetext)}]})}).then(function(res){if(!res.ok){return res.json().catch(function(){return{};}).then(function(d){var m="API error "+res.status;if(d&&d.error&&d.error.message)m+=": "+d.error.message;throw new Error(m);});}return res.json();}).then(function(data){console.log("API response:",data);var text="";if(typeof data==="string"){text=data;}else if(data&&typeof data==="object"){if(typeof data.content==="string"){text=data.content;}else if(Array.isArray(data.content)){text=data.content.map(function(b){if(typeof b==="string")return b;if(b&&typeof b.text==="string")return b.text;return"";}).filter(function(s){return s;}).join("\n");}else if(data.content&&typeof data.content.text==="string"){text=data.content.text;}if(!text&&data.completion)text=String(data.completion);}if(!text||!text.trim())throw new Error("APIから空のレスポンスが返ってきました。");text=text.replace(/^```json\s*/i,"").replace(/^```\s*/i,"").replace(/```\s*$/i,"").trim();if(text.charAt(0)!=="{"){var m=text.match(/\{[\s\S]*\}/);if(m)text=m[0];}var parsed;try{parsed=JSON.parse(text);}catch(e){console.error("Parse failed. Raw:",text);throw new Error("生成結果の読み取りに失敗しました。もう一度SPINボタンを押してください。");}if(!parsed.recipes||!Array.isArray(parsed.recipes)||!parsed.recipes.length)throw new Error("レシピが生成されませんでした。");return parsed.recipes;});
 }
 function buildAdvConstraintsForPartial(adv,freetext){
 var con=[];
@@ -991,8 +1138,7 @@ return out;
 }
 function callPartialRegen(mode,originalRecipe,theme,lang,adv,freetext){
 var sys,user;
-var lockedVocals=[];STATE.vocalSelection.forEach(function(id){for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){lockedVocals.push(STATE.vocalLibrary[i]);break;}});
-var lockedSpec=composeLockedVocal(lockedVocals);
+var lockedSpec=getActiveVocalSpec();var lockedMembers=getActiveVocalMembers();
 var constraints=buildAdvConstraintsForPartial(adv,freetext)+buildArtistBlock(STATE.refArtist,!!lockedSpec);
 var qualityRules='\n\nLYRICS QUALITY RULES (絶対厳守):\nA) Write at the sophistication level of top contemporary Japanese songwriters — literary depth, layered metaphor, concrete imagery. NEVER amateur feel.\nB) JAPANESE: MODERN contemporary spoken Japanese. AVOID old-fashioned or dasai phrasing and J-Pop ballad cliches (「あの日」「君がいる」「永遠に」「強くなれる」). Use concrete specific images.\nC) MIX: follow the exact language ratio in the user message. English parts MUST be meaningful phrases (3+ words), NEVER single isolated words. Natural bilingual code-switching.\nD) The output lyricsLang field MUST exactly match the requested language code.';
 if(mode==="lyrics"){
@@ -1008,7 +1154,7 @@ sys='You rewrite ONLY the lyrics of a music recipe. Keep style, vocal, genre, mo
 user='Rewrite the lyrics for this music recipe, KEEPING the same style and mood. Theme: "'+(theme||"")+'".\n\n*** STRICT LANGUAGE REQUIREMENT ***\nlyricsLang MUST be: "'+origLang+'"\nLanguage style: '+langDesc+'\nDO NOT change the language code.'+constraints+masterBlock+'\n\nLyrical device to try this time: '+persp+'\n\nCurrent recipe (DO NOT change the style/genre/vocal, only rewrite lyrics):\nGenre: '+(originalRecipe.genre||"")+'\nMood: '+(originalRecipe.mood||"")+'\nEra: '+(originalRecipe.era||"")+'\nTempo: '+(originalRecipe.tempo||"")+'\nVocal: '+(originalRecipe.vocal||"")+'\nStyle: '+(originalRecipe.stylePrompt||"")+'\nPrevious lyrics (for reference, do not copy — different angle, different imagery):\n"""\n'+(originalRecipe.lyrics||"").substring(0,800)+'\n"""\n\nGenerate NEW lyrics that match this style but feel fresh. Output JSON only.';
 }else if(mode==="style"){
 var vocalRule;
-if(lockedSpec){vocalRule='\n\n*** LOCKED VOCAL (MANDATORY) ***\nThe "vocal" field MUST be exactly this user-locked spec: "'+lockedSpec+'"\nDo NOT change gender/register/timbre. Do NOT describe any vocal in stylePrompt.';}
+if(lockedSpec){var _gl=(lockedMembers&&lockedMembers.length)?lockedMembers.map(function(m){return genderWord(m.gender);}).join(" and "):"";vocalRule='\n\n*** LOCKED VOCAL (MANDATORY) ***\nThe "vocal" field MUST be exactly this user-locked spec: "'+lockedSpec+'"'+(_gl?'\n*** GENDER IS FIXED: '+_gl+'. Never change it. ***':'')+'\nDo NOT change gender/register/timbre. Do NOT describe any vocal in stylePrompt.';}
 else{vocalRule='\n\n*** VOCAL RULE ***\nKeep the vocal IDENTICAL to the previous recipe: "'+(originalRecipe.vocal||"")+'"\nReturn this same spec in the "vocal" field (you may adjust delivery words to fit the new style, but gender/register/timbre stay the same). Do NOT describe any vocal in stylePrompt.';}
 sys='You rewrite ONLY the style prompt of a music recipe. Keep lyrics, titles, and the overall theme intent unchanged. Output ONLY a JSON object: {"genre":"label","mood":"1-3 word","era":"era","tempo":"tempo with BPM","vocal":"English vocal spec","stylePrompt":"English comma-separated, ~50-80 words, NO vocal/voice/singer words"}\nThe new style should fit the EXISTING LYRICS but try a genuinely different sonic approach — different instruments, different production, different rhythmic feel.\n\nWrite at the level of a WORLD-CLASS producer/arranger: instruments with playing style ("palm-muted baritone guitar", not "guitar"), rhythm feel, one arrangement dynamic, era-accurate production trait, exact key and BPM. No vague adjectives (epic, atmospheric, emotional) without a concrete detail attached.\n\n*** ABSOLUTE RULE: stylePrompt MUST NOT contain ANY vocal description. Vocals go ONLY in the "vocal" field. ***\n\nIMPORTANT: You MUST respect the user\'s explicit genre/style constraints in the user message. If multiple genres are specified, BOTH must be present. Free-text instructions MUST be followed.';
 user='Rewrite the style for this music recipe, KEEPING the same lyrics. Theme: "'+(theme||"")+'".'+vocalRule+constraints+'\n\nExisting lyrics (DO NOT change — only describe a new sound for them):\n"""\n'+(originalRecipe.lyrics||"")+'\n"""\n\nPrevious style was: '+(originalRecipe.stylePrompt||"")+'\n\nGenerate a DIFFERENT but coherent style that suits the same lyrics, STRICTLY respecting the constraints above. Do not reuse the previous style\'s main descriptors. Output JSON only.';
@@ -1026,7 +1172,7 @@ hideError();setLoading(true);
 var theme=STATE.themeInputValue||"";
 callPartialRegen(mode,original,theme,STATE.lang,STATE.adv,STATE.advFreetext).then(function(partial){
 if(mode==="lyrics"){var origLang=original.lyricsLang;if(partial.lyrics)original.lyrics=partial.lyrics;original.lyricsLang=origLang||partial.lyricsLang||STATE.lang;if(typeof partial.lyricsTranslation==="string")original.lyricsTranslation=partial.lyricsTranslation;}
-else if(mode==="style"){if(partial.genre)original.genre=partial.genre;if(partial.mood)original.mood=partial.mood;if(partial.era)original.era=partial.era;if(partial.tempo)original.tempo=partial.tempo;if(partial.stylePrompt)original.stylePrompt=partial.stylePrompt;var _lv=[];STATE.vocalSelection.forEach(function(id){for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){_lv.push(STATE.vocalLibrary[i]);break;}});var _ls=composeLockedVocal(_lv);if(_ls){original.vocal=_ls;}/* 未選択時は元の声を維持（AIの返答は無視） */}
+else if(mode==="style"){if(partial.genre)original.genre=partial.genre;if(partial.mood)original.mood=partial.mood;if(partial.era)original.era=partial.era;if(partial.tempo)original.tempo=partial.tempo;if(partial.stylePrompt)original.stylePrompt=partial.stylePrompt;var _ls=getActiveVocalSpec();if(_ls){original.vocal=_ls;}/* 未設定時は元の声を維持（AIの返答は無視） */}
 else if(mode==="titles"){if(Array.isArray(partial.titles)&&partial.titles.length)original.titles=partial.titles;}
 STATE.lastResults[recipeIdx]=original;
 syncRecipeEverywhere(original);
@@ -1038,7 +1184,7 @@ var msg=String(err.message||err);
 showError("<strong>再生成に失敗しました</strong><br>"+escHtml(msg)+'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--ink-faint);font-size:12px">技術情報</summary><pre style="margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:2px;font-size:11px;overflow:auto;color:var(--ink-faint)">'+escHtml(err.stack||msg)+'</pre></details>');
 }).then(function(){setLoading(false);});
 }
-function doRoll(){if(STATE.loading)return;hideError();var theme=STATE.themeInputValue||"";var vocals=[];STATE.vocalSelection.forEach(function(id){for(var i=0;i<STATE.vocalLibrary.length;i++)if(STATE.vocalLibrary[i].id===id){vocals.push(STATE.vocalLibrary[i]);break;}});setLoading(true);callClaudeAPI(theme,STATE.lang,STATE.count,vocals,STATE.adv,STATE.advFreetext).then(function(recipes){var _ls=composeLockedVocal(vocals);recipes.forEach(function(r,i){stampRecipe(r,i);if(_ls)r.vocal=_ls;});renderResults(recipes);addRecipesToHistory(recipes,theme);STATE.lastResults=recipes;safeSetJSON(STORAGE.lastResults,recipes);if(theme&&theme.trim()){addToThemeHistory(theme);renderThemeHistory();}}).catch(function(err){console.error(err);var msg=String(err.message||err);var t="エラーが発生しました",d="";if(msg.indexOf("401")!==-1||msg.toLowerCase().indexOf("authentication")!==-1||msg.toLowerCase().indexOf("invalid api key")!==-1){t="APIキーが無効です";d='<br>右上の ⚙ Settings → APIキー変更 から再入力できます。';}else if(msg.indexOf("429")!==-1||msg.toLowerCase().indexOf("rate_limit")!==-1){t="API呼び出し制限に達しました";d="<br>少し時間を置いてからお試しください。";}else if(msg.toLowerCase().indexOf("credit")!==-1||msg.toLowerCase().indexOf("billing")!==-1){t="クレジット残高が不足しています";d='<br><a href="https://console.anthropic.com/settings/billing" target="_blank">Anthropic Console</a>で確認してください。';}else if(msg.toLowerCase().indexOf("network")!==-1||msg.toLowerCase().indexOf("failed to fetch")!==-1){t="ネットワーク接続を確認してください";}else{d="<br>もう一度SPINしてみてください。";}showError("<strong>"+t+"</strong>"+d+'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--ink-faint);font-size:12px">技術情報</summary><pre style="margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:2px;font-size:11px;overflow:auto;color:var(--ink-faint)">'+escHtml(msg)+'</pre></details>');}).then(function(){setLoading(false);});}
+function doRoll(){if(STATE.loading)return;hideError();var theme=STATE.themeInputValue||"";var vSpec=getActiveVocalSpec();var vMembers=getActiveVocalMembers();setLoading(true);callClaudeAPI(theme,STATE.lang,STATE.count,vSpec,vMembers,STATE.adv,STATE.advFreetext).then(function(recipes){var _ls=vSpec;recipes.forEach(function(r,i){stampRecipe(r,i);if(_ls)r.vocal=_ls;});renderResults(recipes);addRecipesToHistory(recipes,theme);STATE.lastResults=recipes;safeSetJSON(STORAGE.lastResults,recipes);if(theme&&theme.trim()){addToThemeHistory(theme);renderThemeHistory();}}).catch(function(err){console.error(err);var msg=String(err.message||err);var t="エラーが発生しました",d="";if(msg.indexOf("401")!==-1||msg.toLowerCase().indexOf("authentication")!==-1||msg.toLowerCase().indexOf("invalid api key")!==-1){t="APIキーが無効です";d='<br>右上の ⚙ Settings → APIキー変更 から再入力できます。';}else if(msg.indexOf("429")!==-1||msg.toLowerCase().indexOf("rate_limit")!==-1){t="API呼び出し制限に達しました";d="<br>少し時間を置いてからお試しください。";}else if(msg.toLowerCase().indexOf("credit")!==-1||msg.toLowerCase().indexOf("billing")!==-1){t="クレジット残高が不足しています";d='<br><a href="https://console.anthropic.com/settings/billing" target="_blank">Anthropic Console</a>で確認してください。';}else if(msg.toLowerCase().indexOf("network")!==-1||msg.toLowerCase().indexOf("failed to fetch")!==-1){t="ネットワーク接続を確認してください";}else{d="<br>もう一度SPINしてみてください。";}showError("<strong>"+t+"</strong>"+d+'<details style="margin-top:10px"><summary style="cursor:pointer;color:var(--ink-faint);font-size:12px">技術情報</summary><pre style="margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:2px;font-size:11px;overflow:auto;color:var(--ink-faint)">'+escHtml(msg)+'</pre></details>');}).then(function(){setLoading(false);});}
 function init(){
 try{
 var d=new Date();var dl=document.getElementById("dateLabel");if(dl)dl.textContent=d.getFullYear()+"."+String(d.getMonth()+1).padStart(2,"0")+"."+String(d.getDate()).padStart(2,"0");
@@ -1047,7 +1193,7 @@ STATE.themeHistory=safeGetJSON(STORAGE.themeHistory,[]);if(!Array.isArray(STATE.
 var adv=safeGetJSON(STORAGE.adv,null);if(adv&&typeof adv==="object"){var gs=Array.isArray(adv.genres)?adv.genres.slice(0,MAX_GENRES):(adv.genre?[adv.genre]:[]);var gss=Array.isArray(adv.genreSubs)?adv.genreSubs.slice(0,MAX_GENRES):(adv.genreSub?[adv.genreSub]:[]);gs=gs.filter(function(x){for(var _i=0;_i<GENRE_FAMILIES.length;_i++)if(GENRE_FAMILIES[_i].id===x)return true;return false;});gss=gss.filter(function(x){for(var _i=0;_i<GENRE_FAMILIES.length;_i++)for(var _j=0;_j<GENRE_FAMILIES[_i].subs.length;_j++)if(GENRE_FAMILIES[_i].subs[_j].id===x)return true;return false;});STATE.adv={genres:gs,genreSubs:gss,era:adv.era||"",tempo:adv.tempo||"",length:adv.length||"normal",structure:adv.structure||"",structureCustom:adv.structureCustom||"",dynamics:adv.dynamics||"",fidelity:adv.fidelity||"",genreMix:(typeof adv.genreMix==="number"&&adv.genreMix>=10&&adv.genreMix<=90)?adv.genreMix:50};}
 STATE.advFreetext=safeGet(STORAGE.advFreetext,"");
 STATE.vocalLibrary=safeGetJSON(STORAGE.vocalLibrary,[]);if(!Array.isArray(STATE.vocalLibrary))STATE.vocalLibrary=[];
-STATE.vocalSelection=safeGetJSON(STORAGE.vocalSelection,[]);if(!Array.isArray(STATE.vocalSelection))STATE.vocalSelection=[];
+var avRaw=safeGetJSON(STORAGE.vocalSelection,null);if(avRaw&&avRaw.spec&&Array.isArray(avRaw.members)){STATE.activeVocal=avRaw;}else{STATE.activeVocal=null;try{localStorage.removeItem(STORAGE.vocalSelection);}catch(e){}}STATE.vocalSelection=[];
 var ut=safeGet(STORAGE.uiTheme,"dark");STATE.uiTheme=(ut==="light"||ut==="dark")?ut:"dark";
 var sv=safeGet(STORAGE.showVocalSpec,null);if(sv!==null)STATE.showVocalSpec=sv==="true";
 STATE.recipeHistory=safeGetJSON(STORAGE.recipeHistory,[]);if(!Array.isArray(STATE.recipeHistory))STATE.recipeHistory=[];
