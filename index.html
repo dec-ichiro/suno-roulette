@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="ja" data-theme="dark">
 <head>
@@ -349,13 +346,28 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 .vb-lib-item .sum{font-family:"Helvetica Neue",sans-serif;font-size:11px;color:var(--ink-dim);margin-top:2px}
 .vb-lib-item .del{background:transparent;border:none;color:var(--ink-faint);font-size:16px;cursor:pointer;padding:0 4px;min-height:30px}
 .vb-lib-item .del:hover{color:var(--error)}
+.compact-row{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:2px;cursor:pointer;min-height:46px;box-sizing:border-box;margin-bottom:10px}
+.compact-row:hover{border-color:var(--accent)}
+.compact-row:active{transform:scale(0.99)}
+.compact-row .cr-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.15em;color:var(--ink-dim);text-transform:uppercase;font-weight:700;flex-shrink:0;min-width:82px}
+.compact-row .cr-value{flex:1;font-family:"Hiragino Mincho ProN",serif;font-size:14px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.compact-row .cr-value.empty{color:var(--ink-faint);font-style:italic}
+.compact-row .cr-icon{color:var(--accent);flex-shrink:0;font-size:14px}
+.compact-row.accent{border-color:var(--accent)}
+.adv-modal-body{max-height:70vh;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+.setting-bar{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;background:var(--bg-2);border:1px solid var(--accent);border-radius:2px;min-height:48px;box-sizing:border-box;margin-bottom:10px}
+.setting-bar .sb-label{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;font-weight:700;flex-shrink:0}
+.setting-bar .sb-summary{flex:1;font-family:"Helvetica Neue",sans-serif;font-size:13px;color:var(--ink-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.setting-bar .sb-btn{background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);padding:6px 11px;font-size:11px;letter-spacing:0.1em;cursor:pointer;border-radius:2px;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;font-weight:600;flex-shrink:0;min-height:34px}
+.setting-bar .sb-btn:hover{color:var(--accent);border-color:var(--accent)}
+.sb-badge{background:var(--accent);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;flex-shrink:0}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
 <div class="logo"><span class="r">R</span>OULETTE</div>
-<div class="tagline">Suno Prompt Generator / v6.7</div>
+<div class="tagline">Suno Prompt Generator / v6.9</div>
 <div class="header-meta">DEC<br><span id="dateLabel"></span></div>
 <div class="header-btns" id="headerBtns" style="display:none">
 <button class="header-btn" onclick="resetInputsAndSettings()">↺ リセット</button>
@@ -373,54 +385,18 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 <div id="mainApp" class="main-layout" style="display:none">
 <div class="input-pane">
-<div class="field-block">
-<label class="field-block-label">今日のテーマ(任意)</label>
-<div class="edit-card" id="themeCard" onclick="openTextEdit('theme')"><div class="edit-card-text" id="themeCardText"></div><span class="edit-card-icon">✏️</span></div>
-<div class="theme-hint">タップして編集。空欄ならランダムテーマで生成されます</div>
-</div>
-<div class="field-block">
-<label class="field-block-label">参考アーティスト(任意)</label>
-<div class="edit-card" id="refArtistCard" onclick="openTextEdit('refArtist')"><div class="edit-card-text" id="refArtistCardText"></div><span class="edit-card-icon">✏️</span></div>
-<div class="theme-hint">タップして編集。曲調・アレンジの参考にします。<strong>ボーカル選択中は声はそのボーカル設定を優先</strong>します</div>
-</div>
+<div class="compact-row" id="themeCard" onclick="openTextEdit('theme')"><span class="cr-label">テーマ</span><span class="cr-value" id="themeCardText"></span><span class="cr-icon">✏️</span></div>
+<div class="compact-row" id="refArtistCard" onclick="openTextEdit('refArtist')"><span class="cr-label">参考アーティスト</span><span class="cr-value" id="refArtistCardText"></span><span class="cr-icon">✏️</span></div>
 <div class="vocal-bar">
 <div class="vocal-bar-label">使用ボーカル</div>
 <div class="vocal-bar-list" id="vocalBarList"></div>
 <button class="lib-btn" onclick="openLibrary()">声を設定</button>
 </div>
-<button class="adv-toggle" id="advToggle" onclick="toggleAdvPanel()">
-<span class="arrow">▶</span><span>詳細設定</span>
-<span class="badge" id="advBadge" style="display:none">0</span>
-</button>
-<div class="adv-panel" id="advPanel">
-<div class="adv-row">
-<label class="adv-label">ジャンル傾向</label>
-<div class="adv-options" id="genreOptions"></div>
-<div class="genre-desc" id="genreDesc"></div>
-<button class="adv-sub-toggle" id="genreSubToggle" style="display:none" onclick="toggleGenreSub()"><span id="genreSubArrow">▶</span> もっと細かく</button>
-<div class="adv-sub" id="genreSubPanel">
-<div class="adv-sub-label">具体ジャンル(該当系統内で指定)</div>
-<div class="adv-options" id="genreSubOptions"></div>
-<div class="genre-desc" id="genreSubDesc"></div>
-</div>
-<div class="mix-slider-row" id="genreMixRow" style="display:none">
-<div class="mix-labels"><span><span id="mixLabelA"></span> <span class="mv" id="mixValA"></span></span><span><span class="mv" id="mixValB"></span> <span id="mixLabelB"></span></span></div>
-<div class="mix-track" id="genreMixTrack"><div class="mix-fill" id="mixFill"></div><div class="mix-thumb" id="mixThumb"></div></div>
-<div class="mix-presets"><button onclick="setGenreMix(70)">70:30</button><button onclick="setGenreMix(60)">60:40</button><button onclick="setGenreMix(50)">50:50</button><button onclick="setGenreMix(40)">40:60</button><button onclick="setGenreMix(30)">30:70</button></div>
-<div class="mix-note">配合比率の目安です(Sunoは厳密には守りません)</div>
-</div>
-</div>
-<div class="adv-row"><label class="adv-label">時代感</label><div class="adv-options" id="eraOptions"></div></div>
-<div class="adv-row"><label class="adv-label">テンポ感(BPM帯)</label><div class="adv-options" id="tempoOptions"></div></div>
-<div class="adv-row"><label class="adv-label">曲の構成</label><div class="adv-options" id="structureOptions"></div><div class="opt-desc" id="structureDesc"></div><div id="structureCustomWrap" style="display:none;margin-top:8px"><div class="edit-card" id="structureCustomCard" onclick="openTextEdit('structureCustom')"><div class="edit-card-text" id="structureCustomCardText"></div><span class="edit-card-icon">✏️</span></div></div></div>
-<div class="adv-row"><label class="adv-label">音圧・ダイナミクス</label><div class="adv-options" id="dynamicsOptions"></div><div class="opt-desc" id="dynamicsDesc"></div></div>
-<div class="adv-row"><label class="adv-label">音質・質感</label><div class="adv-options" id="fidelityOptions"></div><div class="opt-desc" id="fidelityDesc"></div><div class="adv-hint">※Sunoに音質の直接パラメータは無いため「質感の誘導」です。傾向はかなり反映されます。</div></div>
-<div class="adv-row"><label class="adv-label">曲の長さ</label><div class="adv-options" id="lengthOptions"></div><div class="adv-hint">※曲の長さは主に「歌詞の行数+間奏タグ」でSunoが決めます。長め/超長は行数と間奏を増やして誘導しますが、Suno側で短く切られることもあります(その場合はExtend機能を併用)。</div></div>
-<div class="adv-row">
-<label class="adv-label">追加の指示(自由入力)</label>
-<div class="edit-card" id="freetextCard" onclick="openTextEdit('freetext')"><div class="edit-card-text" id="freetextCardText"></div><span class="edit-card-icon">✏️</span></div>
-<div class="adv-hint">タップして編集。楽器・アーティスト名・除外条件など何でも書けます</div>
-</div>
+<div class="setting-bar">
+<span class="sb-label">詳細設定</span>
+<span class="sb-summary" id="advSummary">指定なし</span>
+<span class="sb-badge" id="advBadge" style="display:none">0</span>
+<button class="sb-btn" onclick="openAdvModal()">設定する</button>
 </div>
 <div class="history-section" id="historySection" style="display:none">
 <div class="history-header"><span>テーマ履歴</span><button class="history-clear" onclick="clearThemeHistory()">CLEAR ALL</button></div>
@@ -452,7 +428,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <div id="results"><div class="empty"><div class="big">∞</div>テーマを入れて<br>SPINボタンで生成</div></div>
 </div>
 </div>
-<footer>SUNO ROULETTE v6.7 / DEC<br>Built for ICHIRO</footer>
+<footer>SUNO ROULETTE v6.9 / DEC<br>Built for ICHIRO</footer>
 </div>
 <div class="modal-backdrop" id="textEditModal" onclick="if(event.target===this)closeModal('textEditModal')">
 <div class="modal">
@@ -463,6 +439,46 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 <button class="modal-btn" onclick="textEditClear()">クリア</button>
 <button class="modal-btn" onclick="closeModal('textEditModal')">キャンセル</button>
 <button class="modal-btn primary" onclick="textEditSave()">保存</button>
+</div>
+</div>
+</div>
+<div class="modal-backdrop" id="advModal" onclick="if(event.target===this)closeAdvModal()">
+<div class="modal modal-wide">
+<div class="modal-title">詳細設定</div>
+<div class="adv-modal-body" id="advModalBody">
+
+<div class="adv-row">
+<label class="adv-label">ジャンル傾向</label>
+<div class="adv-options" id="genreOptions"></div>
+<div class="genre-desc" id="genreDesc"></div>
+<button class="adv-sub-toggle" id="genreSubToggle" style="display:none" onclick="toggleGenreSub()"><span id="genreSubArrow">▶</span> もっと細かく</button>
+<div class="adv-sub" id="genreSubPanel">
+<div class="adv-sub-label">具体ジャンル(該当系統内で指定)</div>
+<div class="adv-options" id="genreSubOptions"></div>
+<div class="genre-desc" id="genreSubDesc"></div>
+</div>
+<div class="mix-slider-row" id="genreMixRow" style="display:none">
+<div class="mix-labels"><span><span id="mixLabelA"></span> <span class="mv" id="mixValA"></span></span><span><span class="mv" id="mixValB"></span> <span id="mixLabelB"></span></span></div>
+<div class="mix-track" id="genreMixTrack"><div class="mix-fill" id="mixFill"></div><div class="mix-thumb" id="mixThumb"></div></div>
+<div class="mix-presets"><button onclick="setGenreMix(70)">70:30</button><button onclick="setGenreMix(60)">60:40</button><button onclick="setGenreMix(50)">50:50</button><button onclick="setGenreMix(40)">40:60</button><button onclick="setGenreMix(30)">30:70</button></div>
+<div class="mix-note">配合比率の目安です(Sunoは厳密には守りません)</div>
+</div>
+</div>
+<div class="adv-row"><label class="adv-label">時代感</label><div class="adv-options" id="eraOptions"></div></div>
+<div class="adv-row"><label class="adv-label">テンポ感(BPM帯)</label><div class="adv-options" id="tempoOptions"></div></div>
+<div class="adv-row"><label class="adv-label">曲の構成</label><div class="adv-options" id="structureOptions"></div><div class="opt-desc" id="structureDesc"></div><div id="structureCustomWrap" style="display:none;margin-top:8px"><div class="edit-card" id="structureCustomCard" onclick="openTextEdit('structureCustom')"><div class="edit-card-text" id="structureCustomCardText"></div><span class="edit-card-icon">✏️</span></div></div></div>
+<div class="adv-row"><label class="adv-label">音圧・ダイナミクス</label><div class="adv-options" id="dynamicsOptions"></div><div class="opt-desc" id="dynamicsDesc"></div></div>
+<div class="adv-row"><label class="adv-label">音質・質感</label><div class="adv-options" id="fidelityOptions"></div><div class="opt-desc" id="fidelityDesc"></div><div class="adv-hint">※Sunoに音質の直接パラメータは無いため「質感の誘導」です。傾向はかなり反映されます。</div></div>
+<div class="adv-row"><label class="adv-label">曲の長さ</label><div class="adv-options" id="lengthOptions"></div><div class="adv-hint">※曲の長さは主に「歌詞の行数+間奏タグ」でSunoが決めます。長め/超長は行数と間奏を増やして誘導しますが、Suno側で短く切られることもあります(その場合はExtend機能を併用)。</div></div>
+<div class="adv-row">
+<label class="adv-label">追加の指示(自由入力)</label>
+<div class="edit-card" id="freetextCard" onclick="openTextEdit('freetext')"><div class="edit-card-text" id="freetextCardText"></div><span class="edit-card-icon">✏️</span></div>
+<div class="adv-hint">タップして編集。楽器・アーティスト名・除外条件など何でも書けます</div>
+</div>
+</div>
+<div class="modal-actions">
+<button class="modal-btn" onclick="clearAdvSettings()">全てクリア</button>
+<button class="modal-btn primary" onclick="closeAdvModal()">完了</button>
 </div>
 </div>
 </div>
@@ -528,7 +544,7 @@ footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-al
 </div>
 </div>
 </div>
- 
+
 </div>
 <div class="modal-backdrop" id="historyModal" onclick="if(event.target===this)closeModal('historyModal')">
 <div class="modal modal-wide">
@@ -679,18 +695,27 @@ var lines=picks.map(function(p){return "- "+p.n+": "+p.t;}).join("\n");
 return '\n\n*** LYRIC CRAFT ANCHORS (this spin\'s randomly drawn masters) ***\nWrite lyrics at the professional tier of these writers. Absorb their TECHNIQUES listed below — but NEVER imitate their actual lines, titles, or signature phrases, and never mention them:\n'+lines+'\nThe listener should feel "this was written by a professional at that level", not "this sounds like that artist".';
 }
 var TITLE_STYLES=["a single evocative noun","an imperative verb phrase","a coined/invented word that sounds real","a number + noun combination","a place name or street name","a sensory adjective + unexpected noun","a time expression (hour, season, date)","two clashing/contradictory words","an onomatopoeia-inspired word","an abstract concept made concrete"];
-var VOICE_TIMBRES=[
-{id:"clear",label:"クリア・透明",en:"clear, pure, transparent tone",desc:"澄んでいて濁りのない、まっすぐ抜ける声"},
-{id:"husky",label:"ハスキー",en:"husky, raspy, breathy-edged",desc:"かすれた質感のある、色気とざらつきのある声"},
-{id:"smoky",label:"スモーキー",en:"smoky, smoldering, husky-warm, sultry lower tone",desc:"煙がかったように少しかすれ、燻んだ深みと大人の艶がある声"},
-{id:"powerful",label:"太い・パワフル",en:"thick, powerful, chesty, resonant",desc:"芯が太く力強い、押し出しの強い声"},
-{id:"thin",label:"細い・繊細",en:"thin, delicate, light",desc:"線が細く儚げな、優しく軽い声"},
-{id:"warm",label:"温かい・甘い",en:"warm, sweet, mellow",desc:"丸くて甘い、包み込むような声"},
-{id:"cool",label:"クール・硬質",en:"cool, crisp, controlled",desc:"感情を抑えた、都会的でクールな声"},
-{id:"bright",label:"明るい・華やか",en:"bright, vibrant, energetic",desc:"華やかで元気な、前向きに弾ける声"},
-{id:"deep",label:"低音・渋い",en:"deep, low-register, smoky",desc:"低くて渋い、落ち着いた大人の声"},
-{id:"airy",label:"ウィスパー・囁き",en:"airy, whispery, intimate, soft ASMR-like",desc:"息多めで囁くような、近く親密な声"},
-{id:"soulful",label:"ソウルフル・情感",en:"soulful, emotive, expressive with rich vibrato",desc:"ビブラート豊かで情感たっぷりの歌い上げる声"}
+var VOICE_TEXTURES=[
+{id:"",label:"おまかせ",en:"",desc:"声質はAIにおまかせします"},
+{id:"clear",label:"クリア・透明",en:"clear, pure, transparent tone",desc:"澄んでいて濁りのない、まっすぐ抜ける質感"},
+{id:"husky",label:"ハスキー",en:"husky, raspy, breathy-edged",desc:"かすれた質感のある、ざらついた声"},
+{id:"smoky",label:"スモーキー",en:"smoky, smoldering, sultry grain",desc:"煙がかったように少しかすれ、燻んだ深みのある質感"},
+{id:"thick",label:"太い",en:"thick, chesty, full-bodied, resonant",desc:"芯が太く胸に響く、密度のある声"},
+{id:"thin",label:"細い",en:"thin, slender, light-bodied",desc:"線が細く軽い、繊細な声"},
+{id:"warm",label:"温かい・丸い",en:"warm, round, mellow tone",desc:"角がなく丸い、まろやかな質感"},
+{id:"rough",label:"ざらつき・エッジ",en:"gritty, gravelly, rough-edged",desc:"砂まじりのように粗く、エッジの効いた声"},
+{id:"nasal",label:"鼻にかかる",en:"slightly nasal, focused forward tone",desc:"鼻に抜ける、独特の存在感がある声"}
+];
+var VOICE_MOODS=[
+{id:"",label:"おまかせ",en:"",desc:"雰囲気はAIにおまかせします"},
+{id:"powerful",label:"パワフル・情熱的",en:"powerful, passionate, belting delivery",desc:"力強く押し出す、熱量の高い歌い方"},
+{id:"cool",label:"クール・抑制的",en:"cool, restrained, controlled delivery",desc:"感情を抑えた、都会的でクールな表現"},
+{id:"sweet",label:"甘い・優しい",en:"sweet, tender, gentle delivery",desc:"優しく甘い、包み込むような表現"},
+{id:"bright",label:"明るい・華やか",en:"bright, vibrant, energetic delivery",desc:"前向きで華やか、弾けるような表現"},
+{id:"melancholic",label:"切ない・憂い",en:"melancholic, wistful, aching delivery",desc:"哀愁を帯びた、切なく揺れる表現"},
+{id:"soulful",label:"ソウルフル・情感",en:"soulful, emotive, rich vibrato and runs",desc:"ビブラート豊かに歌い上げる、情感たっぷりの表現"},
+{id:"whisper",label:"囁き・親密",en:"whispery, intimate, close ASMR-like delivery",desc:"息多めで囁く、近く親密な表現"},
+{id:"mysterious",label:"ミステリアス",en:"mysterious, shadowy, enigmatic delivery",desc:"陰影のある、謎めいた雰囲気の表現"}
 ];
 var VOICE_REGISTERS=[
 {id:"",label:"おまかせ",en:""},
@@ -704,27 +729,21 @@ var VOICE_AGES=[
 {id:"mature",label:"大人っぽい",en:"mature adult"}
 ];
 function genderWord(g){return g==="male"?"male":g==="female"?"female":"androgynous";}
-function buildVoiceSpec(members){
-if(!members||!members.length)return "";
-if(members.length===1){
-var m=members[0];
-var parts=[];
+function voiceEnParts(m){
 var reg=VOICE_REGISTERS.filter(function(r){return r.id===m.register;})[0];
 var age=VOICE_AGES.filter(function(a){return a.id===m.age;})[0];
-var tim=VOICE_TIMBRES.filter(function(t){return t.id===m.timbre;})[0];
+var tex=VOICE_TEXTURES.filter(function(t){return t.id===m.texture;})[0];
+var mood=VOICE_MOODS.filter(function(x){return x.id===m.mood;})[0];
 var s=(age&&age.en?age.en+" ":"")+genderWord(m.gender)+" vocal";
 if(reg&&reg.id)s+=", "+(m.gender==="female"?reg.enF:reg.enM);
-if(tim)s+=", "+tim.en;
+if(tex&&tex.en)s+=", "+tex.en;
+if(mood&&mood.en)s+=", "+mood.en;
 return s;
 }
-// duet / group
-var labeled=members.map(function(m,i){
-var reg=VOICE_REGISTERS.filter(function(r){return r.id===m.register;})[0];
-var age=VOICE_AGES.filter(function(a){return a.id===m.age;})[0];
-var tim=VOICE_TIMBRES.filter(function(t){return t.id===m.timbre;})[0];
-var s=(age&&age.en?age.en+" ":"")+genderWord(m.gender)+(reg&&reg.id?" "+(m.gender==="female"?reg.enF:reg.enM):"")+(tim?" "+tim.en:"");
-return "Voice "+String.fromCharCode(65+i)+" ("+s+")";
-});
+function buildVoiceSpec(members){
+if(!members||!members.length)return "";
+if(members.length===1){return voiceEnParts(members[0]);}
+var labeled=members.map(function(m,i){return "Voice "+String.fromCharCode(65+i)+" ("+voiceEnParts(m).replace(/^/,"")+")";});
 var genders=members.map(function(m){return genderWord(m.gender);});
 var combo=genders.join(" + ");
 var kind=members.length===2?"duet":members.length+"-part group vocal";
@@ -734,9 +753,9 @@ function summarizeVoice(members){
 if(!members||!members.length)return "";
 var gmap={male:"男",female:"女"};
 var g=members.map(function(m){return gmap[m.gender]||"?";}).join("×");
-var tims=members.map(function(m){var t=VOICE_TIMBRES.filter(function(x){return x.id===m.timbre;})[0];return t?t.label:"";}).filter(Boolean);
+var tims=members.map(function(m){var t=VOICE_TEXTURES.filter(function(x){return x.id===m.texture;})[0];var md=VOICE_MOODS.filter(function(x){return x.id===m.mood;})[0];var parts=[];if(t&&t.label&&t.id)parts.push(t.label);if(md&&md.label&&md.id)parts.push(md.label);return parts.join("×");}).filter(Boolean);
 var kind=members.length===1?"ソロ":members.length===2?"デュエット":members.length+"人";
-return kind+" "+g+" / "+tims.join("・");
+return kind+" "+g+(tims.length?" / "+tims.join(" , "):"");
 }
 var STATE={count:1,lang:"ja",apiKey:null,loading:false,themeHistory:[],adv:{genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""},advFreetext:"",vocalLibrary:[],vocalSelection:[],activeVocal:null,uiTheme:"dark",showVocalSpec:true,pendingSaveVocalSpec:null,recipeHistory:[],historyFilter:"all",historySearch:"",lastResults:null,themeInputValue:"",expandText:"",expandMode:"text",expandLyricsMode:"original",currentExpandRecipe:null,titleLang:"en",refArtist:"",mixRatio:50,creativity:"standard",model:"sonnet",expandLyricsEditing:false,expandLyricsRecipe:null,vocalDraft:null};
 var MAX_GENRES=2;
@@ -755,7 +774,7 @@ function handleSaveKey(){var i=document.getElementById("apiKeyInput");var e=docu
 function resetApiKey(){if(confirm("APIキーを変更しますか?")){try{localStorage.removeItem(STORAGE.apiKey);}catch(e){}STATE.apiKey=null;closeModal("settingsModal");showSetupScreen();}}
 function clearAllData(){if(confirm("全てのデータ(APIキー・履歴・生成履歴・ボーカルライブラリ・詳細設定)を削除しますか?")){for(var k in STORAGE){try{localStorage.removeItem(STORAGE[k]);}catch(e){}}STATE.apiKey=null;STATE.themeHistory=[];STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};STATE.advFreetext="";STATE.vocalLibrary=[];STATE.vocalSelection=[];STATE.activeVocal=null;STATE.recipeHistory=[];STATE.lastResults=null;STATE.themeInputValue="";STATE.refArtist="";STATE.titleLang="en";STATE.mixRatio=50;STATE.creativity="standard";STATE.model="sonnet";closeModal("settingsModal");showSetupScreen();}}
 function renderCountSeg(){STATE.count=1;}
-function renderAllInputUi(){renderEditCards();renderLangSeg();renderTitleLangSeg();renderCreativitySeg();renderLyricsMix();renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderEraOptions();renderTempoOptions();renderStructureOptions();renderDynamicsOptions();renderFidelityOptions();renderLengthOptions();renderAdvBadge();renderThemeHistory();renderVocalBar();}
+function renderAllInputUi(){renderEditCards();renderLangSeg();renderTitleLangSeg();renderCreativitySeg();renderLyricsMix();renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderEraOptions();renderTempoOptions();renderStructureOptions();renderDynamicsOptions();renderFidelityOptions();renderLengthOptions();renderAdvBadge();renderAdvSummary();renderThemeHistory();renderVocalBar();}
 function renderLangSeg(){var s=document.getElementById("langSeg");var ex=s.querySelectorAll("button");for(var i=0;i<ex.length;i++)ex[i].remove();[{v:"ja",l:"日本語"},{v:"en",l:"英語"},{v:"mix",l:"混合"},{v:"random",l:"ランダム"}].forEach(function(o){var b=document.createElement("button");b.textContent=o.l;b.className=STATE.lang===o.v?"active":"";b.onclick=function(){STATE.lang=o.v;renderLangSeg();renderLyricsMix();};s.appendChild(b);});}
 function renderGenreOptions(){var c=document.getElementById("genreOptions");c.innerHTML="";var n=document.createElement("button");n.className="adv-option"+(STATE.adv.genres.length===0?" active":"");n.textContent="指定なし";n.onclick=function(){STATE.adv.genres=[];STATE.adv.genreSubs=[];saveAdv();renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderAdvBadge();};c.appendChild(n);GENRE_FAMILIES.forEach(function(g){var b=document.createElement("button");var isSel=STATE.adv.genres.indexOf(g.id)!==-1;b.className="adv-option"+(isSel?" active":"");b.textContent=g.label;b.onclick=function(){if(isSel){STATE.adv.genres=STATE.adv.genres.filter(function(x){return x!==g.id;});}else{if(STATE.adv.genres.length>=MAX_GENRES){alert("最大"+MAX_GENRES+"つまで選択できます。\nいずれか解除してください。");return;}STATE.adv.genres.push(g.id);}STATE.adv.genreSubs=[];saveAdv();renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderAdvBadge();};c.appendChild(b);});}
 function renderGenreSub(){var tb=document.getElementById("genreSubToggle");var sp=document.getElementById("genreSubPanel");var so=document.getElementById("genreSubOptions");if(!STATE.adv.genres.length){tb.style.display="none";sp.classList.remove("open");return;}tb.style.display="inline-flex";so.innerHTML="";STATE.adv.genres.forEach(function(gid){var fam=null;for(var i=0;i<GENRE_FAMILIES.length;i++)if(GENRE_FAMILIES[i].id===gid){fam=GENRE_FAMILIES[i];break;}if(!fam)return;if(STATE.adv.genres.length>1){var hdr=document.createElement("div");hdr.className="adv-sub-fam-label";hdr.textContent=fam.label;so.appendChild(hdr);}var wrap=document.createElement("div");wrap.className="adv-options adv-sub-fam-wrap";var n=document.createElement("button");n.className="adv-option"+(!STATE.adv.genreSubs.some(function(s){return fam.subs.some(function(fs){return fs.id===s;});})?" active":"");n.textContent="おまかせ";n.onclick=function(){STATE.adv.genreSubs=STATE.adv.genreSubs.filter(function(s){return !fam.subs.some(function(fs){return fs.id===s;});});saveAdv();renderGenreSub();renderGenreDescs();renderAdvBadge();};wrap.appendChild(n);fam.subs.forEach(function(s){var b=document.createElement("button");var isSel=STATE.adv.genreSubs.indexOf(s.id)!==-1;b.className="adv-option"+(isSel?" active":"");b.textContent=s.label;b.onclick=function(){if(isSel){STATE.adv.genreSubs=STATE.adv.genreSubs.filter(function(x){return x!==s.id;});}else{STATE.adv.genreSubs=STATE.adv.genreSubs.filter(function(x){return !fam.subs.some(function(fs){return fs.id===x;});});STATE.adv.genreSubs.push(s.id);}saveAdv();renderGenreSub();renderGenreDescs();renderAdvBadge();};wrap.appendChild(b);});so.appendChild(wrap);});}
@@ -779,20 +798,24 @@ function renderModelToggle(){var b=document.querySelectorAll("#modelToggleBtns b
 function renderFidelityOptions(){var c=document.getElementById("fidelityOptions");if(!c)return;c.innerHTML="";FIDELITY.forEach(function(f){var b=document.createElement("button");b.className="adv-option"+(STATE.adv.fidelity===f.id?" active":"");b.textContent=f.label;b.onclick=function(){STATE.adv.fidelity=f.id;saveAdv();renderFidelityOptions();renderAdvBadge();};c.appendChild(b);});var d=document.getElementById("fidelityDesc");if(d){var cur=null;FIDELITY.forEach(function(f){if(f.id===STATE.adv.fidelity)cur=f;});d.textContent=cur?cur.desc:"";}}
 function buildFidelityBlock(fid){var f=null;for(var i=0;i<FIDELITY.length;i++)if(FIDELITY[i].id===fid){f=FIDELITY[i];break;}if(!f||!f.prompt)return "";return '\n\n*** SOUND QUALITY / TEXTURE ***\nSonic character: '+f.prompt+'. Weave these descriptors into stylePrompt.';}
 var TEXT_FIELDS={
-theme:{title:"今日のテーマ",ph:"例: 雨の日の別れ / 深夜のドライブ",hint:"歌詞とムードの軸になります。長文の設定・ストーリーもOK。空欄ならランダムシナリオで生成されます。"},
-refArtist:{title:"参考アーティスト",ph:"例: Aerosmith / Steely Dan 風",hint:"曲調・アレンジ・時代感の参考にします。複数名や「◯◯の初期っぽく」などもOK。ボーカル選択中は声はそのボーカル設定が優先されます。"},
-freetext:{title:"追加の指示",ph:"例: サックスを入れて / 転調あり / ギターソロ長め",hint:"楽器・除外条件・雰囲気など自由に。最優先の指示としてAIに渡されます。"},
-structureCustom:{title:"カスタム曲構成",ph:"例: ブリッジを2回入れる / サビ3回、最後は半音上げ転調 / 間奏を2箇所・長めに",hint:"構成の要望を日本語で自由に。AIが[Verse][Bridge]等のセクションタグに変換して歌詞を組み立てます。構成指示は歌詞欄(約5000文字まで)に入るので、Sunoのスタイル欄1000文字制限とは無関係です。"}};
+theme:{title:"今日のテーマ",ph:"例: 雨の日の別れ / 深夜のドライブ",empty:"未設定(ランダム生成)",hint:"歌詞とムードの軸になります。長文の設定・ストーリーもOK。空欄ならランダムシナリオで生成されます。"},
+refArtist:{title:"参考アーティスト",ph:"例: Aerosmith / Steely Dan 風",empty:"未設定",hint:"曲調・アレンジ・時代感の参考にします。複数名や「◯◯の初期っぽく」などもOK。ボーカル選択中は声はそのボーカル設定が優先されます。"},
+freetext:{title:"追加の指示",ph:"例: サックスを入れて / 転調あり / ギターソロ長め",empty:"未設定(タップで入力)",hint:"楽器・除外条件・雰囲気など自由に。最優先の指示としてAIに渡されます。"},
+structureCustom:{title:"カスタム曲構成",ph:"例: ブリッジを2回入れる / サビ3回、最後は半音上げ転調 / 間奏を2箇所・長めに",empty:"未設定(タップで入力)",hint:"構成の要望を日本語で自由に。AIが[Verse][Bridge]等のセクションタグに変換して歌詞を組み立てます。構成指示は歌詞欄(約5000文字まで)に入るので、Sunoのスタイル欄1000文字制限とは無関係です。"}};
 function getTextField(k){return k==="theme"?(STATE.themeInputValue||""):k==="refArtist"?(STATE.refArtist||""):k==="structureCustom"?(STATE.adv.structureCustom||""):(STATE.advFreetext||"");}
 function setTextField(k,v){if(k==="theme"){STATE.themeInputValue=v;safeSet(STORAGE.themeInput,v);}else if(k==="refArtist"){STATE.refArtist=v;safeSet(STORAGE.refArtist,v);}else if(k==="structureCustom"){STATE.adv.structureCustom=v;saveAdv();}else{STATE.advFreetext=v;safeSet(STORAGE.advFreetext,v);}}
-function renderEditCards(){[["theme","themeCardText"],["refArtist","refArtistCardText"],["freetext","freetextCardText"],["structureCustom","structureCustomCardText"]].forEach(function(p){var el=document.getElementById(p[1]);if(!el)return;var v=getTextField(p[0]);if(v&&v.trim()){el.textContent=v;el.classList.remove("empty");}else{el.textContent=TEXT_FIELDS[p[0]].ph;el.classList.add("empty");}});}
+function renderEditCards(){[["theme","themeCardText"],["refArtist","refArtistCardText"],["freetext","freetextCardText"],["structureCustom","structureCustomCardText"]].forEach(function(p){var el=document.getElementById(p[1]);if(!el)return;var v=getTextField(p[0]);if(v&&v.trim()){el.textContent=v;el.classList.remove("empty");}else{el.textContent=TEXT_FIELDS[p[0]].empty||TEXT_FIELDS[p[0]].ph;el.classList.add("empty");}});}
 function openTextEdit(kind){if(!TEXT_FIELDS[kind])return;STATE.editingTextField=kind;document.getElementById("textEditTitle").textContent=TEXT_FIELDS[kind].title;document.getElementById("textEditHint").textContent=TEXT_FIELDS[kind].hint;var ta=document.getElementById("textEditArea");ta.value=getTextField(kind);ta.placeholder=TEXT_FIELDS[kind].ph;document.getElementById("textEditModal").classList.add("visible");setTimeout(function(){ta.focus();},100);}
 function textEditClear(){document.getElementById("textEditArea").value="";}
 function textEditSave(){var k=STATE.editingTextField;if(!k)return;setTextField(k,document.getElementById("textEditArea").value.trim());renderEditCards();renderAdvBadge();closeModal("textEditModal");}
 function resetInputsAndSettings(){if(!confirm("入力と設定(テーマ・参考アーティスト・詳細設定・歌詞言語・ボーカル選択)をリセットしますか?\n※APIキー・ライブラリ・履歴は残ります"))return;setTextField("theme","");setTextField("refArtist","");setTextField("freetext","");STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};saveAdv();STATE.lang="ja";STATE.titleLang="en";safeSet(STORAGE.titleLang,"en");STATE.mixRatio=50;safeSet(STORAGE.mixRatio,"50");STATE.creativity="standard";safeSet(STORAGE.creativity,"standard");STATE.vocalSelection=[];STATE.activeVocal=null;try{localStorage.removeItem(STORAGE.vocalSelection);}catch(e){}var gsp=document.getElementById("genreSubPanel");if(gsp)gsp.classList.remove("open");var gsa=document.getElementById("genreSubArrow");if(gsa)gsa.textContent="▶";renderAllInputUi();showToast("入力と設定をリセットしました");}
 function saveAdv(){safeSetJSON(STORAGE.adv,STATE.adv);}
-function renderAdvBadge(){var c=0;if(STATE.adv.genres&&STATE.adv.genres.length)c+=STATE.adv.genres.length;if(STATE.adv.genreSubs&&STATE.adv.genreSubs.length)c+=STATE.adv.genreSubs.length;if(STATE.adv.era)c++;if(STATE.adv.tempo)c++;if(STATE.adv.length&&STATE.adv.length!=="normal")c++;if(STATE.adv.structure)c++;if(STATE.adv.dynamics)c++;if(STATE.adv.fidelity)c++;if(STATE.advFreetext&&STATE.advFreetext.trim())c++;if(STATE.refArtist&&STATE.refArtist.trim())c++;var b=document.getElementById("advBadge");if(c>0){b.style.display="inline-block";b.textContent=c;}else{b.style.display="none";}}
-function toggleAdvPanel(){var t=document.getElementById("advToggle");var p=document.getElementById("advPanel");t.classList.toggle("open");p.classList.toggle("open");}
+function renderAdvBadge(){var c=0;if(STATE.adv.genres&&STATE.adv.genres.length)c+=STATE.adv.genres.length;if(STATE.adv.genreSubs&&STATE.adv.genreSubs.length)c+=STATE.adv.genreSubs.length;if(STATE.adv.era)c++;if(STATE.adv.tempo)c++;if(STATE.adv.length&&STATE.adv.length!=="normal")c++;if(STATE.adv.structure)c++;if(STATE.adv.dynamics)c++;if(STATE.adv.fidelity)c++;if(STATE.advFreetext&&STATE.advFreetext.trim())c++;if(STATE.refArtist&&STATE.refArtist.trim())c++;var b=document.getElementById("advBadge");if(c>0){b.style.display="inline-block";b.textContent=c;}else{b.style.display="none";}renderAdvSummary();}
+function openAdvModal(){renderAllAdvUi();document.getElementById("advModal").classList.add("visible");}
+function closeAdvModal(){document.getElementById("advModal").classList.remove("visible");renderAdvSummary();}
+function renderAllAdvUi(){renderGenreOptions();renderGenreSub();renderGenreDescs();renderGenreMix();renderEraOptions();renderTempoOptions();renderStructureOptions();renderDynamicsOptions();renderFidelityOptions();renderLengthOptions();renderEditCards();}
+function clearAdvSettings(){if(!confirm("詳細設定を全てクリアしますか?(テーマ・声設定・歌詞言語は残ります)"))return;STATE.adv={genres:[],genreSubs:[],era:"",tempo:"",length:"normal",structure:"",structureCustom:"",dynamics:"",genreMix:50,fidelity:""};setTextField("freetext","");saveAdv();var gsp=document.getElementById("genreSubPanel");if(gsp)gsp.classList.remove("open");var gsa=document.getElementById("genreSubArrow");if(gsa)gsa.textContent="▶";renderAllAdvUi();renderAdvBadge();renderAdvSummary();showToast("詳細設定をクリアしました");}
+function renderAdvSummary(){var el=document.getElementById("advSummary");if(!el)return;var parts=[];if(STATE.adv.genres&&STATE.adv.genres.length){STATE.adv.genres.forEach(function(gid){var f=getGenreFam(gid);if(f)parts.push(f.label);});}if(STATE.adv.era){for(var i=0;i<ERAS.length;i++)if(ERAS[i].id===STATE.adv.era){parts.push(ERAS[i].label);break;}}if(STATE.adv.tempo){for(var i=0;i<TEMPOS.length;i++)if(TEMPOS[i].id===STATE.adv.tempo){parts.push(TEMPOS[i].label);break;}}if(STATE.adv.structure){for(var i=0;i<STRUCTURES.length;i++)if(STRUCTURES[i].id===STATE.adv.structure){parts.push(STRUCTURES[i].label);break;}}if(STATE.adv.dynamics){for(var i=0;i<DYNAMICS.length;i++)if(DYNAMICS[i].id===STATE.adv.dynamics){parts.push(DYNAMICS[i].label);break;}}if(STATE.adv.fidelity){for(var i=0;i<FIDELITY.length;i++)if(FIDELITY[i].id===STATE.adv.fidelity){parts.push(FIDELITY[i].label);break;}}if(STATE.adv.length&&STATE.adv.length!=="normal"){for(var i=0;i<LENGTHS.length;i++)if(LENGTHS[i].id===STATE.adv.length){parts.push(LENGTHS[i].label);break;}}if(STATE.advFreetext&&STATE.advFreetext.trim())parts.push("追加指示あり");el.textContent=parts.length?parts.join(" / "):"指定なし";el.style.color=parts.length?"var(--ink)":"var(--ink-faint)";}
 function saveThemeHistory(){safeSetJSON(STORAGE.themeHistory,STATE.themeHistory);}
 function addToThemeHistory(t){if(!t||!t.trim())return;var s=t.trim(),idx=-1;for(var i=0;i<STATE.themeHistory.length;i++)if(STATE.themeHistory[i].text===s){idx=i;break;}var starred=false;if(idx!==-1){starred=STATE.themeHistory[idx].starred||false;STATE.themeHistory.splice(idx,1);}STATE.themeHistory.unshift({text:s,starred:starred});if(STATE.themeHistory.length>THEME_HISTORY_MAX){var st=STATE.themeHistory.filter(function(x){return x.starred;});var u=STATE.themeHistory.filter(function(x){return !x.starred;});STATE.themeHistory=st.concat(u.slice(0,Math.max(0,THEME_HISTORY_MAX-st.length))).slice(0,THEME_HISTORY_MAX);}STATE.themeHistory.sort(function(a,b){return(b.starred?1:0)-(a.starred?1:0);});saveThemeHistory();}
 function toggleThemeStar(i){if(!STATE.themeHistory[i])return;STATE.themeHistory[i].starred=!STATE.themeHistory[i].starred;STATE.themeHistory.sort(function(a,b){return(b.starred?1:0)-(a.starred?1:0);});saveThemeHistory();renderThemeHistory();}
@@ -802,8 +825,9 @@ function useThemeFromHistory(i){if(!STATE.themeHistory[i])return;setTextField("t
 function renderThemeHistory(){var s=document.getElementById("historySection");var l=document.getElementById("historyList");if(!STATE.themeHistory.length){s.style.display="none";return;}s.style.display="block";l.innerHTML="";STATE.themeHistory.forEach(function(item,idx){var d=document.createElement("div");d.className="history-item"+(item.starred?" starred":"");d.innerHTML='<button class="history-star '+(item.starred?"active":"")+'" onclick="toggleThemeStar('+idx+')">'+(item.starred?"★":"☆")+'</button><span class="history-text" onclick="useThemeFromHistory('+idx+')">'+escHtml(item.text)+'</span><button class="history-delete" onclick="deleteThemeItem('+idx+')">×</button>';l.appendChild(d);});}
 function saveVocalLibrary(){safeSetJSON(STORAGE.vocalLibrary,STATE.vocalLibrary);}
 function saveVocalSelection(){safeSetJSON(STORAGE.vocalSelection,STATE.vocalSelection);}
-function defaultMember(){return {gender:"female",timbre:"clear",register:"",age:""};}
-function ensureVocalDraft(){if(!STATE.vocalDraft||!Array.isArray(STATE.vocalDraft.members)||!STATE.vocalDraft.members.length){STATE.vocalDraft={members:[defaultMember()]};}}
+function defaultMember(){return {gender:"female",texture:"",mood:"",register:"",age:""};}
+function migrateMember(m){if(!m||typeof m!=="object")return defaultMember();if(m.timbre&&!m.texture){var map={clear:["clear",""],husky:["husky",""],smoky:["smoky",""],powerful:["thick","powerful"],thin:["thin",""],warm:["warm","sweet"],cool:["","cool"],bright:["","bright"],deep:["thick",""],airy:["","whisper"],soulful:["","soulful"]};var pair=map[m.timbre]||["",""];m.texture=pair[0];m.mood=pair[1];delete m.timbre;}if(typeof m.texture!=="string")m.texture="";if(typeof m.mood!=="string")m.mood="";if(typeof m.register!=="string")m.register="";if(typeof m.age!=="string")m.age="";if(!m.gender)m.gender="female";return m;}
+function ensureVocalDraft(){if(!STATE.vocalDraft||!Array.isArray(STATE.vocalDraft.members)||!STATE.vocalDraft.members.length){STATE.vocalDraft={members:[defaultMember()]};}else{STATE.vocalDraft.members=STATE.vocalDraft.members.map(migrateMember);}}
 function openLibrary(){ensureVocalDraft();renderVocalBuilder();renderVbLibList();document.getElementById("libraryModal").classList.add("visible");}
 function setVocalCount(n){ensureVocalDraft();var cur=STATE.vocalDraft.members;var out=[];for(var i=0;i<n;i++){out.push(cur[i]?cur[i]:defaultMember());}STATE.vocalDraft.members=out;renderVocalBuilder();}
 function setMemberField(idx,field,val){ensureVocalDraft();if(!STATE.vocalDraft.members[idx])return;STATE.vocalDraft.members[idx][field]=val;renderVocalBuilder();}
@@ -818,15 +842,19 @@ var wrap=document.createElement("div");wrap.className="vb-member";
 var title=count===1?"ボーカル":"ボーカル "+String.fromCharCode(65+idx);
 var html='<div class="vb-member-title">'+title+'</div>';
 html+='<div class="vb-mini-label">性別</div><div class="vb-gender-row" data-role="gender"></div>';
-html+='<div class="vb-mini-label">声質(声色)</div><div class="vb-timbre-grid" data-role="timbre"></div><div class="vb-timbre-desc" data-role="tdesc"></div>';
+html+='<div class="vb-mini-label">声質(質感)</div><div class="vb-timbre-grid" data-role="texture"></div><div class="vb-timbre-desc" data-role="texdesc"></div>';
+html+='<div class="vb-mini-label">雰囲気(歌い方)</div><div class="vb-timbre-grid" data-role="mood"></div><div class="vb-timbre-desc" data-role="mooddesc"></div>';
 html+='<div class="vb-mini-label">音域</div><div class="vb-small-row" data-role="register"></div>';
 html+='<div class="vb-mini-label">年齢感</div><div class="vb-small-row" data-role="age"></div>';
 wrap.innerHTML=html;
 var gr=wrap.querySelector('[data-role="gender"]');
 [["male","男性"],["female","女性"]].forEach(function(p){var b=document.createElement("button");b.className="vb-chip"+(m.gender===p[0]?" active":"");b.textContent=p[1];b.onclick=function(){setMemberField(idx,"gender",p[0]);};gr.appendChild(b);});
-var tg=wrap.querySelector('[data-role="timbre"]');
-VOICE_TIMBRES.forEach(function(t){var b=document.createElement("button");b.className="vb-timbre"+(m.timbre===t.id?" active":"");b.textContent=t.label;b.onclick=function(){setMemberField(idx,"timbre",t.id);};tg.appendChild(b);});
-var td=wrap.querySelector('[data-role="tdesc"]');var curT=VOICE_TIMBRES.filter(function(x){return x.id===m.timbre;})[0];td.textContent=curT?curT.desc:"";
+var tg=wrap.querySelector('[data-role="texture"]');
+VOICE_TEXTURES.forEach(function(t){var b=document.createElement("button");b.className="vb-timbre"+(m.texture===t.id?" active":"");b.textContent=t.label;b.onclick=function(){setMemberField(idx,"texture",t.id);};tg.appendChild(b);});
+var td=wrap.querySelector('[data-role="texdesc"]');var curT=VOICE_TEXTURES.filter(function(x){return x.id===m.texture;})[0];td.textContent=curT?curT.desc:"";
+var mg=wrap.querySelector('[data-role="mood"]');
+VOICE_MOODS.forEach(function(t){var b=document.createElement("button");b.className="vb-timbre"+(m.mood===t.id?" active":"");b.textContent=t.label;b.onclick=function(){setMemberField(idx,"mood",t.id);};mg.appendChild(b);});
+var mdd=wrap.querySelector('[data-role="mooddesc"]');var curM=VOICE_MOODS.filter(function(x){return x.id===m.mood;})[0];mdd.textContent=curM?curM.desc:"";
 var rr=wrap.querySelector('[data-role="register"]');
 VOICE_REGISTERS.forEach(function(r){var b=document.createElement("button");b.className="vb-small"+(m.register===r.id?" active":"");b.textContent=r.label;b.onclick=function(){setMemberField(idx,"register",r.id);};rr.appendChild(b);});
 var ar=wrap.querySelector('[data-role="age"]');
